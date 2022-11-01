@@ -4,13 +4,26 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2f7898b2-b765-4e37-aa41-eb57a980bd7e" name="Changes" comment="arg parse finished">
-      <change afterPath="$PROJECT_DIR$/src/main/java/config/ConfigManager.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/config/TlsProxyConfig.java" afterDir="false" />
+    <list default="true" id="2f7898b2-b765-4e37-aa41-eb57a980bd7e" name="Changes" comment="adapted config file mode">
+      <change afterPath="$PROJECT_DIR$/src/main/java/crypto/encryption/Aes.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/crypto/encryption/AesKey.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/crypto/encryption/DualAesKey.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/crypto/hash/Sha384.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/proxy/HandshakeController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/proxy/RequestHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/proxy/client/ClientHandshakeController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/proxy/client/ClientRequestHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/proxy/server/ServerHandshakeController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/proxy/server/ServerRequestHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/utils/ByteArrayUtil.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/utils/http/HostPort.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/utils/http/HostPortExtractor.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/TlsProxyApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/TlsProxyApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/resources/StringValues.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/proxy/ClientTlsProxy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/proxy/client/ClientTlsProxy.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/proxy/ServerTlsProxy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/proxy/server/ServerTlsProxy.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/proxy/TlsProxy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/proxy/TlsProxy.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,7 +45,9 @@
     <option name="stateVersion" value="1" />
   </component>
   <component name="ProjectId" id="2Go7YT1VE9det55ux3tOo3OfdRT" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -49,6 +64,12 @@
     "settings.editor.selected.configurable": "com.intellij.jarRepository.settings.RemoteRepositoriesConfigurable"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="crypto.hash" />
+      <recent name="crypto.encryption" />
+    </key>
+  </component>
   <component name="RunManager">
     <configuration name="TlsProxyApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="TlsProxyApplication" />
@@ -86,7 +107,14 @@
       <option name="project" value="LOCAL" />
       <updated>1667128562718</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="adapted config file mode">
+      <created>1667216162732</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1667216162732</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -103,6 +131,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="init" />
     <MESSAGE value="arg parse finished" />
-    <option name="LAST_COMMIT_MESSAGE" value="arg parse finished" />
+    <MESSAGE value="adapted config file mode" />
+    <option name="LAST_COMMIT_MESSAGE" value="adapted config file mode" />
   </component>
 </project>

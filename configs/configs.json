@@ -1,0 +1,9 @@
+{
+    "mode": "CLIENT",
+    "port": 17650,
+    "targetHostPatterns": [
+        "[\\d.]+:13680",
+        "[\\d.]+:13780"
+    ],
+    "getCertificateUrl": "/certificate/get"
+}

@@ -1,12 +1,10 @@
 import config.ConfigManager;
-import proxy.ClientTlsProxy;
-import proxy.ServerTlsProxy;
+import proxy.client.ClientTlsProxy;
+import proxy.server.ServerTlsProxy;
 import proxy.TlsProxy;
 import utils.Log;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class TlsProxyApplication {
     public static void main(String[] args){
