@@ -4,16 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2f7898b2-b765-4e37-aa41-eb57a980bd7e" name="Changes" comment="separated client&amp;socket config">
+    <list default="true" id="2f7898b2-b765-4e37-aa41-eb57a980bd7e" name="Changes" comment="key negotiate OK">
+      <change afterPath="$PROJECT_DIR$/src/main/java/crypto/encoding/Utf8.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/TlsProxyApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/TlsProxyApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/config/client/ClientConfigManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/config/client/ClientConfigManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/config/server/ServerConfigManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/config/server/ServerConfigManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/proxy/RequestHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/proxy/RequestHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/proxy/HandshakeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/proxy/HandshakeController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/proxy/client/ClientHandshakeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/proxy/client/ClientHandshakeController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/proxy/client/ClientRequestHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/proxy/client/ClientRequestHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/proxy/server/ServerHandshakeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/proxy/server/ServerHandshakeController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/proxy/server/ServerTlsProxy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/proxy/server/ServerTlsProxy.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -119,7 +115,14 @@
       <option name="project" value="LOCAL" />
       <updated>1667302450137</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="key negotiate OK">
+      <created>1667306357171</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1667306357171</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -139,6 +142,7 @@
     <MESSAGE value="adapted config file mode" />
     <MESSAGE value="key negotiate completed" />
     <MESSAGE value="separated client&amp;socket config" />
-    <option name="LAST_COMMIT_MESSAGE" value="separated client&amp;socket config" />
+    <MESSAGE value="key negotiate OK" />
+    <option name="LAST_COMMIT_MESSAGE" value="key negotiate OK" />
   </component>
 </project>

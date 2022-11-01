@@ -1,11 +1,15 @@
 package proxy;
 
+import at.favre.lib.crypto.HKDF;
+import at.favre.lib.crypto.HkdfMacFactory;
+import crypto.encoding.Utf8;
 import crypto.encryption.AesKey;
 import crypto.encryption.DualAesKey;
 import crypto.hash.Sha384;
 import org.whispersystems.curve25519.Curve25519;
 import utils.ByteArrayUtil;
 
+import java.nio.charset.StandardCharsets;
 import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Base64;
@@ -45,14 +49,33 @@ public abstract class HandshakeController {
         return Sha384.hash(ByteArrayUtil.concat(this.transmittedBytes));
     }
 
-    protected AesKey calculateHandshakeKey(byte[] oppositePublicKey){
-        var sharedKey= this.curve25519.calculateAgreement(oppositePublicKey,this.selfPrivateKey);
+    protected void calculateHandshakeKey(byte[] oppositePublicKey){
+        var sharedSecret= this.curve25519.calculateAgreement(oppositePublicKey,this.selfPrivateKey);
         var transmittedBytesHash=this.getTransmittedBytesHash();
 
-        System.out.println(Base64.getEncoder().encodeToString(sharedKey));
-        System.out.println(Base64.getEncoder().encodeToString(transmittedBytesHash));
+        HKDF hkdf=HKDF.from(new HkdfMacFactory.Default("HmacSha384",null));
 
-        return null;
+        var earlySecret=hkdf.extract(new byte[48],new byte[48]);
+
+        var derivedSecret=hkdf.expand(earlySecret,Utf8.decode("derived"),48);
+        var handshakeSecret=hkdf.extract(derivedSecret,sharedSecret);
+
+        var clientTrafficInfo=hkdf.expand(transmittedBytesHash,Utf8.decode("c hs traffic"),48);
+        var clientSecret=hkdf.expand(handshakeSecret,clientTrafficInfo,48);
+
+        var serverTrafficInfo=hkdf.expand(transmittedBytesHash,Utf8.decode("s hs traffic"),48);
+        var serverSecret=hkdf.expand(handshakeSecret,serverTrafficInfo,48);
+
+        var clientHandshakeKey=hkdf.expand(clientSecret,Utf8.decode("key"),32);
+        var serverHandshakeKey=hkdf.expand(serverSecret,Utf8.decode("key"),32);
+
+        var clientHandshakeIv=hkdf.expand(clientSecret,Utf8.decode("iv"),32);
+        var serverHandshakeIv=hkdf.expand(serverSecret,Utf8.decode("iv"),32);
+
+        this.handshakeKey= new DualAesKey(
+                new AesKey(clientHandshakeKey,clientHandshakeIv),
+                new AesKey(serverHandshakeKey,serverHandshakeIv)
+        );
     }
     public abstract DualAesKey negotiateApplicationKey();
 }
