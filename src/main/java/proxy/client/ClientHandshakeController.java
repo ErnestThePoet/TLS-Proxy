@@ -21,6 +21,7 @@ public class ClientHandshakeController extends HandshakeController {
 
         try {
             var selfRandomWithPublicKey=this.getRandomWithPublicKey();
+            System.out.println(selfRandomWithPublicKey.length);
             serverSocket.getOutputStream().write(selfRandomWithPublicKey);
             this.addTransmittedBytes(selfRandomWithPublicKey);
         } catch (IOException e) {

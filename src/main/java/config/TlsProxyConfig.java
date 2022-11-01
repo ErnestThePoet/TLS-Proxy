@@ -2,12 +2,7 @@ package config;
 
 import lombok.Data;
 
-import java.util.List;
-
 @Data
-public class TlsProxyConfig {
-    private String mode;
+public abstract class TlsProxyConfig {
     private Integer port;
-    private List<String> targetHostPatterns;
-    private String getCertificateUrl;
 }

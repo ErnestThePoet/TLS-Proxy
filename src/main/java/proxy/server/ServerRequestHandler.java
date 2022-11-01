@@ -1,11 +1,7 @@
 package proxy.server;
 
-import config.ConfigManager;
 import proxy.HandshakeController;
 import proxy.RequestHandler;
-import proxy.client.ClientHandshakeController;
-import utils.Log;
-import utils.http.HostPortExtractor;
 
 import java.net.Socket;
 

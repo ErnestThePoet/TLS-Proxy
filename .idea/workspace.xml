@@ -4,26 +4,21 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2f7898b2-b765-4e37-aa41-eb57a980bd7e" name="Changes" comment="adapted config file mode">
-      <change afterPath="$PROJECT_DIR$/src/main/java/crypto/encryption/Aes.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/crypto/encryption/AesKey.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/crypto/encryption/DualAesKey.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/crypto/hash/Sha384.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/proxy/HandshakeController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/proxy/RequestHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/proxy/client/ClientHandshakeController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/proxy/client/ClientRequestHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/proxy/server/ServerHandshakeController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/proxy/server/ServerRequestHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/utils/ByteArrayUtil.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/utils/http/HostPort.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/utils/http/HostPortExtractor.java" afterDir="false" />
+    <list default="true" id="2f7898b2-b765-4e37-aa41-eb57a980bd7e" name="Changes" comment="key negotiate completed">
+      <change afterPath="$PROJECT_DIR$/src/main/java/config/client/ClientProxyConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/config/server/ProxyPassItem.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/config/server/ServerConfigManager.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/config/server/ServerProxyConfig.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/configs/configs.json" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/TlsProxyApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/TlsProxyApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/proxy/ClientTlsProxy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/proxy/client/ClientTlsProxy.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/proxy/ServerTlsProxy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/proxy/server/ServerTlsProxy.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/proxy/TlsProxy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/proxy/TlsProxy.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/config/ConfigManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/config/client/ClientConfigManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/config/TlsProxyConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/config/TlsProxyConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/proxy/client/ClientHandshakeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/proxy/client/ClientHandshakeController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/proxy/client/ClientRequestHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/proxy/client/ClientRequestHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/proxy/client/ClientTlsProxy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/proxy/client/ClientTlsProxy.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/proxy/server/ServerRequestHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/proxy/server/ServerRequestHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/proxy/server/ServerTlsProxy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/proxy/server/ServerTlsProxy.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -57,7 +52,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "last_opened_file_path": "E:/ErnestsLearning/SourceCodes/Java-Proxy-Server-master",
+    "last_opened_file_path": "E:/ErnestsProjects/TLSProxyB",
     "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
@@ -74,6 +69,7 @@
     <configuration name="TlsProxyApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="TlsProxyApplication" />
       <module name="TLSProxy" />
+      <option name="PROGRAM_PARAMETERS" value="CLIENT" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -114,7 +110,14 @@
       <option name="project" value="LOCAL" />
       <updated>1667216162732</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="key negotiate completed">
+      <created>1667295328466</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1667295328466</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -132,6 +135,7 @@
     <MESSAGE value="init" />
     <MESSAGE value="arg parse finished" />
     <MESSAGE value="adapted config file mode" />
-    <option name="LAST_COMMIT_MESSAGE" value="adapted config file mode" />
+    <MESSAGE value="key negotiate completed" />
+    <option name="LAST_COMMIT_MESSAGE" value="key negotiate completed" />
   </component>
 </project>

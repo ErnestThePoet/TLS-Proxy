@@ -1,6 +1,6 @@
 package proxy.client;
 
-import config.ConfigManager;
+import config.client.ClientConfigManager;
 import proxy.HandshakeController;
 import proxy.RequestHandler;
 import utils.Log;
@@ -48,7 +48,8 @@ public class ClientRequestHandler extends RequestHandler implements Runnable{
             return;
         }
 
-        if(!ConfigManager.isTargetHost(host)){
+        if(!ClientConfigManager.isTargetHost(host)){
+            Log.info("Ignore request to "+host);
             return;
         }
 
@@ -61,6 +62,8 @@ public class ClientRequestHandler extends RequestHandler implements Runnable{
             this.closeSocket(this.clientSocket);
             return;
         }
+
+        Log.info("Negotiating application key with "+host);
 
         HandshakeController handshakeController=
                 new ClientHandshakeController(hostSocket);

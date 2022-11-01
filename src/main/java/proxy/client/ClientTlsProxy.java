@@ -1,6 +1,6 @@
 package proxy.client;
 
-import config.ConfigManager;
+import config.client.ClientConfigManager;
 import proxy.TlsProxy;
 import utils.Log;
 
@@ -13,9 +13,8 @@ public class ClientTlsProxy implements TlsProxy {
     public void start(int port) {
         try(ServerSocket proxyServerSocket=new ServerSocket(port)) {
             Log.info(String.format(
-                    "Successfully started TLS Proxy in %s mode, port %d",
-                    ConfigManager.getMode(),
-                    ConfigManager.getPort()));
+                    "Successfully started TLS Proxy in CLIENT mode, port %d",
+                    ClientConfigManager.getPort()));
 
             while(true){
                 Socket clientSocket;
