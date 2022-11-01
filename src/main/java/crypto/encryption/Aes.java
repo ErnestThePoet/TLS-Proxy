@@ -7,8 +7,6 @@ import javax.crypto.NoSuchPaddingException;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 import java.security.*;
-import java.security.spec.InvalidKeySpecException;
-import java.security.spec.PKCS8EncodedKeySpec;
 
 public class Aes {
     private static byte[] aesOperate(int opMode,byte[] data,byte[] key,byte[] iv){
