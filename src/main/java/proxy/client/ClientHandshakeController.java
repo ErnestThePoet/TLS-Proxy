@@ -1,6 +1,5 @@
 package proxy.client;
 
-import crypto.encryption.AesKey;
 import crypto.encryption.DualAesKey;
 import proxy.HandshakeController;
 
@@ -9,10 +8,12 @@ import java.net.Socket;
 import java.util.Arrays;
 
 public class ClientHandshakeController extends HandshakeController {
-    private final Socket serverSocket;
-    public ClientHandshakeController(Socket serverSocket){
+    private final Socket hostSocket;
+
+
+    public ClientHandshakeController(Socket hostSocket){
         super();
-        this.serverSocket=serverSocket;
+        this.hostSocket=hostSocket;
     }
 
     @Override
@@ -21,36 +22,40 @@ public class ClientHandshakeController extends HandshakeController {
 
         try {
             var selfRandomWithPublicKey=this.getRandomWithPublicKey();
-            System.out.println(selfRandomWithPublicKey.length);
-            serverSocket.getOutputStream().write(selfRandomWithPublicKey);
+            this.hostSocket.getOutputStream().write(selfRandomWithPublicKey);
+            this.hostSocket.getOutputStream().flush();
             this.addTransmittedBytes(selfRandomWithPublicKey);
         } catch (IOException e) {
             e.printStackTrace();
-            this.closeServerSocket();
+            this.closeHostSocket();
             return null;
         }
 
-        byte[] serverRandomWithPublicKey;
+        byte[] serverRandomWithPublicKey=new byte[64];
 
         try {
-            serverRandomWithPublicKey=serverSocket.getInputStream().readAllBytes();
+            int readLength=this.hostSocket.getInputStream().read(serverRandomWithPublicKey);
+            if(readLength!=64){
+                throw new IOException("Server random data not of length 64");
+            }
+
             this.addTransmittedBytes(serverRandomWithPublicKey);
         } catch (IOException e) {
             e.printStackTrace();
-            this.closeServerSocket();
+            this.closeHostSocket();
             return null;
         }
 
         var aesKey=this.calculateHandshakeKey(
                 Arrays.copyOfRange(
-                        serverRandomWithPublicKey,32,serverRandomWithPublicKey.length));
+                        serverRandomWithPublicKey,32,64));
 
         return null;
     }
 
-    private void closeServerSocket(){
+    private void closeHostSocket(){
         try {
-            this.serverSocket.close();
+            this.hostSocket.close();
         } catch (IOException e) {
             e.printStackTrace();
         }

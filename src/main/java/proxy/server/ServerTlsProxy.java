@@ -1,9 +1,7 @@
 package proxy.server;
 
-import config.client.ClientConfigManager;
 import config.server.ServerConfigManager;
 import proxy.TlsProxy;
-import proxy.client.ClientRequestHandler;
 import utils.Log;
 
 import java.io.IOException;
@@ -28,7 +26,7 @@ public class ServerTlsProxy implements TlsProxy {
                     continue;
                 }
 
-                new Thread(new ClientRequestHandler(clientSocket)).start();
+                new Thread(new ServerRequestHandler(clientSocket)).start();
             }
         } catch (IOException e) {
             e.printStackTrace();

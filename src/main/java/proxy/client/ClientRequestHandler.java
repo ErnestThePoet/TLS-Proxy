@@ -6,12 +6,27 @@ import proxy.RequestHandler;
 import utils.Log;
 import utils.http.HostPortExtractor;
 
-import java.io.IOException;
+import java.io.*;
 import java.net.Socket;
 
 public class ClientRequestHandler extends RequestHandler implements Runnable{
+    private BufferedReader clientSocketReader;
+
+
     public ClientRequestHandler(Socket clientSocket){
         super(clientSocket);
+
+        try {
+            this.clientSocketReader=new BufferedReader(
+                    new InputStreamReader(clientSocket.getInputStream()));
+        } catch (IOException e) {
+            e.printStackTrace();
+            try {
+                clientSocket.close();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        }
     }
 
     private String getRequestHost(){

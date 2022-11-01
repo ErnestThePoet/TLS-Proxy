@@ -9,7 +9,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class ClientConfigManager {
     private static ClientProxyConfig config;
 
-    public static void init() throws IOException {
+    public static void load() throws IOException {
         ObjectMapper objectMapper=new ObjectMapper();
 
         String configJsonContent= Files.readString(

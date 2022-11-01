@@ -16,11 +16,11 @@ public class TlsProxyApplication {
         try {
             switch (args[0]) {
                 case "CLIENT" -> {
-                    ClientConfigManager.init();
+                    ClientConfigManager.load();
                     new ClientTlsProxy().start(ClientConfigManager.getPort());
                 }
                 case "SERVER" -> {
-                    ServerConfigManager.init();
+                    ServerConfigManager.load();
                     new ServerTlsProxy().start(ServerConfigManager.getPort());
                 }
             }

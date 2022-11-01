@@ -11,7 +11,7 @@ import java.nio.file.Path;
 public class ServerConfigManager {
     private static ServerProxyConfig config;
 
-    public static void init() throws IOException {
+    public static void load() throws IOException {
         ObjectMapper objectMapper=new ObjectMapper();
 
         String configJsonContent= Files.readString(

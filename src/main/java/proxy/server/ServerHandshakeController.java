@@ -19,10 +19,14 @@ public class ServerHandshakeController extends HandshakeController {
     public DualAesKey negotiateApplicationKey() {
         this.generateX22519KeyPair();
 
-        byte[] clientRandomWithPublicKey;
+        byte[] clientRandomWithPublicKey=new byte[64];
 
         try {
-            clientRandomWithPublicKey=this.clientSocket.getInputStream().readAllBytes();
+            int readLength=this.clientSocket.getInputStream().read(clientRandomWithPublicKey);
+            if(readLength!=64){
+                throw new IOException("Client random data not of length 64");
+            }
+
             this.addTransmittedBytes(clientRandomWithPublicKey);
         } catch (IOException e) {
             e.printStackTrace();
@@ -33,6 +37,7 @@ public class ServerHandshakeController extends HandshakeController {
         try {
             var selfRandomWithPublicKey=this.getRandomWithPublicKey();
             this.clientSocket.getOutputStream().write(selfRandomWithPublicKey);
+            this.clientSocket.getOutputStream().flush();
             this.addTransmittedBytes(selfRandomWithPublicKey);
         } catch (IOException e) {
             e.printStackTrace();
@@ -42,7 +47,7 @@ public class ServerHandshakeController extends HandshakeController {
 
         var aesKey=this.calculateHandshakeKey(
                 Arrays.copyOfRange(
-                        clientRandomWithPublicKey,32,clientRandomWithPublicKey.length));
+                        clientRandomWithPublicKey,32,64));
 
         return null;
     }
