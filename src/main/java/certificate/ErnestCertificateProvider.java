@@ -5,7 +5,7 @@ import crypto.hash.Sha384;
 public class ErnestCertificateProvider implements CertificateProvider{
     @Override
     public byte[] getCertificate() {
-        return new byte[0];
+        return new byte[10];
     }
 
     @Override
