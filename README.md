@@ -1,4 +1,4 @@
-# TLSProxy
+# TLS-Proxy
 
 使用Java编写的HTTP代理服务器，实现了TLS1.3中的绝大多数加密[认证流程](https://tls13.xargs.org/)，可为HTTP请求的数据传输提供安全保障。
 
