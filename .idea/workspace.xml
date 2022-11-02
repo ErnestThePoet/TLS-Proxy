@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2f7898b2-b765-4e37-aa41-eb57a980bd7e" name="Changes" comment="modified words in README" />
+    <list default="true" id="2f7898b2-b765-4e37-aa41-eb57a980bd7e" name="Changes" comment="made README more accurate" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -203,7 +203,14 @@
       <option name="project" value="LOCAL" />
       <updated>1667404500157</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="made README more accurate">
+      <created>1667405225034</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1667405225034</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -236,7 +243,8 @@
     <MESSAGE value="added docs for certificate interfaces" />
     <MESSAGE value="updated title for readme" />
     <MESSAGE value="modified words in README" />
-    <option name="LAST_COMMIT_MESSAGE" value="modified words in README" />
+    <MESSAGE value="made README more accurate" />
+    <option name="LAST_COMMIT_MESSAGE" value="made README more accurate" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
