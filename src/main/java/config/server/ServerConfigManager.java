@@ -1,7 +1,6 @@
 package config.server;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import config.client.ClientProxyConfig;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;

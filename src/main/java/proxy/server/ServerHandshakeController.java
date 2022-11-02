@@ -50,7 +50,10 @@ public class ServerHandshakeController extends HandshakeController {
             this.addTraffic(selfRandomWithPublicKey);
 
             // Synchronize
-            this.clientSocket.getInputStream().read(new byte[1]);
+            int syncLength=this.clientSocket.getInputStream().read(new byte[1]);
+            if (syncLength != 1) {
+                throw new IOException("Client sync data not of length 1");
+            }
         } catch (IOException e) {
             e.printStackTrace();
             this.closeClientSocket();
@@ -73,7 +76,10 @@ public class ServerHandshakeController extends HandshakeController {
             this.addTraffic(encryptedCertificate);
 
             // Synchronize
-            this.clientSocket.getInputStream().read(new byte[1]);
+            int syncLength=this.clientSocket.getInputStream().read(new byte[1]);
+            if (syncLength != 1) {
+                throw new IOException("Client sync data not of length 1");
+            }
         } catch (IOException e) {
             e.printStackTrace();
             this.closeClientSocket();
@@ -90,7 +96,10 @@ public class ServerHandshakeController extends HandshakeController {
             this.addTraffic(encryptedTrafficSignature);
 
             // Synchronize
-            this.clientSocket.getInputStream().read(new byte[1]);
+            int syncLength=this.clientSocket.getInputStream().read(new byte[1]);
+            if (syncLength != 1) {
+                throw new IOException("Client sync data not of length 1");
+            }
         } catch (IOException e) {
             e.printStackTrace();
             this.closeClientSocket();

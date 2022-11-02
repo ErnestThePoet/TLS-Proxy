@@ -15,12 +15,12 @@ import java.net.Socket;
 import java.util.Arrays;
 
 public class ClientHandshakeController extends HandshakeController {
-    private final Socket hostSocket;
+    private final Socket serverSocket;
 
 
-    public ClientHandshakeController(Socket hostSocket) {
+    public ClientHandshakeController(Socket serverSocket) {
         super();
-        this.hostSocket = hostSocket;
+        this.serverSocket = serverSocket;
     }
 
     @Override
@@ -31,8 +31,8 @@ public class ClientHandshakeController extends HandshakeController {
         // [Client Hello] Send key pair and random to server
         try {
             var selfRandomWithPublicKey = this.getRandomWithPublicKey();
-            this.hostSocket.getOutputStream().write(selfRandomWithPublicKey);
-            this.hostSocket.getOutputStream().flush();
+            this.serverSocket.getOutputStream().write(selfRandomWithPublicKey);
+            this.serverSocket.getOutputStream().flush();
             this.addTraffic(selfRandomWithPublicKey);
         } catch (IOException e) {
             e.printStackTrace();
@@ -44,7 +44,7 @@ public class ClientHandshakeController extends HandshakeController {
         byte[] serverRandomWithPublicKey = new byte[64];
 
         try {
-            int readLength = this.hostSocket.getInputStream().read(serverRandomWithPublicKey);
+            int readLength = this.serverSocket.getInputStream().read(serverRandomWithPublicKey);
             if (readLength != 64) {
                 throw new IOException("Server random data not of length 64");
             }
@@ -52,8 +52,8 @@ public class ClientHandshakeController extends HandshakeController {
             this.addTraffic(serverRandomWithPublicKey);
 
             // Synchronize
-            this.hostSocket.getOutputStream().write(new byte[1]);
-            this.hostSocket.getOutputStream().flush();
+            this.serverSocket.getOutputStream().write(new byte[1]);
+            this.serverSocket.getOutputStream().flush();
         } catch (IOException e) {
             e.printStackTrace();
             this.closeHostSocket();
@@ -71,13 +71,13 @@ public class ClientHandshakeController extends HandshakeController {
 
         try{
             certificateEncryptedLength=
-                    this.hostSocket.getInputStream().read(certificateEncrypted);
+                    this.serverSocket.getInputStream().read(certificateEncrypted);
             certificateEncrypted=Arrays.copyOf(certificateEncrypted,certificateEncryptedLength);
             this.addTraffic(certificateEncrypted);
 
             // Synchronize
-            this.hostSocket.getOutputStream().write(new byte[1]);
-            this.hostSocket.getOutputStream().flush();
+            this.serverSocket.getOutputStream().write(new byte[1]);
+            this.serverSocket.getOutputStream().flush();
         } catch (IOException e) {
             e.printStackTrace();
             this.closeHostSocket();
@@ -90,13 +90,13 @@ public class ClientHandshakeController extends HandshakeController {
 
         try{
             trafficSignatureEncryptedLength=
-                    this.hostSocket.getInputStream().read(trafficSignatureEncrypted);
+                    this.serverSocket.getInputStream().read(trafficSignatureEncrypted);
             trafficSignatureEncrypted=
                     Arrays.copyOf(trafficSignatureEncrypted,trafficSignatureEncryptedLength);
 
             // Synchronize
-            this.hostSocket.getOutputStream().write(new byte[1]);
-            this.hostSocket.getOutputStream().flush();
+            this.serverSocket.getOutputStream().write(new byte[1]);
+            this.serverSocket.getOutputStream().flush();
         } catch (IOException e) {
             e.printStackTrace();
             this.closeHostSocket();
@@ -132,7 +132,7 @@ public class ClientHandshakeController extends HandshakeController {
         int trafficHashEncryptedLength;
         try{
             trafficHashEncryptedLength=
-                    this.hostSocket.getInputStream().read(trafficHashEncrypted);
+                    this.serverSocket.getInputStream().read(trafficHashEncrypted);
             trafficHashEncrypted=
                     Arrays.copyOf(trafficHashEncrypted,trafficHashEncryptedLength);
         } catch (IOException e) {
@@ -161,8 +161,8 @@ public class ClientHandshakeController extends HandshakeController {
                             HkdfSha384.expand(this.clientSecret, Utf8.decode("finished"),32),
                             this.getTrafficHash()),
                     this.handshakeKey.getClientKey());
-            this.hostSocket.getOutputStream().write(encryptedTrafficHash);
-            this.hostSocket.getOutputStream().flush();
+            this.serverSocket.getOutputStream().write(encryptedTrafficHash);
+            this.serverSocket.getOutputStream().flush();
         } catch (IOException e) {
             e.printStackTrace();
             this.closeHostSocket();
@@ -174,7 +174,7 @@ public class ClientHandshakeController extends HandshakeController {
 
     private void closeHostSocket() {
         try {
-            this.hostSocket.close();
+            this.serverSocket.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
