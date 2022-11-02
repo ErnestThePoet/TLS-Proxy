@@ -4,7 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2f7898b2-b765-4e37-aa41-eb57a980bd7e" name="Changes" comment="made README more accurate" />
+    <list default="true" id="2f7898b2-b765-4e37-aa41-eb57a980bd7e" name="Changes" comment="added more details to README">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -210,7 +212,14 @@
       <option name="project" value="LOCAL" />
       <updated>1667405225034</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="added more details to README">
+      <created>1667405967920</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1667405967920</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -244,7 +253,8 @@
     <MESSAGE value="updated title for readme" />
     <MESSAGE value="modified words in README" />
     <MESSAGE value="made README more accurate" />
-    <option name="LAST_COMMIT_MESSAGE" value="made README more accurate" />
+    <MESSAGE value="added more details to README" />
+    <option name="LAST_COMMIT_MESSAGE" value="added more details to README" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

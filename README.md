@@ -8,12 +8,12 @@
 在开始使用前，需要配置代理服务器的运行选项。`configs`目录下的`configs_client.json`和`configs_server.json`分别是客户端和服务端的配置文件。
 
 客户端设置选项说明如下：  
-* `port`:`number`,客户端代理服务器的监听端口号；  
-* `targetHostPatterns`:`Array<string>`,正则表达式字符串数组，指定了所有需要被加密代理的主机名。所有发往其余主机的请求都会被代理服务器丢弃。
+* `port`: `number`,客户端代理服务器的监听端口号；  
+* `targetHostPatterns`: `Array<string>`,正则表达式字符串数组，指定了所有需要被加密代理的主机名。所有发往其余主机的请求都会被代理服务器丢弃。
 
 服务端设置选项说明如下：  
-* `port`:`number`,服务端代理服务器的监听端口号；  
-* `proxyPasses`:`Array<{location:string;pass:string;}>`,代理转发规则列表。每个元素的`location`属性都是正则表达式，若某元素的`location`属性匹配了请求头中的主机名，那么该请求头中的主机名将被改写为`pass`属性中的值，该请求也将被转发给`pass`属性指定的主机。
+* `port`: `number`,服务端代理服务器的监听端口号；  
+* `proxyPasses`: `Array<{location:string;pass:string;}>`,代理转发规则列表。每个元素的`location`属性都是正则表达式，若某元素的`location`属性匹配了请求头中的主机名，那么该请求头中的主机名将被改写为`pass`属性中的值，该请求也将被转发给`pass`属性指定的主机。
 
 ### 编写证书提供与校验类
 本项目不提供统一的证书格式标准，您需要自行实现`certificate`包中的`CertificateProvider`和`CertificateValidator`接口，实现您自己的证书提供和校验规则。实现后，请相应地修改两个接口的`getInstance`方法使其返回您的实现类对象。请注意TLS1.3中的传输信息签名校验(见文档顶部链接中的Server Certificate Verify部分)也是证书校验的一部分。
