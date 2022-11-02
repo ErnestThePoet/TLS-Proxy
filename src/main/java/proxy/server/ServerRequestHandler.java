@@ -5,12 +5,15 @@ import crypto.encoding.Utf8;
 import crypto.encryption.Aes;
 import proxy.HandshakeController;
 import proxy.RequestHandler;
+import utils.ByteArrayUtil;
 import utils.Log;
 import utils.http.HostPortExtractor;
 
 import java.io.IOException;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class ServerRequestHandler extends RequestHandler implements Runnable {
     public ServerRequestHandler(Socket clientSocket) {
@@ -34,7 +37,7 @@ public class ServerRequestHandler extends RequestHandler implements Runnable {
         String proxyPass = ServerConfigManager.getProxyPass(originalHost);
 
         if (proxyPass == null) {
-            Log.error("No matching proxy pass found");
+            Log.error("No matching proxy pass found for:"+originalHost);
             return new ReplaceHostResult(requestData, null);
         }
 
@@ -66,7 +69,7 @@ public class ServerRequestHandler extends RequestHandler implements Runnable {
 
     private void encryptAndSendToClient(byte[] data) throws IOException {
         this.clientSocket.getOutputStream().write(
-                Aes.encrypt(data, applicationKey.getServerKey()));
+                Aes.encrypt(data, this.applicationKey.getServerKey()));
         this.clientSocket.getOutputStream().flush();
     }
 
@@ -126,82 +129,90 @@ public class ServerRequestHandler extends RequestHandler implements Runnable {
         Log.info("Sent request data to local server");
 
         // Receive response data and send encrypted data to client
-        byte[] responseData = new byte[1024 * 1024];
+        List<byte[]> headerBytes=new ArrayList<>();
+        byte[] responseData = new byte[64 * 1024];
         int responseDataLength;
+        byte[] actualResponseData;
 
         try {
-            responseDataLength = this.serverSocket.getInputStream().read(responseData);
+            while(!Utf8.encode(ByteArrayUtil.concat(headerBytes)).contains("\r\n\r\n")){
+                responseDataLength = this.serverSocket.getInputStream().read(responseData);
+                actualResponseData=Arrays.copyOf(responseData, responseDataLength);
+                headerBytes.add(actualResponseData);
+            }
         } catch (IOException e) {
             e.printStackTrace();
             this.closeBothSockets();
             return;
         }
 
-        byte[] actualResponseData = Arrays.copyOf(responseData, responseDataLength);
+        actualResponseData=ByteArrayUtil.concat(headerBytes);
+        responseDataLength = actualResponseData.length;
         // Determine response data transmission type
         String actualResponseString = Utf8.encode(actualResponseData);
 
         try {
-            // Keep-Alive exists in response header
-            if (actualResponseString.contains("Keep-Alive\r\n")) {
-                int contentLength = this.getContentLength(actualResponseData);
+            int contentLength = this.getContentLength(actualResponseData);
 
-                // Response transmission type: Chunked
-                // Receive data in loop until encounter "\r\n\0\r\n"
-                if (contentLength == -1) {
-                    Log.info("Response transmission type: Chunked");
+            // Response transmission type: Chunked
+            // Receive data in loop until encounter "\r\n\0\r\n"
+            if (contentLength == -1) {
+                Log.info("Response transmission type: Chunked");
 
-                    this.encryptAndSendToClient(actualResponseData);
+                this.encryptAndSendToClient(actualResponseData);
 
-                    while (!Utf8.encode(actualResponseData).contains("\r\n\0\r\n")) {
-                        responseDataLength = this.serverSocket.getInputStream().read(responseData);
-                        actualResponseData = Arrays.copyOf(responseData, responseDataLength);
-                        this.encryptAndSendToClient(actualResponseData);
-                    }
+                int syncLength=this.clientSocket.getInputStream().read(new byte[2]);
+                if (syncLength != 1) {
+                    throw new IOException("Client sync data not of length 1");
                 }
-                // Response transmission type: With Content-Length
-                // Receive data of size contentLength
-                else {
-                    Log.info("Response transmission type: With Content-Length");
 
-                    int bodyStartIndex = actualResponseString.indexOf("\r\n\r\n") + 4;
-
-                    if(bodyStartIndex==3){
-                        throw new IOException("Response header terminator not found");
-                    }
-
-                    int receivedDataLength = responseDataLength - bodyStartIndex;
-
-                    this.encryptAndSendToClient(actualResponseData);
-
-                    while (receivedDataLength < contentLength) {
-                        responseDataLength = this.serverSocket.getInputStream().read(responseData);
-                        actualResponseData = Arrays.copyOf(responseData, responseDataLength);
-                        this.encryptAndSendToClient(actualResponseData);
-                        receivedDataLength += responseDataLength;
-                    }
-                }
-            }
-            // Keep-Alive does not exist in response header
-            // Response transmission type: No Keep-Alive
-            // Receive data until read() returns -1
-            else {
-                Log.info("Response transmission type: No Keep-Alive");
-
-                while (true) {
-                    this.encryptAndSendToClient(actualResponseData);
-
+                while (!Utf8.encode(actualResponseData).contains("\r\n\0\r\n")) {
                     responseDataLength = this.serverSocket.getInputStream().read(responseData);
-                    if (responseDataLength == -1) {
-                        break;
-                    }
-
                     actualResponseData = Arrays.copyOf(responseData, responseDataLength);
+                    this.encryptAndSendToClient(actualResponseData);
+
+                    syncLength=this.clientSocket.getInputStream().read(new byte[2]);
+                    if (syncLength != 1) {
+                        throw new IOException("Client sync data not of length 1");
+                    }
+                }
+            }
+            // Response transmission type: With Content-Length
+            // Receive data of size contentLength
+            else {
+                Log.info("Response transmission type: With Content-Length");
+
+                int bodyStartIndex = actualResponseString.indexOf("\r\n\r\n") + 4;
+
+                if(bodyStartIndex==3){
+                    throw new IOException("Response header terminator not found");
+                }
+
+                int receivedDataLength = responseDataLength - bodyStartIndex;
+
+                this.encryptAndSendToClient(actualResponseData);
+
+                int syncLength=this.clientSocket.getInputStream().read(new byte[2]);
+                if (syncLength != 1) {
+                    throw new IOException("Client sync data not of length 1");
+                }
+
+                while (receivedDataLength < contentLength) {
+                    responseDataLength = this.serverSocket.getInputStream().read(responseData);
+                    actualResponseData = Arrays.copyOf(responseData, responseDataLength);
+                    this.encryptAndSendToClient(actualResponseData);
+                    receivedDataLength += responseDataLength;
+
+                    syncLength=this.clientSocket.getInputStream().read(new byte[2]);
+                    if (syncLength != 1) {
+                        throw new IOException("Client sync data not of length 1");
+                    }
                 }
             }
 
-            // Client read() will return -1
-            this.clientSocket.shutdownOutput();
+            // Send finishing signal
+            this.clientSocket.getOutputStream().write(new byte[1]);
+            this.clientSocket.getOutputStream().flush();
         } catch (IOException e) {
             e.printStackTrace();
             this.closeBothSockets();

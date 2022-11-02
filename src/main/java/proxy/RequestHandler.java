@@ -1,5 +1,6 @@
 package proxy;
 
+import crypto.encoding.Utf8;
 import crypto.encryption.DualAesKey;
 
 import java.io.*;
@@ -14,6 +15,7 @@ public abstract class RequestHandler {
     protected RequestHandler(Socket clientSocket){
         this.clientSocket=clientSocket;
     }
+
     private void closeSocket(Socket socket){
         try {
             socket.close();
@@ -36,6 +38,7 @@ public abstract class RequestHandler {
     }
 
     protected void connectToServer(String host,int port){
+        // TODO use actual port for server side
         try {
             this.serverSocket= new Socket(host,17750);
         } catch (IOException e) {

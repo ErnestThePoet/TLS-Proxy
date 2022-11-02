@@ -3,6 +3,7 @@ package proxy.client;
 import config.client.ClientConfigManager;
 import crypto.encoding.Utf8;
 import crypto.encryption.Aes;
+import crypto.encryption.AesKey;
 import proxy.HandshakeController;
 import proxy.RequestHandler;
 import utils.Log;
@@ -11,24 +12,66 @@ import utils.http.HostPortExtractor;
 import java.io.*;
 import java.net.Socket;
 import java.util.Arrays;
+import java.util.Base64;
 
 public class ClientRequestHandler extends RequestHandler implements Runnable {
     public ClientRequestHandler(Socket clientSocket) {
         super(clientSocket);
     }
 
-    private String getRequestHost(byte[] requestData) {
-        var allLines= Utf8.encode(requestData).split("\r\n");
+    private record HostPathAndNewRequestData(String host, String newPath, byte[] newRequestData) {
+    }
 
-        for(var i:allLines) {
+    protected HostPathAndNewRequestData getRequestHostAndReplacePath(byte[] requestData) {
+        var allLines = Utf8.encode(requestData).split("\r\n");
+
+        String host = null;
+
+        for (var i : allLines) {
             if (i.startsWith("Host:")) {
-                return i
+                host = i
                         .replace("Host:", "")
                         .replace(" ", "");
+                break;
             }
         }
 
-        return null;
+        if (host == null) {
+            return new HostPathAndNewRequestData(null, null, null);
+        }
+
+        var firstLineSplit = allLines[0].split(" ");
+        if (firstLineSplit.length != 3) {
+            return new HostPathAndNewRequestData(host, null, null);
+        }
+
+        var newPath = firstLineSplit[1]
+                .replace("http://", "")
+                .replace(host, "");
+
+        byte[] newRequestData = new byte[firstLineSplit[0].length()
+                + newPath.length() + 2
+                + firstLineSplit[2].length()
+                + requestData.length - allLines[0].length()];
+
+        System.arraycopy(Utf8.decode(firstLineSplit[0]), 0,
+                newRequestData, 0, firstLineSplit[0].length());
+
+        System.arraycopy(Utf8.decode(" " + newPath + " "), 0,
+                newRequestData, firstLineSplit[0].length(), newPath.length() + 2);
+
+        System.arraycopy(Utf8.decode(firstLineSplit[2]), 0,
+                newRequestData, firstLineSplit[0].length() + newPath.length() + 2,
+                firstLineSplit[2].length());
+
+        System.arraycopy(requestData, allLines[0].length(),
+                newRequestData,
+                firstLineSplit[0].length() + newPath.length() + 2 + firstLineSplit[2].length(),
+                requestData.length - allLines[0].length());
+
+        //Log.info(String.format("Replaced header path [%s] with [%s]",firstLineSplit[1],newPath));
+
+        return new HostPathAndNewRequestData(host, newPath, newRequestData);
     }
 
     private void encryptAndSendToServer(byte[] data) throws IOException {
@@ -38,8 +81,8 @@ public class ClientRequestHandler extends RequestHandler implements Runnable {
         this.serverSocket.getOutputStream().flush();
     }
 
-    private byte[] decryptDataFromServer(byte[] data){
-        return Aes.decrypt(data,this.applicationKey.getServerKey());
+    private byte[] decryptDataFromServer(byte[] data) {
+        return Aes.decrypt(data, this.applicationKey.getServerKey());
     }
 
     @Override
@@ -47,6 +90,9 @@ public class ClientRequestHandler extends RequestHandler implements Runnable {
         byte[] clientData = new byte[8 * 1024 * 1024];
         try {
             int clientDataLength = this.clientSocket.getInputStream().read(clientData);
+            if (clientDataLength == -1) {
+                throw new IOException("Read got -1");
+            }
             clientData = Arrays.copyOf(clientData, clientDataLength);
         } catch (IOException e) {
             e.printStackTrace();
@@ -54,7 +100,11 @@ public class ClientRequestHandler extends RequestHandler implements Runnable {
             return;
         }
 
-        String host = this.getRequestHost(clientData);
+        var replaceData = this.getRequestHostAndReplacePath(clientData);
+
+        String host = replaceData.host;
+        String path = replaceData.newPath;
+        clientData = replaceData.newRequestData;
 
         if (host == null) {
             Log.error("Cannot get host from request header");
@@ -62,8 +112,12 @@ public class ClientRequestHandler extends RequestHandler implements Runnable {
             return;
         }
 
+        if (path == null) {
+            Log.warn("Cannot get path from request header");
+        }
+
         if (!ClientConfigManager.isTargetHost(host)) {
-            Log.info("Ignore request to " + host);
+            //Log.info("Ignore request to " + host + url);
             this.closeClientSocket();
             return;
         }
@@ -73,20 +127,20 @@ public class ClientRequestHandler extends RequestHandler implements Runnable {
         this.connectToServer(serverPort.getHost(), serverPort.getPort());
 
         if (this.serverSocket == null) {
-            Log.error("Cannot connect to host");
+            Log.error("Cannot connect to host for " + host + path);
             this.closeClientSocket();
             return;
         }
 
-        Log.info("Negotiating application key with " + host);
+        Log.info("Negotiating application key for " + host + path);
 
         HandshakeController handshakeController =
                 new ClientHandshakeController(this.serverSocket);
 
         this.applicationKey = handshakeController.negotiateApplicationKey();
 
-        Log.info("Successfully calculated application key with " + host
-                + ". Sending encrypted request data...");
+        Log.info("Successfully calculated application key for " + host + path
+                + " Sending encrypted request data...");
 
         // Forward encrypted client data
         try {
@@ -97,15 +151,17 @@ public class ClientRequestHandler extends RequestHandler implements Runnable {
             return;
         }
 
-        Log.info("Receiving server data and sending back to client");
+        Log.info("Receiving server data and sending back to client for " + host + path);
         // Send back decrypted response data or chunked data
-        byte[] serverData=new byte[1024*1024];
+        byte[] serverData = new byte[2 * 1024 * 1024];
         int serverDataLength;
 
-        try{
-            while(true) {
+        try {
+            int i = 0;
+            while (true) {
                 serverDataLength = this.serverSocket.getInputStream().read(serverData);
-                if(serverDataLength==-1){
+
+                if (serverDataLength == -1 || (serverDataLength == 1 && serverData[0] == 0)) {
                     break;
                 }
 
@@ -114,6 +170,10 @@ public class ClientRequestHandler extends RequestHandler implements Runnable {
 
                 this.clientSocket.getOutputStream().write(actualServerData);
                 this.clientSocket.getOutputStream().flush();
+
+                // Synchronize
+                this.serverSocket.getOutputStream().write(new byte[1]);
+                this.serverSocket.getOutputStream().flush();
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -121,7 +181,7 @@ public class ClientRequestHandler extends RequestHandler implements Runnable {
             return;
         }
 
-        Log.info("All data sent back to client");
+        Log.success("All data sent back to client for " + host + path);
 
         this.closeBothSockets();
     }

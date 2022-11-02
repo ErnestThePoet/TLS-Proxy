@@ -1,6 +1,9 @@
 package utils;
 
 public class Log {
+    public static void success(String s){
+        System.out.printf("[SUCCESS] %s%n",s);
+    }
     public static void info(String s){
         System.out.printf("[INFO] %s%n",s);
     }
