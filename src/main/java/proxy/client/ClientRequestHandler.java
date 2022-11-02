@@ -3,7 +3,6 @@ package proxy.client;
 import config.client.ClientConfigManager;
 import crypto.encoding.Utf8;
 import crypto.encryption.Aes;
-import crypto.encryption.AesKey;
 import proxy.HandshakeController;
 import proxy.RequestHandler;
 import utils.Log;
@@ -12,7 +11,6 @@ import utils.http.HostPortExtractor;
 import java.io.*;
 import java.net.Socket;
 import java.util.Arrays;
-import java.util.Base64;
 
 public class ClientRequestHandler extends RequestHandler implements Runnable {
     public ClientRequestHandler(Socket clientSocket) {
