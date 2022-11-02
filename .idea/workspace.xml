@@ -4,17 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2f7898b2-b765-4e37-aa41-eb57a980bd7e" name="Changes" comment="handshake key ok">
-      <change afterPath="$PROJECT_DIR$/src/main/java/certificate/CertificateProvider.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/certificate/CertificateValidator.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/certificate/ErnestCertificateProvider.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/certificate/ErnestCertificateValidator.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/crypto/sign/Rsa.java" afterDir="false" />
+    <list default="true" id="2f7898b2-b765-4e37-aa41-eb57a980bd7e" name="Changes" comment="certificate provider demo provides 10 bytes">
+      <change afterPath="$PROJECT_DIR$/src/main/java/crypto/hmac/HmacSha384.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/crypto/kdf/HkdfSha384.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/crypto/keyex/Curve25519KeyEx.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/crypto/encryption/Aes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/crypto/encryption/Aes.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/crypto/sign/Rsa.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/crypto/sign/Rsa.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/proxy/HandshakeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/proxy/HandshakeController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/proxy/client/ClientHandshakeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/proxy/client/ClientHandshakeController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/proxy/server/ServerHandshakeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/proxy/server/ServerHandshakeController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/utils/ByteArrayUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/utils/ByteArrayUtil.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -134,7 +134,21 @@
       <option name="project" value="LOCAL" />
       <updated>1667309409087</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="certificate &amp; signature OK">
+      <created>1667317786619</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1667317786619</updated>
+    </task>
+    <task id="LOCAL-00009" summary="certificate provider demo provides 10 bytes">
+      <created>1667318139545</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1667318139545</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -156,6 +170,8 @@
     <MESSAGE value="separated client&amp;socket config" />
     <MESSAGE value="key negotiate OK" />
     <MESSAGE value="handshake key ok" />
-    <option name="LAST_COMMIT_MESSAGE" value="handshake key ok" />
+    <MESSAGE value="certificate &amp; signature OK" />
+    <MESSAGE value="certificate provider demo provides 10 bytes" />
+    <option name="LAST_COMMIT_MESSAGE" value="certificate provider demo provides 10 bytes" />
   </component>
 </project>

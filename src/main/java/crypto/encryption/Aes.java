@@ -9,35 +9,23 @@ import javax.crypto.spec.SecretKeySpec;
 import java.security.*;
 
 public class Aes {
-    private static byte[] aesOperate(int opMode,byte[] data,byte[] key,byte[] iv){
-        Cipher aesCipher;
-
+    private static byte[] aesOperate(int opMode, byte[] data, byte[] key, byte[] iv) {
         try {
-            aesCipher=Cipher.getInstance("AES/CBC/PKCS5Padding");
-        } catch (NoSuchAlgorithmException | NoSuchPaddingException e) {
-            e.printStackTrace();
-            return null;
-        }
+            Cipher aesCipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
 
-        SecretKeySpec secretKeySpec=new SecretKeySpec(key,"AES");
-        IvParameterSpec ivParameterSpec=new IvParameterSpec(iv);
+            SecretKeySpec secretKeySpec = new SecretKeySpec(key, "AES");
+            IvParameterSpec ivParameterSpec = new IvParameterSpec(iv);
 
-        try {
-            aesCipher.init(opMode,secretKeySpec,ivParameterSpec);
-        } catch (InvalidKeyException | InvalidAlgorithmParameterException e) {
-            e.printStackTrace();
-            return null;
-        }
+            aesCipher.init(opMode, secretKeySpec, ivParameterSpec);
 
-        try {
             return aesCipher.doFinal(data);
-        } catch (IllegalBlockSizeException | BadPaddingException e) {
+        } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
     }
 
-    public static byte[] decrypt(byte[] cipher,AesKey key){
+    public static byte[] decrypt(byte[] cipher, AesKey key) {
         return aesOperate(
                 Cipher.DECRYPT_MODE,
                 cipher,
@@ -46,7 +34,7 @@ public class Aes {
         );
     }
 
-    public static byte[] encrypt(byte[] plainText,AesKey key){
+    public static byte[] encrypt(byte[] plainText, AesKey key) {
         return aesOperate(
                 Cipher.ENCRYPT_MODE,
                 plainText,

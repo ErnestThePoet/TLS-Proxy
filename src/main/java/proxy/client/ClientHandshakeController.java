@@ -1,8 +1,11 @@
 package proxy.client;
 
 import certificate.CertificateValidator;
+import crypto.encoding.Utf8;
 import crypto.encryption.Aes;
 import crypto.encryption.DualAesKey;
+import crypto.hmac.HmacSha384;
+import crypto.kdf.HkdfSha384;
 import proxy.HandshakeController;
 import utils.ByteArrayUtil;
 import utils.Log;
@@ -22,9 +25,10 @@ public class ClientHandshakeController extends HandshakeController {
 
     @Override
     public DualAesKey negotiateApplicationKey() {
-        // Generate key pair and random, send to server
+        // [Client Key Exchange Generation] Generate key pair and random
         this.generateX22519KeyPair();
 
+        // [Client Hello] Send key pair and random to server
         try {
             var selfRandomWithPublicKey = this.getRandomWithPublicKey();
             this.hostSocket.getOutputStream().write(selfRandomWithPublicKey);
@@ -52,7 +56,7 @@ public class ClientHandshakeController extends HandshakeController {
             return null;
         }
 
-        // Negotiate handshake key
+        // [Client Handshake Keys Calc] Negotiate handshake key
         this.calculateHandshakeKey(
                 Arrays.copyOfRange(
                         serverRandomWithPublicKey, 32, 64));
@@ -68,6 +72,7 @@ public class ClientHandshakeController extends HandshakeController {
             this.addTraffic(certificateEncrypted);
         } catch (IOException e) {
             e.printStackTrace();
+            this.closeHostSocket();
             return null;
         }
 
@@ -82,6 +87,7 @@ public class ClientHandshakeController extends HandshakeController {
                     Arrays.copyOf(trafficSignatureEncrypted,trafficSignatureEncryptedLength);
         } catch (IOException e) {
             e.printStackTrace();
+            this.closeHostSocket();
             return null;
         }
 
@@ -94,21 +100,64 @@ public class ClientHandshakeController extends HandshakeController {
 
         if(!certificateValidator.validateCertificate(certificate)){
             Log.error("Certificate validation failed");
+            this.closeHostSocket();
             return null;
         }
 
         if(!certificateValidator.validateTrafficSignature(
                 certificate, ByteArrayUtil.concat(this.getTrafficConcat()),trafficSignature)){
             Log.error("Traffic signature validation failed");
+            this.closeHostSocket();
             return null;
         }
 
         // Server traffic signature does not include traffic signature
         this.addTraffic(trafficSignatureEncrypted);
 
-        Log.info("SUCCESS");
 
-        return null;
+        // Receive encrypted traffic hash
+        byte[] trafficHashEncrypted=new byte[4096];
+        int trafficHashEncryptedLength;
+        try{
+            trafficHashEncryptedLength=
+                    this.hostSocket.getInputStream().read(trafficHashEncrypted);
+            trafficHashEncrypted=
+                    Arrays.copyOf(trafficHashEncrypted,trafficHashEncryptedLength);
+        } catch (IOException e) {
+            e.printStackTrace();
+            this.closeHostSocket();
+            return null;
+        }
+
+        if(!HmacSha384.verify(HkdfSha384.expand(this.serverSecret, Utf8.decode("finished"),32),
+                this.getTrafficHash(),
+                Aes.decrypt(trafficHashEncrypted,this.handshakeKey.getServerKey()))){
+            Log.error("Traffic hash (Server Finished) verification failed");
+            this.closeHostSocket();
+            return null;
+        }
+
+        this.addTraffic(trafficHashEncrypted);
+
+        // [Client Application Keys Calc]
+        this.calculateApplicationKey();
+
+        // [Client Handshake Finished] Send encrypted traffic hash to server
+        try {
+            var encryptedTrafficHash = Aes.encrypt(
+                    HmacSha384.mac(
+                            HkdfSha384.expand(this.clientSecret, Utf8.decode("finished"),32),
+                            this.getTrafficHash()),
+                    this.handshakeKey.getClientKey());
+            this.hostSocket.getOutputStream().write(encryptedTrafficHash);
+            this.hostSocket.getOutputStream().flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+            this.closeHostSocket();
+            return null;
+        }
+
+        return this.applicationKey;
     }
 
     private void closeHostSocket() {
