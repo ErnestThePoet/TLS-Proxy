@@ -38,9 +38,9 @@ public abstract class RequestHandler {
     }
 
     protected void connectToServer(String host,int port){
-        // TODO use actual port for server side
+        // Note: use actual port for server side
         try {
-            this.serverSocket= new Socket(host,17750);
+            this.serverSocket= new Socket(host,port);
         } catch (IOException e) {
             e.printStackTrace();
             this.serverSocket=null;

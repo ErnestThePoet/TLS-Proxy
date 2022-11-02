@@ -2,6 +2,7 @@ package certificate;
 
 import crypto.hash.Sha384;
 
+// TODO Demo code only
 public class ErnestCertificateProvider implements CertificateProvider{
     @Override
     public byte[] getCertificate() {

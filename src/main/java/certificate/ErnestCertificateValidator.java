@@ -4,6 +4,7 @@ import crypto.hash.Sha384;
 
 import java.util.Base64;
 
+// TODO Demo code only
 public class ErnestCertificateValidator implements CertificateValidator{
     @Override
     public boolean validateCertificate(byte[] certificate) {
