@@ -8,16 +8,17 @@ import utils.http.HostPortExtractor;
 
 import java.io.*;
 import java.net.Socket;
+import java.util.Base64;
 
-public class ClientRequestHandler extends RequestHandler implements Runnable{
+public class ClientRequestHandler extends RequestHandler implements Runnable {
     private BufferedReader clientSocketReader;
 
 
-    public ClientRequestHandler(Socket clientSocket){
+    public ClientRequestHandler(Socket clientSocket) {
         super(clientSocket);
 
         try {
-            this.clientSocketReader=new BufferedReader(
+            this.clientSocketReader = new BufferedReader(
                     new InputStreamReader(clientSocket.getInputStream()));
         } catch (IOException e) {
             e.printStackTrace();
@@ -29,62 +30,89 @@ public class ClientRequestHandler extends RequestHandler implements Runnable{
         }
     }
 
-    private String getRequestHost(){
-        while(true){
+    private String getRequestHost() {
+        while (true) {
             String currentLine;
 
             try {
-                currentLine=this.clientSocketReader.readLine();
+                currentLine = this.clientSocketReader.readLine();
             } catch (IOException e) {
                 e.printStackTrace();
                 this.closeSocket(this.clientSocket);
                 return null;
             }
 
-            if(currentLine==null){
+            if (currentLine == null) {
                 return null;
             }
 
-            if(currentLine.startsWith("Host:")){
+            if (currentLine.startsWith("Host:")) {
                 return currentLine
-                        .replace("Host:","")
-                        .replace(" ","");
+                        .replace("Host:", "")
+                        .replace(" ", "");
             }
         }
     }
 
     @Override
     public void run() {
-        String host=this.getRequestHost();
+        String host = this.getRequestHost();
 
-        if(host==null){
+        if (host == null) {
             Log.error("Cannot get host from request header");
             this.closeSocket(this.clientSocket);
             return;
         }
 
-        if(!ClientConfigManager.isTargetHost(host)){
-            Log.info("Ignore request to "+host);
+        if (!ClientConfigManager.isTargetHost(host)) {
+            Log.info("Ignore request to " + host);
             return;
         }
 
-        var hostPort= HostPortExtractor.extract(host);
+        var hostPort = HostPortExtractor.extract(host);
 
-        Socket hostSocket=this.connectToHost(hostPort.getHost(),hostPort.getPort());
+        Socket hostSocket = this.connectToHost(hostPort.getHost(), hostPort.getPort());
 
-        if(hostSocket==null){
+        if (hostSocket == null) {
             Log.error("Cannot connect to host");
             this.closeSocket(this.clientSocket);
             return;
         }
 
-        Log.info("Negotiating application key with "+host);
+        Log.info("Negotiating application key with " + host);
 
-        HandshakeController handshakeController=
+        HandshakeController handshakeController =
                 new ClientHandshakeController(hostSocket);
 
-        var applicationKey=handshakeController.negotiateApplicationKey();
+        var applicationKey = handshakeController.negotiateApplicationKey();
 
+        // Forward encrypted client data
+        byte[] clientData = new byte[1024 * 1024];
+        int clientDataLength;
+
+        System.out.println(Base64.getEncoder().encodeToString(applicationKey.getClientKey().getKey()));
+        System.out.println(Base64.getEncoder().encodeToString(applicationKey.getClientKey().getIv()));
+        System.out.println(Base64.getEncoder().encodeToString(applicationKey.getServerKey().getKey()));
+        System.out.println(Base64.getEncoder().encodeToString(applicationKey.getServerKey().getIv()));
+
+        this.closeSocket(hostSocket);
+
+        try {
+            while (this.clientSocket.isConnected()) {
+                clientDataLength=this.clientSocket.getInputStream().read(clientData);
+                System.out.println(clientDataLength);
+                if(clientDataLength==-1){
+                    break;
+                }
+
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            this.closeSocket(this.clientSocket);
+            return;
+        }
+
+        System.out.println("EXIT");
         this.closeSocket(this.clientSocket);
         this.closeSocket(hostSocket);
     }

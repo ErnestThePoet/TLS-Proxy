@@ -4,7 +4,6 @@ import certificate.CertificateProvider;
 import crypto.encoding.Utf8;
 import crypto.encryption.Aes;
 import crypto.encryption.DualAesKey;
-import crypto.hash.Sha384;
 import crypto.hmac.HmacSha384;
 import crypto.kdf.HkdfSha384;
 import proxy.HandshakeController;
@@ -49,6 +48,9 @@ public class ServerHandshakeController extends HandshakeController {
             this.clientSocket.getOutputStream().write(selfRandomWithPublicKey);
             this.clientSocket.getOutputStream().flush();
             this.addTraffic(selfRandomWithPublicKey);
+
+            // Synchronize
+            this.clientSocket.getInputStream().read(new byte[1]);
         } catch (IOException e) {
             e.printStackTrace();
             this.closeClientSocket();
@@ -69,6 +71,9 @@ public class ServerHandshakeController extends HandshakeController {
             this.clientSocket.getOutputStream().write(encryptedCertificate);
             this.clientSocket.getOutputStream().flush();
             this.addTraffic(encryptedCertificate);
+
+            // Synchronize
+            this.clientSocket.getInputStream().read(new byte[1]);
         } catch (IOException e) {
             e.printStackTrace();
             this.closeClientSocket();
@@ -83,6 +88,9 @@ public class ServerHandshakeController extends HandshakeController {
             this.clientSocket.getOutputStream().write(encryptedTrafficSignature);
             this.clientSocket.getOutputStream().flush();
             this.addTraffic(encryptedTrafficSignature);
+
+            // Synchronize
+            this.clientSocket.getInputStream().read(new byte[1]);
         } catch (IOException e) {
             e.printStackTrace();
             this.closeClientSocket();

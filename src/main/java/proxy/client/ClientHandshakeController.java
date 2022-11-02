@@ -50,6 +50,10 @@ public class ClientHandshakeController extends HandshakeController {
             }
 
             this.addTraffic(serverRandomWithPublicKey);
+
+            // Synchronize
+            this.hostSocket.getOutputStream().write(new byte[1]);
+            this.hostSocket.getOutputStream().flush();
         } catch (IOException e) {
             e.printStackTrace();
             this.closeHostSocket();
@@ -70,6 +74,10 @@ public class ClientHandshakeController extends HandshakeController {
                     this.hostSocket.getInputStream().read(certificateEncrypted);
             certificateEncrypted=Arrays.copyOf(certificateEncrypted,certificateEncryptedLength);
             this.addTraffic(certificateEncrypted);
+
+            // Synchronize
+            this.hostSocket.getOutputStream().write(new byte[1]);
+            this.hostSocket.getOutputStream().flush();
         } catch (IOException e) {
             e.printStackTrace();
             this.closeHostSocket();
@@ -85,6 +93,10 @@ public class ClientHandshakeController extends HandshakeController {
                     this.hostSocket.getInputStream().read(trafficSignatureEncrypted);
             trafficSignatureEncrypted=
                     Arrays.copyOf(trafficSignatureEncrypted,trafficSignatureEncryptedLength);
+
+            // Synchronize
+            this.hostSocket.getOutputStream().write(new byte[1]);
+            this.hostSocket.getOutputStream().flush();
         } catch (IOException e) {
             e.printStackTrace();
             this.closeHostSocket();
