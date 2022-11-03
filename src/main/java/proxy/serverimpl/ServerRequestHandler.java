@@ -40,6 +40,12 @@ public class ServerRequestHandler extends RequestHandler implements Runnable {
 
         this.applicationKey = handshakeController.negotiateApplicationKey();
 
+        if(this.applicationKey==null){
+            Log.error("Application key negotiation failed");
+            this.closeClientSocket();
+            return;
+        }
+
         Log.success("Successfully calculated application key with client");
 
         // Receive encrypted client request data

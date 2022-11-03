@@ -83,6 +83,12 @@ public class ClientRequestHandler extends RequestHandler implements Runnable {
 
         this.applicationKey = handshakeController.negotiateApplicationKey();
 
+        if(this.applicationKey==null){
+            Log.error("Application key negotiation failed for "+host+path);
+            this.closeBothSockets();
+            return;
+        }
+
         Log.success("Successfully calculated application key for " + host + path
                 + " Sending encrypted request data...");
 
@@ -91,7 +97,7 @@ public class ClientRequestHandler extends RequestHandler implements Runnable {
             this.encryptAndSendToServer(clientData);
         } catch (IOException e) {
             e.printStackTrace();
-            this.closeClientSocket();
+            this.closeBothSockets();
             return;
         }
 
