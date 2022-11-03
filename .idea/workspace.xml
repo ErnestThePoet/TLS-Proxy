@@ -4,20 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2f7898b2-b765-4e37-aa41-eb57a980bd7e" name="Changes" comment="simplified server config file; resorted class structure">
+    <list default="true" id="2f7898b2-b765-4e37-aa41-eb57a980bd7e" name="Changes" comment="updated readme debug info; used more record">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/configs/configs_client.json" beforeDir="false" afterPath="$PROJECT_DIR$/configs/configs_client.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/crypto/encryption/Aes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/crypto/encryption/Aes.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/crypto/encryption/AesKey.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/crypto/encryption/objs/AesKey.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/crypto/encryption/DualAesKey.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/crypto/encryption/objs/DualAesKey.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/handshake/HandshakeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/handshake/HandshakeController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/handshake/clientimpl/ClientHandshakeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/handshake/clientimpl/ClientHandshakeController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/handshake/serverimpl/ServerHandshakeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/handshake/serverimpl/ServerHandshakeController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/proxy/RequestHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/proxy/RequestHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/proxy/clientimpl/ClientRequestHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/proxy/clientimpl/ClientRequestHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/proxy/serverimpl/ServerRequestHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/proxy/serverimpl/ServerRequestHandler.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -246,7 +235,14 @@
       <option name="project" value="LOCAL" />
       <updated>1667443187386</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="updated readme debug info; used more record">
+      <created>1667445156555</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1667445156555</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -283,7 +279,8 @@
     <MESSAGE value="added more details to README" />
     <MESSAGE value="added space before property type" />
     <MESSAGE value="simplified server config file; resorted class structure" />
-    <option name="LAST_COMMIT_MESSAGE" value="simplified server config file; resorted class structure" />
+    <MESSAGE value="updated readme debug info; used more record" />
+    <option name="LAST_COMMIT_MESSAGE" value="updated readme debug info; used more record" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
