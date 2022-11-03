@@ -40,7 +40,7 @@ public class ServerRequestHandler extends RequestHandler implements Runnable {
 
         this.applicationKey = handshakeController.negotiateApplicationKey();
 
-        Log.info("Successfully calculated application key with client");
+        Log.success("Successfully calculated application key with client");
 
         // Receive encrypted client request data
         byte[] clientData = new byte[8 * 1024 * 1024];
@@ -180,7 +180,7 @@ public class ServerRequestHandler extends RequestHandler implements Runnable {
             return;
         }
 
-        Log.info("All data transmitted to client");
+        Log.success("All response data transmitted to client");
 
         this.closeBothSockets();
     }

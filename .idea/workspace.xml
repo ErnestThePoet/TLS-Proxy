@@ -4,9 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2f7898b2-b765-4e37-aa41-eb57a980bd7e" name="Changes" comment="updated readme debug info; used more record">
+    <list default="true" id="2f7898b2-b765-4e37-aa41-eb57a980bd7e" name="Changes" comment="more details for README">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/configs/configs_client.json" beforeDir="false" afterPath="$PROJECT_DIR$/configs/configs_client.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -242,7 +241,14 @@
       <option name="project" value="LOCAL" />
       <updated>1667445156555</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary="more details for README">
+      <created>1667447846687</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1667447846687</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -280,7 +286,8 @@
     <MESSAGE value="added space before property type" />
     <MESSAGE value="simplified server config file; resorted class structure" />
     <MESSAGE value="updated readme debug info; used more record" />
-    <option name="LAST_COMMIT_MESSAGE" value="updated readme debug info; used more record" />
+    <MESSAGE value="more details for README" />
+    <option name="LAST_COMMIT_MESSAGE" value="more details for README" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

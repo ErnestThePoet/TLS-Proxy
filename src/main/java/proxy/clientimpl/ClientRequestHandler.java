@@ -83,7 +83,7 @@ public class ClientRequestHandler extends RequestHandler implements Runnable {
 
         this.applicationKey = handshakeController.negotiateApplicationKey();
 
-        Log.info("Successfully calculated application key for " + host + path
+        Log.success("Successfully calculated application key for " + host + path
                 + " Sending encrypted request data...");
 
         // Forward encrypted client data
