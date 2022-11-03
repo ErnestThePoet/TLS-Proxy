@@ -1,7 +1,7 @@
-import config.client.ClientConfigManager;
-import config.server.ServerConfigManager;
-import proxy.client.ClientTlsProxy;
-import proxy.server.ServerTlsProxy;
+import config.clientimpl.ClientConfigManager;
+import config.serverimpl.ServerConfigManager;
+import proxy.clientimpl.ClientTlsProxy;
+import proxy.serverimpl.ServerTlsProxy;
 import utils.Log;
 
 import java.io.IOException;

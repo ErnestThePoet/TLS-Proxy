@@ -1,6 +1,6 @@
-package proxy.client;
+package proxy.clientimpl;
 
-import config.client.ClientConfigManager;
+import config.clientimpl.ClientConfigManager;
 import proxy.TlsProxy;
 import utils.Log;
 

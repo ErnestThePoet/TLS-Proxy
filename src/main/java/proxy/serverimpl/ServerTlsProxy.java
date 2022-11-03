@@ -1,6 +1,6 @@
-package proxy.server;
+package proxy.serverimpl;
 
-import config.server.ServerConfigManager;
+import config.serverimpl.ServerConfigManager;
 import proxy.TlsProxy;
 import utils.Log;
 

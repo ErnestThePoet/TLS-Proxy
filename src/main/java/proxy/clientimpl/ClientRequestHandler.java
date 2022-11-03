@@ -1,12 +1,12 @@
-package proxy.client;
+package proxy.clientimpl;
 
-import config.client.ClientConfigManager;
-import crypto.encoding.Utf8;
+import config.clientimpl.ClientConfigManager;
 import crypto.encryption.Aes;
-import proxy.HandshakeController;
+import handshake.clientimpl.ClientHandshakeController;
+import handshake.HandshakeController;
 import proxy.RequestHandler;
 import utils.Log;
-import utils.http.HostPortExtractor;
+import utils.http.HttpUtil;
 
 import java.io.*;
 import java.net.Socket;
@@ -15,61 +15,6 @@ import java.util.Arrays;
 public class ClientRequestHandler extends RequestHandler implements Runnable {
     public ClientRequestHandler(Socket clientSocket) {
         super(clientSocket);
-    }
-
-    private record HostPathAndNewRequestData(String host, String newPath, byte[] newRequestData) {
-    }
-
-    protected HostPathAndNewRequestData getRequestHostAndReplacePath(byte[] requestData) {
-        var allLines = Utf8.encode(requestData).split("\r\n");
-
-        String host = null;
-
-        for (var i : allLines) {
-            if (i.startsWith("Host:")) {
-                host = i
-                        .replace("Host:", "")
-                        .replace(" ", "");
-                break;
-            }
-        }
-
-        if (host == null) {
-            return new HostPathAndNewRequestData(null, null, null);
-        }
-
-        var firstLineSplit = allLines[0].split(" ");
-        if (firstLineSplit.length != 3) {
-            return new HostPathAndNewRequestData(host, null, null);
-        }
-
-        var newPath = firstLineSplit[1]
-                .replace("http://", "")
-                .replace(host, "");
-
-        byte[] newRequestData = new byte[firstLineSplit[0].length()
-                + newPath.length() + 2
-                + firstLineSplit[2].length()
-                + requestData.length - allLines[0].length()];
-
-        System.arraycopy(Utf8.decode(firstLineSplit[0]), 0,
-                newRequestData, 0, firstLineSplit[0].length());
-
-        System.arraycopy(Utf8.decode(" " + newPath + " "), 0,
-                newRequestData, firstLineSplit[0].length(), newPath.length() + 2);
-
-        System.arraycopy(Utf8.decode(firstLineSplit[2]), 0,
-                newRequestData, firstLineSplit[0].length() + newPath.length() + 2,
-                firstLineSplit[2].length());
-
-        System.arraycopy(requestData, allLines[0].length(),
-                newRequestData,
-                firstLineSplit[0].length() + newPath.length() + 2 + firstLineSplit[2].length(),
-                requestData.length - allLines[0].length());
-
-        //Log.info(String.format("Replaced header path [%s] with [%s]",firstLineSplit[1],newPath));
-
-        return new HostPathAndNewRequestData(host, newPath, newRequestData);
     }
 
     private void encryptAndSendToServer(byte[] data) throws IOException {
@@ -98,11 +43,12 @@ public class ClientRequestHandler extends RequestHandler implements Runnable {
             return;
         }
 
-        var replaceData = this.getRequestHostAndReplacePath(clientData);
+        var hostAndShortenPathResult =
+                HttpUtil.getRequestHeaderHostAndShortenPath(clientData);
 
-        String host = replaceData.host;
-        String path = replaceData.newPath;
-        clientData = replaceData.newRequestData;
+        String host = hostAndShortenPathResult.host();
+        String path = hostAndShortenPathResult.newPath();
+        clientData = hostAndShortenPathResult.newRequestData();
 
         if (host == null) {
             Log.error("Cannot get host from request header");
@@ -120,9 +66,9 @@ public class ClientRequestHandler extends RequestHandler implements Runnable {
             return;
         }
 
-        var serverPort = HostPortExtractor.extract(host);
+        var serverPort = HttpUtil.extractHostPort(host);
 
-        this.connectToServer(serverPort.getHost(), serverPort.getPort());
+        this.connectToServer(serverPort.host(), serverPort.port());
 
         if (this.serverSocket == null) {
             Log.error("Cannot connect to host for " + host + path);

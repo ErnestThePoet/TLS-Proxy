@@ -1,12 +1,12 @@
-package proxy.server;
+package handshake.serverimpl;
 
-import certificate.CertificateProvider;
+import handshake.HandshakeController;
+import handshake.certificate.CertificateProvider;
 import crypto.encoding.Utf8;
 import crypto.encryption.Aes;
 import crypto.encryption.DualAesKey;
 import crypto.hmac.HmacSha384;
 import crypto.kdf.HkdfSha384;
-import proxy.HandshakeController;
 import utils.Log;
 
 import java.io.IOException;

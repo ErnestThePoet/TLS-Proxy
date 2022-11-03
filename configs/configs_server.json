@@ -1,9 +1,4 @@
 {
     "port": 17750,
-    "proxyPasses": [
-        {
-            "location":"[\\d.]+:8997",
-            "pass":"localhost:8897"
-        }
-    ]
+    "proxyPass": "localhost:8897"
 }

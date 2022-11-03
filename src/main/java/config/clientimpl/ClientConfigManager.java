@@ -1,4 +1,4 @@
-package config.client;
+package config.clientimpl;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;

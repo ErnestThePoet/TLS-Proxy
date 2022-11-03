@@ -1,4 +1,4 @@
-package config.server;
+package config.serverimpl;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -23,12 +23,7 @@ public class ServerConfigManager {
         return config.getPort();
     }
 
-    public static String getProxyPass(String location){
-        for(var i:config.getProxyPasses()){
-            if(location.matches(i.getLocation())){
-                return i.getPass();
-            }
-        }
-        return null;
+    public static String getProxyPass(){
+        return config.getProxyPass();
     }
 }

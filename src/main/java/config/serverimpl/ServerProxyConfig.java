@@ -1,13 +1,11 @@
-package config.server;
+package config.serverimpl;
 
 import config.TlsProxyConfig;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import java.util.List;
-
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class ServerProxyConfig extends TlsProxyConfig {
-    private List<ProxyPassItem> proxyPasses;
+    private String proxyPass;
 }

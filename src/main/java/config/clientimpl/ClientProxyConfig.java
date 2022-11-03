@@ -1,4 +1,4 @@
-package config.client;
+package config.clientimpl;
 
 import config.TlsProxyConfig;
 import lombok.Data;

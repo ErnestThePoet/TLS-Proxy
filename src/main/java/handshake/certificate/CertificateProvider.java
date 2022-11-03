@@ -1,4 +1,6 @@
-package certificate;
+package handshake.certificate;
+
+import handshake.certificate.impl.ErnestCertificateProvider;
 
 public interface CertificateProvider {
     /**

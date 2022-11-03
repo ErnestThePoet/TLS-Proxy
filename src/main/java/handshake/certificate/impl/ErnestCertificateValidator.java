@@ -1,11 +1,12 @@
-package certificate;
+package handshake.certificate.impl;
 
 import crypto.hash.Sha384;
+import handshake.certificate.CertificateValidator;
 
 import java.util.Base64;
 
 // TODO Demo code only
-public class ErnestCertificateValidator implements CertificateValidator{
+public class ErnestCertificateValidator implements CertificateValidator {
     @Override
     public boolean validateCertificate(byte[] certificate) {
         return true;

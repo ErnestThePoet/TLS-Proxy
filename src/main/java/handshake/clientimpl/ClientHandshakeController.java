@@ -1,12 +1,12 @@
-package proxy.client;
+package handshake.clientimpl;
 
-import certificate.CertificateValidator;
+import handshake.HandshakeController;
+import handshake.certificate.CertificateValidator;
 import crypto.encoding.Utf8;
 import crypto.encryption.Aes;
 import crypto.encryption.DualAesKey;
 import crypto.hmac.HmacSha384;
 import crypto.kdf.HkdfSha384;
-import proxy.HandshakeController;
 import utils.ByteArrayUtil;
 import utils.Log;
 

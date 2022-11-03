@@ -1,13 +1,14 @@
-package proxy.server;
+package proxy.serverimpl;
 
-import config.server.ServerConfigManager;
+import config.serverimpl.ServerConfigManager;
 import crypto.encoding.Utf8;
 import crypto.encryption.Aes;
-import proxy.HandshakeController;
+import handshake.HandshakeController;
+import handshake.serverimpl.ServerHandshakeController;
 import proxy.RequestHandler;
 import utils.ByteArrayUtil;
 import utils.Log;
-import utils.http.HostPortExtractor;
+import utils.http.HttpUtil;
 
 import java.io.IOException;
 import java.net.Socket;
@@ -20,52 +21,6 @@ public class ServerRequestHandler extends RequestHandler implements Runnable {
         super(clientSocket);
     }
 
-    private record ReplaceHostResult(byte[] newRequestData, String newHost) {
-    }
-
-    private ReplaceHostResult replaceRequestHeaderHost(byte[] requestData) {
-        String requestString = Utf8.encode(requestData);
-        int hostHIndex = requestString.indexOf("Host:");
-        if (hostHIndex == -1) {
-            Log.error("Host not found in request header");
-            return new ReplaceHostResult(requestData, null);
-        }
-
-        int hostCrIndex = requestString.indexOf('\r', hostHIndex);
-        String originalHost = requestString.substring(hostHIndex + 5, hostCrIndex)
-                .replace(" ", "");
-        String proxyPass = ServerConfigManager.getProxyPass(originalHost);
-
-        if (proxyPass == null) {
-            Log.error("No matching proxy pass found for:"+originalHost);
-            return new ReplaceHostResult(requestData, null);
-        }
-
-        byte[] newRequestData = new byte[hostHIndex + proxyPass.length() + 6 + requestData.length - hostCrIndex];
-        System.arraycopy(requestData, 0, newRequestData, 0, hostHIndex);
-        System.arraycopy(Utf8.decode("Host: " + proxyPass), 0,
-                newRequestData, hostHIndex, proxyPass.length() + 6);
-        System.arraycopy(requestData, hostCrIndex,
-                newRequestData, hostHIndex + proxyPass.length() + 6, requestData.length - hostCrIndex);
-
-        Log.info(String.format("Replaced request header Host [%s] with [%s]", originalHost, proxyPass));
-
-        return new ReplaceHostResult(newRequestData, proxyPass);
-    }
-
-    private int getContentLength(byte[] responseData) {
-        var allLines = Utf8.encode(responseData).split("\r\n");
-
-        for (var i : allLines) {
-            if (i.startsWith("Content-Length:")) {
-                return Integer.parseInt(i
-                        .replace("Content-Length:", "")
-                        .replace(" ", ""));
-            }
-        }
-
-        return -1;
-    }
 
     private void encryptAndSendToClient(byte[] data) throws IOException {
         this.clientSocket.getOutputStream().write(
@@ -100,15 +55,21 @@ public class ServerRequestHandler extends RequestHandler implements Runnable {
         }
 
         // Replace host field in request header
-        var replaceHostResult = this.replaceRequestHeaderHost(clientData);
-        if (replaceHostResult.newHost == null) {
+        String newHost=ServerConfigManager.getProxyPass();
+        var replaceHostResult =
+                HttpUtil.replaceRequestHeaderHost(newHost,clientData);
+        if (replaceHostResult.originalHost() == null) {
+            Log.error("Host not found in request header");
             this.closeClientSocket();
             return;
         }
 
-        var serverPort = HostPortExtractor.extract(replaceHostResult.newHost);
+        Log.info(String.format("Replaced request header Host [%s] with [%s]",
+                replaceHostResult.originalHost(), newHost));
 
-        this.connectToServer(serverPort.getHost(), serverPort.getPort());
+        var serverPort = HttpUtil.extractHostPort(newHost);
+
+        this.connectToServer(serverPort.host(), serverPort.port());
 
         if (this.serverSocket == null) {
             Log.error("Cannot connect to host");
@@ -118,7 +79,7 @@ public class ServerRequestHandler extends RequestHandler implements Runnable {
 
         // Forward request data to server
         try {
-            this.serverSocket.getOutputStream().write(replaceHostResult.newRequestData);
+            this.serverSocket.getOutputStream().write(replaceHostResult.newRequestData());
             this.serverSocket.getOutputStream().flush();
         } catch (IOException e) {
             e.printStackTrace();
@@ -152,7 +113,7 @@ public class ServerRequestHandler extends RequestHandler implements Runnable {
         String actualResponseString = Utf8.encode(actualResponseData);
 
         try {
-            int contentLength = this.getContentLength(actualResponseData);
+            int contentLength = HttpUtil.getContentLength(actualResponseData);
 
             // Response transmission type: Chunked
             // Receive data in loop until encounter "\r\n\0\r\n"

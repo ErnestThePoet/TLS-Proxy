@@ -1,4 +1,4 @@
-package proxy;
+package handshake;
 
 import crypto.encoding.Utf8;
 import crypto.encryption.AesKey;
