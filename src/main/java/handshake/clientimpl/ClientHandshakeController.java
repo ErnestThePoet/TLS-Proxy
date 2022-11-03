@@ -4,7 +4,7 @@ import handshake.HandshakeController;
 import handshake.certificate.CertificateValidator;
 import crypto.encoding.Utf8;
 import crypto.encryption.Aes;
-import crypto.encryption.DualAesKey;
+import crypto.encryption.objs.DualAesKey;
 import crypto.hmac.HmacSha384;
 import crypto.kdf.HkdfSha384;
 import utils.ByteArrayUtil;
@@ -104,9 +104,9 @@ public class ClientHandshakeController extends HandshakeController {
         }
 
         var certificate= Aes.decrypt(
-                trafficSignatureEncrypted,this.handshakeKey.getServerKey());
+                trafficSignatureEncrypted,this.handshakeKey.serverKey());
         var trafficSignature=Aes.decrypt(
-                trafficSignatureEncrypted,this.handshakeKey.getServerKey());
+                trafficSignatureEncrypted,this.handshakeKey.serverKey());
 
         CertificateValidator certificateValidator=CertificateValidator.getInstance();
 
@@ -143,7 +143,7 @@ public class ClientHandshakeController extends HandshakeController {
 
         if(!HmacSha384.verify(HkdfSha384.expand(this.serverSecret, Utf8.decode("finished"),32),
                 this.getTrafficHash(),
-                Aes.decrypt(trafficHashEncrypted,this.handshakeKey.getServerKey()))){
+                Aes.decrypt(trafficHashEncrypted,this.handshakeKey.serverKey()))){
             Log.error("Traffic hash (Server Finished) verification failed");
             this.closeHostSocket();
             return null;
@@ -160,7 +160,7 @@ public class ClientHandshakeController extends HandshakeController {
                     HmacSha384.mac(
                             HkdfSha384.expand(this.clientSecret, Utf8.decode("finished"),32),
                             this.getTrafficHash()),
-                    this.handshakeKey.getClientKey());
+                    this.handshakeKey.clientKey());
             this.serverSocket.getOutputStream().write(encryptedTrafficHash);
             this.serverSocket.getOutputStream().flush();
         } catch (IOException e) {

@@ -4,7 +4,7 @@ import handshake.HandshakeController;
 import handshake.certificate.CertificateProvider;
 import crypto.encoding.Utf8;
 import crypto.encryption.Aes;
-import crypto.encryption.DualAesKey;
+import crypto.encryption.objs.DualAesKey;
 import crypto.hmac.HmacSha384;
 import crypto.kdf.HkdfSha384;
 import utils.Log;
@@ -70,7 +70,7 @@ public class ServerHandshakeController extends HandshakeController {
         // [Server Certificate] Send encrypted certificate to client
         try {
             var encryptedCertificate = Aes.encrypt(
-                    certificateProvider.getCertificate(),this.handshakeKey.getServerKey());
+                    certificateProvider.getCertificate(),this.handshakeKey.serverKey());
             this.clientSocket.getOutputStream().write(encryptedCertificate);
             this.clientSocket.getOutputStream().flush();
             this.addTraffic(encryptedCertificate);
@@ -90,7 +90,7 @@ public class ServerHandshakeController extends HandshakeController {
         try {
             var encryptedTrafficSignature = Aes.encrypt(
                     certificateProvider.signTraffic(
-                            this.getTrafficConcat()), this.handshakeKey.getServerKey());
+                            this.getTrafficConcat()), this.handshakeKey.serverKey());
             this.clientSocket.getOutputStream().write(encryptedTrafficSignature);
             this.clientSocket.getOutputStream().flush();
             this.addTraffic(encryptedTrafficSignature);
@@ -112,7 +112,7 @@ public class ServerHandshakeController extends HandshakeController {
                     HmacSha384.mac(
                             HkdfSha384.expand(this.serverSecret, Utf8.decode("finished"),32),
                             this.getTrafficHash()),
-                    this.handshakeKey.getServerKey());
+                    this.handshakeKey.serverKey());
             this.clientSocket.getOutputStream().write(encryptedTrafficHash);
             this.clientSocket.getOutputStream().flush();
             this.addTraffic(encryptedTrafficHash);
@@ -141,7 +141,7 @@ public class ServerHandshakeController extends HandshakeController {
 
         if(!HmacSha384.verify(HkdfSha384.expand(this.clientSecret, Utf8.decode("finished"),32),
                 this.getTrafficHash(),
-                Aes.decrypt(trafficHashEncrypted,this.handshakeKey.getClientKey()))){
+                Aes.decrypt(trafficHashEncrypted,this.handshakeKey.clientKey()))){
             Log.error("Traffic hash (Client Finished) verification failed");
             this.closeClientSocket();
             return null;

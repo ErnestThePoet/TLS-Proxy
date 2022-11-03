@@ -1,5 +1,7 @@
 package crypto.encryption;
 
+import crypto.encryption.objs.AesKey;
+
 import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
@@ -25,8 +27,8 @@ public class Aes {
         return aesOperate(
                 Cipher.DECRYPT_MODE,
                 cipher,
-                key.getKey(),
-                key.getIv()
+                key.key(),
+                key.iv()
         );
     }
 
@@ -34,8 +36,8 @@ public class Aes {
         return aesOperate(
                 Cipher.ENCRYPT_MODE,
                 plainText,
-                key.getKey(),
-                key.getIv()
+                key.key(),
+                key.iv()
         );
     }
 }

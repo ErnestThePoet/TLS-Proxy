@@ -1,7 +1,6 @@
 package proxy;
 
-import crypto.encoding.Utf8;
-import crypto.encryption.DualAesKey;
+import crypto.encryption.objs.DualAesKey;
 
 import java.io.*;
 import java.net.Socket;

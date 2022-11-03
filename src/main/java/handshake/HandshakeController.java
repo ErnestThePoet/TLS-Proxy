@@ -1,8 +1,8 @@
 package handshake;
 
 import crypto.encoding.Utf8;
-import crypto.encryption.AesKey;
-import crypto.encryption.DualAesKey;
+import crypto.encryption.objs.AesKey;
+import crypto.encryption.objs.DualAesKey;
 import crypto.hash.Sha384;
 import crypto.kdf.HkdfSha384;
 import crypto.keyex.Curve25519KeyEx;

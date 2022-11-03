@@ -19,13 +19,13 @@ public class ClientRequestHandler extends RequestHandler implements Runnable {
 
     private void encryptAndSendToServer(byte[] data) throws IOException {
         this.serverSocket.getOutputStream().write(
-                Aes.encrypt(data, this.applicationKey.getClientKey())
+                Aes.encrypt(data, this.applicationKey.clientKey())
         );
         this.serverSocket.getOutputStream().flush();
     }
 
     private byte[] decryptDataFromServer(byte[] data) {
-        return Aes.decrypt(data, this.applicationKey.getServerKey());
+        return Aes.decrypt(data, this.applicationKey.serverKey());
     }
 
     @Override

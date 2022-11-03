@@ -4,33 +4,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2f7898b2-b765-4e37-aa41-eb57a980bd7e" name="Changes" comment="added space before property type">
-      <change afterPath="$PROJECT_DIR$/src/main/java/utils/http/HttpUtil.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/utils/http/objs/HostAndShortenPathResult.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/utils/http/objs/HostPort.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/utils/http/objs/ReplaceHostResult.java" afterDir="false" />
+    <list default="true" id="2f7898b2-b765-4e37-aa41-eb57a980bd7e" name="Changes" comment="simplified server config file; resorted class structure">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/configs/configs_server.json" beforeDir="false" afterPath="$PROJECT_DIR$/configs/configs_server.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/TlsProxyApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/TlsProxyApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/certificate/CertificateProvider.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/handshake/certificate/CertificateProvider.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/certificate/CertificateValidator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/handshake/certificate/CertificateValidator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/certificate/ErnestCertificateProvider.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/handshake/certificate/impl/ErnestCertificateProvider.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/certificate/ErnestCertificateValidator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/handshake/certificate/impl/ErnestCertificateValidator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/config/client/ClientConfigManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/config/clientimpl/ClientConfigManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/config/client/ClientProxyConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/config/clientimpl/ClientProxyConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/config/server/ProxyPassItem.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/config/server/ServerConfigManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/config/serverimpl/ServerConfigManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/config/server/ServerProxyConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/config/serverimpl/ServerProxyConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/proxy/HandshakeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/handshake/HandshakeController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/proxy/client/ClientHandshakeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/handshake/clientimpl/ClientHandshakeController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/proxy/client/ClientRequestHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/proxy/clientimpl/ClientRequestHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/proxy/client/ClientTlsProxy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/proxy/clientimpl/ClientTlsProxy.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/proxy/server/ServerHandshakeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/handshake/serverimpl/ServerHandshakeController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/proxy/server/ServerRequestHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/proxy/serverimpl/ServerRequestHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/proxy/server/ServerTlsProxy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/proxy/serverimpl/ServerTlsProxy.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/utils/http/HostPort.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/utils/http/HostPortExtractor.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/configs/configs_client.json" beforeDir="false" afterPath="$PROJECT_DIR$/configs/configs_client.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/crypto/encryption/Aes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/crypto/encryption/Aes.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/crypto/encryption/AesKey.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/crypto/encryption/objs/AesKey.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/crypto/encryption/DualAesKey.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/crypto/encryption/objs/DualAesKey.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/handshake/HandshakeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/handshake/HandshakeController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/handshake/clientimpl/ClientHandshakeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/handshake/clientimpl/ClientHandshakeController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/handshake/serverimpl/ServerHandshakeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/handshake/serverimpl/ServerHandshakeController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/proxy/RequestHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/proxy/RequestHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/proxy/clientimpl/ClientRequestHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/proxy/clientimpl/ClientRequestHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/proxy/serverimpl/ServerRequestHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/proxy/serverimpl/ServerRequestHandler.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -252,7 +239,14 @@
       <option name="project" value="LOCAL" />
       <updated>1667406102180</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="simplified server config file; resorted class structure">
+      <created>1667443187386</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1667443187386</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -288,7 +282,8 @@
     <MESSAGE value="made README more accurate" />
     <MESSAGE value="added more details to README" />
     <MESSAGE value="added space before property type" />
-    <option name="LAST_COMMIT_MESSAGE" value="added space before property type" />
+    <MESSAGE value="simplified server config file; resorted class structure" />
+    <option name="LAST_COMMIT_MESSAGE" value="simplified server config file; resorted class structure" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

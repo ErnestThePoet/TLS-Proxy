@@ -24,12 +24,12 @@ public class ServerRequestHandler extends RequestHandler implements Runnable {
 
     private void encryptAndSendToClient(byte[] data) throws IOException {
         this.clientSocket.getOutputStream().write(
-                Aes.encrypt(data, this.applicationKey.getServerKey()));
+                Aes.encrypt(data, this.applicationKey.serverKey()));
         this.clientSocket.getOutputStream().flush();
     }
 
     private byte[] decryptDataFromClient(byte[] data) {
-        return Aes.decrypt(data, this.applicationKey.getClientKey());
+        return Aes.decrypt(data, this.applicationKey.clientKey());
     }
 
     @Override
