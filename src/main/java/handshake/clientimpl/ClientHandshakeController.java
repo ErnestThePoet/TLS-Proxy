@@ -16,11 +16,13 @@ import java.util.Arrays;
 
 public class ClientHandshakeController extends HandshakeController {
     private final Socket serverSocket;
+    private final String host;
 
 
-    public ClientHandshakeController(Socket serverSocket) {
+    public ClientHandshakeController(Socket serverSocket,String host) {
         super();
         this.serverSocket = serverSocket;
+        this.host=host;
     }
 
     @Override
@@ -110,7 +112,7 @@ public class ClientHandshakeController extends HandshakeController {
 
         CertificateValidator certificateValidator=CertificateValidator.getInstance();
 
-        if(!certificateValidator.validateCertificate(certificate)){
+        if(!certificateValidator.validateCertificate(certificate,this.host)){
             Log.error("Certificate validation failed");
             this.closeHostSocket();
             return null;

@@ -8,7 +8,7 @@ import java.util.Base64;
 // TODO Demo code only
 public class ErnestCertificateValidator implements CertificateValidator {
     @Override
-    public boolean validateCertificate(byte[] certificate) {
+    public boolean validateCertificate(byte[] certificate,String host) {
         return true;
     }
 

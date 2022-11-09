@@ -9,9 +9,12 @@ public interface CertificateValidator {
      * @param   certificate
      *          UTF-8编码的证书字节序列。
      *
+     * @param   host
+     *          UTF-8编码的当前客户端正在访问的主机名，例如192.168.3.254:8080。
+     *
      * @return  返回{@code true}如果验证通过，否则返回{@code false}。
      */
-    boolean validateCertificate(byte[] certificate);
+    boolean validateCertificate(byte[] certificate,String host);
 
     /**
      * 验证通信数据签名的合法性。

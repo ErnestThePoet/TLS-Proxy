@@ -79,7 +79,7 @@ public class ClientRequestHandler extends RequestHandler implements Runnable {
         Log.info("Negotiating application key for " + host + path);
 
         HandshakeController handshakeController =
-                new ClientHandshakeController(this.serverSocket);
+                new ClientHandshakeController(this.serverSocket,host);
 
         this.applicationKey = handshakeController.negotiateApplicationKey();
 
