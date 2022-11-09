@@ -107,7 +107,6 @@ public class ClientRequestHandler extends RequestHandler implements Runnable {
         int serverDataLength;
 
         try {
-            int i = 0;
             while (true) {
                 serverDataLength = this.serverSocket.getInputStream().read(serverData);
 
