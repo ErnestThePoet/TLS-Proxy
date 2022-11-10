@@ -4,7 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2f7898b2-b765-4e37-aa41-eb57a980bd7e" name="Changes" comment="added timeout for other sides" />
+    <list default="true" id="2f7898b2-b765-4e37-aa41-eb57a980bd7e" name="Changes" comment="added timeout doc in README">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/proxy/clientimpl/ClientRequestHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/proxy/clientimpl/ClientRequestHandler.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -41,7 +44,7 @@
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;E:/ErnestsProjects/TLSProxy/TLSProxy&quot;,
+    &quot;last_opened_file_path&quot;: &quot;E:/ErnestsProjects/TLSProxy/TLSProxyB&quot;,
     &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
@@ -302,7 +305,14 @@
       <option name="project" value="LOCAL" />
       <updated>1668045344452</updated>
     </task>
-    <option name="localTasksCounter" value="33" />
+    <task id="LOCAL-00033" summary="added timeout doc in README">
+      <created>1668045604213</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1668045604213</updated>
+    </task>
+    <option name="localTasksCounter" value="34" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -317,7 +327,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="handshake key ok" />
     <MESSAGE value="certificate &amp; signature OK" />
     <MESSAGE value="certificate provider demo provides 10 bytes" />
     <MESSAGE value="Application key finished" />
@@ -342,7 +351,8 @@
     <MESSAGE value="added timeout in config" />
     <MESSAGE value="typo in to-xx-timeout" />
     <MESSAGE value="added timeout for other sides" />
-    <option name="LAST_COMMIT_MESSAGE" value="added timeout for other sides" />
+    <MESSAGE value="added timeout doc in README" />
+    <option name="LAST_COMMIT_MESSAGE" value="added timeout doc in README" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
