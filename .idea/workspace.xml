@@ -4,16 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2f7898b2-b765-4e37-aa41-eb57a980bd7e" name="Changes" comment="added host param in CertificateValidator.validateCertificate">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/configs/configs_client.json" beforeDir="false" afterPath="$PROJECT_DIR$/configs/configs_client.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/configs/configs_server.json" beforeDir="false" afterPath="$PROJECT_DIR$/configs/configs_server.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/config/TlsProxyConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/config/TlsProxyConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/config/clientimpl/ClientConfigManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/config/clientimpl/ClientConfigManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/config/serverimpl/ServerConfigManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/config/serverimpl/ServerConfigManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/proxy/clientimpl/ClientRequestHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/proxy/clientimpl/ClientRequestHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/proxy/serverimpl/ServerTlsProxy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/proxy/serverimpl/ServerTlsProxy.java" afterDir="false" />
-    </list>
+    <list default="true" id="2f7898b2-b765-4e37-aa41-eb57a980bd7e" name="Changes" comment="added timeout in config" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -290,7 +281,14 @@
       <option name="project" value="LOCAL" />
       <updated>1667997202600</updated>
     </task>
-    <option name="localTasksCounter" value="30" />
+    <task id="LOCAL-00030" summary="added timeout in config">
+      <created>1668044438554</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1668044438554</updated>
+    </task>
+    <option name="localTasksCounter" value="31" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -305,7 +303,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="key negotiate completed" />
     <MESSAGE value="separated client&amp;socket config" />
     <MESSAGE value="key negotiate OK" />
     <MESSAGE value="handshake key ok" />
@@ -330,7 +327,8 @@
     <MESSAGE value="added check for app.key null" />
     <MESSAGE value="added front-end reminder in README" />
     <MESSAGE value="added host param in CertificateValidator.validateCertificate" />
-    <option name="LAST_COMMIT_MESSAGE" value="added host param in CertificateValidator.validateCertificate" />
+    <MESSAGE value="added timeout in config" />
+    <option name="LAST_COMMIT_MESSAGE" value="added timeout in config" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
