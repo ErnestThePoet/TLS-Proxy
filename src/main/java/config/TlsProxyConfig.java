@@ -5,4 +5,5 @@ import lombok.Data;
 @Data
 public abstract class TlsProxyConfig {
     private Integer port;
+    private Integer timeout;
 }

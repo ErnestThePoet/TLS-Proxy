@@ -23,6 +23,10 @@ public class ServerConfigManager {
         return config.getPort();
     }
 
+    public static Integer getTimeout(){
+        return config.getTimeout();
+    }
+
     public static String getProxyPass(){
         return config.getProxyPass();
     }

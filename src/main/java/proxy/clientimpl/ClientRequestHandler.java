@@ -10,6 +10,7 @@ import utils.http.HttpUtil;
 
 import java.io.*;
 import java.net.Socket;
+import java.net.SocketException;
 import java.util.Arrays;
 
 public class ClientRequestHandler extends RequestHandler implements Runnable {
@@ -73,6 +74,14 @@ public class ClientRequestHandler extends RequestHandler implements Runnable {
         if (this.serverSocket == null) {
             Log.error("Cannot connect to host for " + host + path);
             this.closeClientSocket();
+            return;
+        }
+
+        try {
+            this.serverSocket.setSoTimeout(ClientConfigManager.getTimeout());
+        } catch (SocketException e) {
+            e.printStackTrace();
+            this.closeBothSockets();
             return;
         }
 
