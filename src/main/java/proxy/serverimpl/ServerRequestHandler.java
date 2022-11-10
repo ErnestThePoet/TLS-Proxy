@@ -85,6 +85,7 @@ public class ServerRequestHandler extends RequestHandler implements Runnable {
 
         // Forward request data to server
         try {
+            this.serverSocket.setSoTimeout(ServerConfigManager.getTimeout());
             this.serverSocket.getOutputStream().write(replaceHostResult.newRequestData());
             this.serverSocket.getOutputStream().flush();
         } catch (IOException e) {

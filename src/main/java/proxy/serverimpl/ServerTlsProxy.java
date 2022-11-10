@@ -13,7 +13,7 @@ public class ServerTlsProxy implements TlsProxy {
     public void start(int port) {
         try(ServerSocket proxyServerSocket=new ServerSocket(port)) {
             Log.info(String.format(
-                    "Successfully started TLS Proxy in SERVER mode, port %d, to-client-timeout is %dms",
+                    "Successfully started TLS Proxy in SERVER mode, port %d, timeout is %dms",
                     ServerConfigManager.getPort(),
                     ServerConfigManager.getTimeout()));
 
