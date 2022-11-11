@@ -17,6 +17,20 @@ public class ServerConfigManager {
                 Path.of("./configs/configs_server.json"), StandardCharsets.UTF_8);
 
         config = objectMapper.readValue(configJsonContent, ServerProxyConfig.class);
+
+        String propertyMissingTemplate="property '%s' missing from server config file";
+
+        if(config.getPort()==null){
+            throw new RuntimeException(propertyMissingTemplate.formatted("port"));
+        }
+
+        if(config.getTimeout()==null){
+            throw new RuntimeException(propertyMissingTemplate.formatted("timeout"));
+        }
+
+        if(config.getProxyPass()==null){
+            throw new RuntimeException(propertyMissingTemplate.formatted("proxyPass"));
+        }
     }
 
     public static Integer getPort(){

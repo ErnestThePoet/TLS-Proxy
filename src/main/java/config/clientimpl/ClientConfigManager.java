@@ -16,6 +16,20 @@ public class ClientConfigManager {
                 Path.of("./configs/configs_client.json"), StandardCharsets.UTF_8);
 
         config = objectMapper.readValue(configJsonContent, ClientProxyConfig.class);
+
+        String propertyMissingTemplate="property '%s' missing from client config file";
+
+        if(config.getPort()==null){
+            throw new RuntimeException(propertyMissingTemplate.formatted("port"));
+        }
+
+        if(config.getTimeout()==null){
+            throw new RuntimeException(propertyMissingTemplate.formatted("timeout"));
+        }
+
+        if(config.getTargetHostPatterns()==null){
+            throw new RuntimeException(propertyMissingTemplate.formatted("targetHostPatterns"));
+        }
     }
 
     public static Integer getPort(){
