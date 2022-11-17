@@ -4,23 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2f7898b2-b765-4e37-aa41-eb57a980bd7e" name="Changes" comment="Revert &quot;added property missing check&quot;&#10;&#10;This reverts commit 56cfd03c">
-      <change afterPath="$PROJECT_DIR$/src/main/java/config/TlsProxyConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/config/clientimpl/ClientProxyConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/config/serverimpl/ServerConfigManager.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/config/serverimpl/ServerProxyConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/proxy/TlsProxy.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/TlsProxyApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/TlsProxyApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/config/client/ClientConfigManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/config/clientimpl/ClientConfigManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/config/client/ClientProxyConfig.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/config/server/ServerConfigManager.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/config/server/ServerProxyConfig.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/config/server/objs/ServerProxyEntry.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/proxy/RequestHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/proxy/RequestHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/proxy/clientimpl/ClientRequestHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/proxy/clientimpl/ClientRequestHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/proxy/clientimpl/ClientTlsProxy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/proxy/clientimpl/ClientTlsProxy.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/proxy/serverimpl/ServerRequestHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/proxy/serverimpl/ServerRequestHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/proxy/serverimpl/ServerTlsProxy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/proxy/serverimpl/ServerTlsProxy.java" afterDir="false" />
+    <list default="true" id="2f7898b2-b765-4e37-aa41-eb57a980bd7e" name="Changes" comment="changes reverted">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/configs/configs_server.json" beforeDir="false" afterPath="$PROJECT_DIR$/configs/configs_server.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -67,6 +53,12 @@
   }
 }]]></component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\ErnestsProjects\TLSProxy\TLSProxy\src" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="E:\ErnestsProjects\TLSProxy\TLSProxy\src\main" />
+    </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="crypto.hash" />
       <recent name="crypto.encryption" />
@@ -341,7 +333,14 @@
       <option name="project" value="LOCAL" />
       <updated>1668144935373</updated>
     </task>
-    <option name="localTasksCounter" value="36" />
+    <task id="LOCAL-00036" summary="changes reverted">
+      <created>1668699758062</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1668699758062</updated>
+    </task>
+    <option name="localTasksCounter" value="37" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -356,7 +355,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Application key finished" />
     <MESSAGE value="used r/w sync" />
     <MESSAGE value="data send finished" />
     <MESSAGE value="ALL WORKING!!!!!!!" />
@@ -381,7 +379,8 @@
     <MESSAGE value="added timeout doc in README" />
     <MESSAGE value="prevent timeout printStackTrace in client proxy server to client" />
     <MESSAGE value="added property missing check" />
-    <option name="LAST_COMMIT_MESSAGE" value="added property missing check" />
+    <MESSAGE value="changes reverted" />
+    <option name="LAST_COMMIT_MESSAGE" value="changes reverted" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

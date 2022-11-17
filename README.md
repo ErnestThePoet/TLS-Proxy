@@ -2,6 +2,12 @@
 
 使用Java编写的HTTP代理服务器，实现了TLS1.3中的全部主要[加密认证流程](https://tls13.xargs.org/)，可为HTTP请求的数据传输提供安全保障。
 
+## 概览
+客户端TLS-Proxy工作在请求数据进入传输层之前的最后一个环节，服务端TLS-Proxy工作在接收到传输层数据后的第一个环节。    
+TLS-Proxy的典型部署模式如下图所示：    
+
+<image src="https://github.com/ErnestThePoet/TLS-Proxy/blob/master/illustration.png"/>
+
 ## 使用方法
 
 ### 编辑配置文件
