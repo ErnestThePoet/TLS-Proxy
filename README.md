@@ -13,9 +13,10 @@
 * `targetHostPatterns`: `Array<string>`,正则表达式字符串数组，指定了所有需要被加密代理的主机名匹配规则。所有发往其余主机的请求都会被代理服务器丢弃。
 
 服务端设置选项说明如下：  
-* `port`: `number`,服务端代理服务器监听的端口号；  
-* `timeout`: `number`,服务端代理服务器最大超时时间，单位为毫秒；  
-* `proxyPass`: `string`,代理转发目的主机名。对于每一个发送到服务端代理服务器的请求，其请求头中的`Host`字段都会被改写为此主机名，然后该请求会被转发到此主机。
+* `proxies`: `Array<ServerProxyEntry>`,代理服务器要运行的代理列表。其中元素的每个属性的含义如下：
+    * `port`: `number`,监听的端口号；  
+    * `timeout`: `number`,最大超时时间，单位为毫秒；  
+    * `proxyPass`: `string`,代理转发目的主机名。对于每一个发送到此代理的HTTP请求，其请求头中的`Host`字段都会被改写为此主机名，然后该请求会被转发到此主机。
 
 ### 编写证书提供与校验类
 本项目不提供统一的证书格式标准，您需要自行实现`handshake.certificate`包中的`CertificateProvider`和`CertificateValidator`接口，实现您自己的证书提供和校验规则。实现后，请相应地修改两个接口的`getInstance`方法使其返回您的实现类对象。请注意TLS1.3中的传输信息签名校验(见文档顶部链接中的Server Certificate Verify部分)也是证书校验的一部分。
