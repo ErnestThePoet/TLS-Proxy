@@ -1,6 +1,5 @@
 package proxy.serverimpl;
 
-import config.serverimpl.ServerConfigManager;
 import crypto.encoding.Utf8;
 import crypto.encryption.Aes;
 import handshake.HandshakeController;
@@ -17,8 +16,10 @@ import java.util.Arrays;
 import java.util.List;
 
 public class ServerRequestHandler extends RequestHandler implements Runnable {
-    public ServerRequestHandler(Socket clientSocket) {
-        super(clientSocket);
+    private String proxyPass;
+    public ServerRequestHandler(Socket clientSocket,int timeout,String proxyPass) {
+        super(clientSocket,timeout);
+        this.proxyPass=proxyPass;
     }
 
 
@@ -61,9 +62,8 @@ public class ServerRequestHandler extends RequestHandler implements Runnable {
         }
 
         // Replace host field in request header
-        String newHost=ServerConfigManager.getProxyPass();
         var replaceHostResult =
-                HttpUtil.replaceRequestHeaderHost(newHost,clientData);
+                HttpUtil.replaceRequestHeaderHost(this.proxyPass,clientData);
         if (replaceHostResult.originalHost() == null) {
             Log.error("Host not found in request header");
             this.closeClientSocket();
@@ -71,9 +71,9 @@ public class ServerRequestHandler extends RequestHandler implements Runnable {
         }
 
         Log.info(String.format("Replaced request header Host [%s] with [%s]",
-                replaceHostResult.originalHost(), newHost));
+                replaceHostResult.originalHost(), this.proxyPass));
 
-        var serverPort = HttpUtil.extractHostPort(newHost);
+        var serverPort = HttpUtil.extractHostPort(this.proxyPass);
 
         this.connectToServer(serverPort.host(), serverPort.port());
 
@@ -85,7 +85,7 @@ public class ServerRequestHandler extends RequestHandler implements Runnable {
 
         // Forward request data to server
         try {
-            this.serverSocket.setSoTimeout(ServerConfigManager.getTimeout());
+            this.serverSocket.setSoTimeout(this.timeout);
             this.serverSocket.getOutputStream().write(replaceHostResult.newRequestData());
             this.serverSocket.getOutputStream().flush();
         } catch (IOException e) {

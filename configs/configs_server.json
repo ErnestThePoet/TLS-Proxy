@@ -1,5 +1,14 @@
 {
-    "port": 17750,
-    "timeout": 5000,
-    "proxyPass": "localhost:8897"
+    "proxies":[
+        {
+            "port": 17750,
+            "timeout": 5000,
+            "proxyPass": "localhost:8897"
+        },
+        {
+            "port": 17750,
+            "timeout": 5000,
+            "proxyPass": "localhost:8897"
+        }
+    ]
 }

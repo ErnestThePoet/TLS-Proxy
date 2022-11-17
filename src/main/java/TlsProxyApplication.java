@@ -1,5 +1,5 @@
-import config.clientimpl.ClientConfigManager;
-import config.serverimpl.ServerConfigManager;
+import config.client.ClientConfigManager;
+import config.server.ServerConfigManager;
 import proxy.clientimpl.ClientTlsProxy;
 import proxy.serverimpl.ServerTlsProxy;
 import utils.Log;
@@ -17,11 +17,19 @@ public class TlsProxyApplication {
             switch (args[0]) {
                 case "CLIENT" -> {
                     ClientConfigManager.load();
-                    new ClientTlsProxy().start(ClientConfigManager.getPort());
+                    new ClientTlsProxy().start(
+                            ClientConfigManager.getPort(),
+                            ClientConfigManager.getTimeout());
                 }
                 case "SERVER" -> {
                     ServerConfigManager.load();
-                    new ServerTlsProxy().start(ServerConfigManager.getPort());
+
+                    for(var i:ServerConfigManager.getProxies()){
+                        new ServerTlsProxy().start(
+                                i.getPort(),
+                                i.getTimeout(),
+                                i.getProxyPass());
+                    }
                 }
             }
         } catch (IOException e) {
