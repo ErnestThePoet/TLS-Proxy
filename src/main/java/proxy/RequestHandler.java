@@ -6,15 +6,13 @@ import java.io.*;
 import java.net.Socket;
 
 public abstract class RequestHandler {
-    protected int timeout;
     protected Socket clientSocket;
     protected Socket serverSocket;
 
     protected DualAesKey applicationKey;
 
-    protected RequestHandler(Socket clientSocket,int timeout){
+    protected RequestHandler(Socket clientSocket){
         this.clientSocket=clientSocket;
-        this.timeout=timeout;
     }
 
     private void closeSocket(Socket socket){

@@ -1,6 +1,6 @@
 package proxy.clientimpl;
 
-import config.client.ClientConfigManager;
+import config.clientimpl.ClientConfigManager;
 import crypto.encryption.Aes;
 import handshake.clientimpl.ClientHandshakeController;
 import handshake.HandshakeController;
@@ -15,8 +15,8 @@ import java.net.SocketTimeoutException;
 import java.util.Arrays;
 
 public class ClientRequestHandler extends RequestHandler implements Runnable {
-    public ClientRequestHandler(Socket clientSocket,int timeout) {
-        super(clientSocket,timeout);
+    public ClientRequestHandler(Socket clientSocket) {
+        super(clientSocket);
     }
 
     private void encryptAndSendToServer(byte[] data) throws IOException {
@@ -82,7 +82,7 @@ public class ClientRequestHandler extends RequestHandler implements Runnable {
         }
 
         try {
-            this.serverSocket.setSoTimeout(this.timeout);
+            this.serverSocket.setSoTimeout(ClientConfigManager.getTimeout());
         } catch (SocketException e) {
             e.printStackTrace();
             this.closeBothSockets();

@@ -1,18 +1,21 @@
 package proxy.serverimpl;
 
+import config.serverimpl.ServerConfigManager;
+import proxy.TlsProxy;
 import utils.Log;
 
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-public class ServerTlsProxy {
-    public void start(int port,int timeout,String proxyPass) {
+public class ServerTlsProxy implements TlsProxy {
+    @Override
+    public void start(int port) {
         try(ServerSocket proxyServerSocket=new ServerSocket(port)) {
             Log.info(String.format(
                     "Successfully started TLS Proxy in SERVER mode, port %d, timeout is %dms",
-                    port,
-                    timeout));
+                    ServerConfigManager.getPort(),
+                    ServerConfigManager.getTimeout()));
 
             while(true){
                 Socket clientSocket;
@@ -24,9 +27,9 @@ public class ServerTlsProxy {
                     continue;
                 }
 
-                clientSocket.setSoTimeout(timeout);
+                clientSocket.setSoTimeout(ServerConfigManager.getTimeout());
 
-                new Thread(new ServerRequestHandler(clientSocket,timeout,proxyPass)).start();
+                new Thread(new ServerRequestHandler(clientSocket)).start();
             }
         } catch (IOException e) {
             e.printStackTrace();
