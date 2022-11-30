@@ -1,13 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="ArtifactsWorkspaceSettings">
+    <artifacts-to-build>
+      <artifact name="TLSProxy:jar" />
+    </artifacts-to-build>
+  </component>
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2f7898b2-b765-4e37-aa41-eb57a980bd7e" name="Changes" comment="added not target host page">
+    <list default="true" id="2f7898b2-b765-4e37-aa41-eb57a980bd7e" name="Changes" comment="CertificateValidator doc modified">
+      <change afterPath="$PROJECT_DIR$/.idea/artifacts/TLSProxy_jar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/META-INF/MANIFEST.MF" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/proxy/clientimpl/ClientRequestHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/proxy/clientimpl/ClientRequestHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/proxy/serverimpl/ServerRequestHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/proxy/serverimpl/ServerRequestHandler.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -30,6 +35,10 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="RESET_MODE" value="HARD" />
   </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/src/main/java/proxy/clientimpl/ClientRequestHandler.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/main/java/proxy/serverimpl/ServerRequestHandler.java" root0="FORCE_HIGHLIGHTING" />
+  </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
@@ -47,7 +56,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "last_opened_file_path": "E:/ErnestsProjects/TLSProxy/TLSProxy/src",
-    "project.structure.last.edited": "Modules",
+    "project.structure.last.edited": "Artifacts",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
     "settings.editor.selected.configurable": "preferences.keymap"
@@ -376,7 +385,21 @@
       <option name="project" value="LOCAL" />
       <updated>1669812706710</updated>
     </task>
-    <option name="localTasksCounter" value="42" />
+    <task id="LOCAL-00042" summary="ServerProxy bug fixed">
+      <created>1669813713875</created>
+      <option name="number" value="00042" />
+      <option name="presentableId" value="LOCAL-00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1669813713875</updated>
+    </task>
+    <task id="LOCAL-00043" summary="CertificateValidator doc modified">
+      <created>1669813817331</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1669813817331</updated>
+    </task>
+    <option name="localTasksCounter" value="44" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -391,8 +414,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="added readme and added todo code" />
-    <MESSAGE value="added docs for certificate interfaces" />
     <MESSAGE value="updated title for readme" />
     <MESSAGE value="modified words in README" />
     <MESSAGE value="made README more accurate" />
@@ -416,7 +437,9 @@
     <MESSAGE value="introduced sync transceiver; client proxy can send error page" />
     <MESSAGE value="cert validator can return message" />
     <MESSAGE value="added not target host page" />
-    <option name="LAST_COMMIT_MESSAGE" value="added not target host page" />
+    <MESSAGE value="ServerProxy bug fixed" />
+    <MESSAGE value="CertificateValidator doc modified" />
+    <option name="LAST_COMMIT_MESSAGE" value="CertificateValidator doc modified" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
