@@ -9,10 +9,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2f7898b2-b765-4e37-aa41-eb57a980bd7e" name="Changes" comment="CertificateValidator doc modified">
-      <change afterPath="$PROJECT_DIR$/.idea/artifacts/TLSProxy_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/META-INF/MANIFEST.MF" afterDir="false" />
+    <list default="true" id="2f7898b2-b765-4e37-aa41-eb57a980bd7e" name="Changes" comment="manifest modified">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/handshake/clientimpl/ClientHandshakeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/handshake/clientimpl/ClientHandshakeController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/handshake/serverimpl/ServerHandshakeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/handshake/serverimpl/ServerHandshakeController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -50,18 +50,18 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "last_opened_file_path": "E:/ErnestsProjects/TLSProxy/TLSProxy/src",
-    "project.structure.last.edited": "Artifacts",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "preferences.keymap"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;E:/ErnestsProjects/TLSProxy/TLSProxy/src&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Artifacts&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.keymap&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="E:\ErnestsProjects\TLSProxy\TLSProxy\src" />
@@ -399,7 +399,14 @@
       <option name="project" value="LOCAL" />
       <updated>1669813817331</updated>
     </task>
-    <option name="localTasksCounter" value="44" />
+    <task id="LOCAL-00044" summary="manifest modified">
+      <created>1669817175118</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1669817175118</updated>
+    </task>
+    <option name="localTasksCounter" value="45" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -414,7 +421,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="updated title for readme" />
     <MESSAGE value="modified words in README" />
     <MESSAGE value="made README more accurate" />
     <MESSAGE value="added more details to README" />
@@ -439,7 +445,8 @@
     <MESSAGE value="added not target host page" />
     <MESSAGE value="ServerProxy bug fixed" />
     <MESSAGE value="CertificateValidator doc modified" />
-    <option name="LAST_COMMIT_MESSAGE" value="CertificateValidator doc modified" />
+    <MESSAGE value="manifest modified" />
+    <option name="LAST_COMMIT_MESSAGE" value="manifest modified" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

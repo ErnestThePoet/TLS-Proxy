@@ -21,10 +21,11 @@ public class ServerHandshakeController extends HandshakeController {
 
     @Override
     public DualAesKey negotiateApplicationKey() throws IOException, TlsException {
+        // [Client Key Exchange Generation]
         // [Server Key Exchange Generation] Generate key pair and random
         this.generateX22519KeyPair();
 
-        // Receive client's key pair and random
+        // [Client Hello] Receive client's key pair and random
         var receivedPacketAndData = this.synchronizedTransceiver.receiveData();
         this.addTraffic(receivedPacketAndData.packet());
 
@@ -32,6 +33,7 @@ public class ServerHandshakeController extends HandshakeController {
         var sendPacket = this.synchronizedTransceiver.sendData(this.getRandomWithPublicKey());
         this.addTraffic(sendPacket);
 
+        // [Client Handshake Keys Calc]
         // [Server Handshake Keys Calc] Negotiate handshake key
         this.calculateHandshakeKey(
                 Arrays.copyOfRange(
@@ -59,9 +61,10 @@ public class ServerHandshakeController extends HandshakeController {
         this.addTraffic(sendPacket);
 
         // [Server Application Keys Calc]
+        // [Client Application Keys Calc]
         this.calculateApplicationKey();
 
-        // Receive encrypted traffic hash
+        // [Client Handshake Finished] Receive encrypted traffic hash
         receivedPacketAndData = this.synchronizedTransceiver.receiveData();
         byte[] trafficHashEncrypted = receivedPacketAndData.data();
 
