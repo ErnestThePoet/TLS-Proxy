@@ -37,7 +37,7 @@ public class ClientRequestHandler extends RequestHandler implements Runnable {
             clientData = Arrays.copyOf(clientData, clientDataLength);
         } catch (IOException e) {
             // when browser is using cache, client timeout often occurs
-            if(!(e instanceof SocketTimeoutException)){
+            if (!(e instanceof SocketTimeoutException)) {
                 e.printStackTrace();
             }
             this.closeClientSocket();
@@ -88,7 +88,7 @@ public class ClientRequestHandler extends RequestHandler implements Runnable {
         Log.info("Negotiating application key for " + host + path);
 
         HandshakeController handshakeController =
-                new ClientHandshakeController(this.serverSocket,host);
+                new ClientHandshakeController(this.serverSocket, host);
 
         try {
             this.applicationKey = handshakeController.negotiateApplicationKey();
@@ -97,7 +97,7 @@ public class ClientRequestHandler extends RequestHandler implements Runnable {
             try {
                 this.clientSocket.getOutputStream().write(
                         ErrorResProvider.getErrorPageResponse(
-                                e.getClass().getName()+e.getMessage()));
+                                e.getClass().getName() + e.getMessage()));
             } catch (IOException ex) {
                 ex.printStackTrace();
                 this.closeBothSockets();
@@ -108,8 +108,8 @@ public class ClientRequestHandler extends RequestHandler implements Runnable {
             return;
         }
 
-        if(this.applicationKey==null){
-            Log.error("Application key negotiation failed for "+host+path);
+        if (this.applicationKey == null) {
+            Log.error("Application key negotiation failed for " + host + path);
             this.closeBothSockets();
             return;
         }
@@ -117,7 +117,7 @@ public class ClientRequestHandler extends RequestHandler implements Runnable {
         Log.success("Successfully calculated application key for " + host + path
                 + " Sending encrypted request data...");
 
-        this.synchronizedTransceiver=new SynchronizedTransceiver(this.serverSocket);
+        this.synchronizedTransceiver = new SynchronizedTransceiver(this.serverSocket);
 
         // Forward encrypted client data
         try {
@@ -134,7 +134,7 @@ public class ClientRequestHandler extends RequestHandler implements Runnable {
 
         try {
             while (true) {
-                var serverData=this.synchronizedTransceiver.receiveData().data();
+                var serverData = this.synchronizedTransceiver.receiveData().data();
 
                 // finish signal
                 if ((serverData.length == 1 && serverData[0] == 0)) {

@@ -21,7 +21,7 @@ import java.util.List;
 public class ServerRequestHandler extends RequestHandler implements Runnable {
     public ServerRequestHandler(Socket clientSocket) {
         super(clientSocket);
-        this.synchronizedTransceiver=new SynchronizedTransceiver(clientSocket);
+        this.synchronizedTransceiver = new SynchronizedTransceiver(clientSocket);
     }
 
     private byte[] decryptDataFromClient(byte[] data) {
@@ -42,7 +42,7 @@ public class ServerRequestHandler extends RequestHandler implements Runnable {
             return;
         }
 
-        if(this.applicationKey==null){
+        if (this.applicationKey == null) {
             Log.error("Application key negotiation failed");
             this.closeClientSocket();
             return;
@@ -62,9 +62,9 @@ public class ServerRequestHandler extends RequestHandler implements Runnable {
         }
 
         // Replace host field in request header
-        String newHost=ServerConfigManager.getProxyPass();
+        String newHost = ServerConfigManager.getProxyPass();
         var replaceHostResult =
-                HttpUtil.replaceRequestHeaderHost(newHost,clientData);
+                HttpUtil.replaceRequestHeaderHost(newHost, clientData);
         if (replaceHostResult.originalHost() == null) {
             Log.error("Host not found in request header");
             this.closeClientSocket();
@@ -98,15 +98,15 @@ public class ServerRequestHandler extends RequestHandler implements Runnable {
         Log.info("Sent request data to local server");
 
         // Receive response data and send encrypted data to client
-        List<byte[]> headerBytes=new ArrayList<>();
+        List<byte[]> headerBytes = new ArrayList<>();
         byte[] responseData = new byte[64 * 1024];
         int responseDataLength;
         byte[] actualResponseData;
 
         try {
-            while(!Utf8.encode(ByteArrayUtil.concat(headerBytes)).contains("\r\n\r\n")){
+            while (!Utf8.encode(ByteArrayUtil.concat(headerBytes)).contains("\r\n\r\n")) {
                 responseDataLength = this.serverSocket.getInputStream().read(responseData);
-                actualResponseData=Arrays.copyOf(responseData, responseDataLength);
+                actualResponseData = Arrays.copyOf(responseData, responseDataLength);
                 headerBytes.add(actualResponseData);
             }
         } catch (IOException e) {
@@ -115,7 +115,7 @@ public class ServerRequestHandler extends RequestHandler implements Runnable {
             return;
         }
 
-        actualResponseData=ByteArrayUtil.concat(headerBytes);
+        actualResponseData = ByteArrayUtil.concat(headerBytes);
         responseDataLength = actualResponseData.length;
         // Determine response data transmission type
         String actualResponseString = Utf8.encode(actualResponseData);
@@ -143,7 +143,7 @@ public class ServerRequestHandler extends RequestHandler implements Runnable {
 
                 int bodyStartIndex = actualResponseString.indexOf("\r\n\r\n") + 4;
 
-                if(bodyStartIndex==3){
+                if (bodyStartIndex == 3) {
                     throw new IOException("Response header terminator not found");
                 }
 

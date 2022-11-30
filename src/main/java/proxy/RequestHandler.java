@@ -13,11 +13,11 @@ public abstract class RequestHandler {
 
     protected DualAesKey applicationKey;
 
-    protected RequestHandler(Socket clientSocket){
-        this.clientSocket=clientSocket;
+    protected RequestHandler(Socket clientSocket) {
+        this.clientSocket = clientSocket;
     }
 
-    private void closeSocket(Socket socket){
+    private void closeSocket(Socket socket) {
         try {
             socket.close();
         } catch (IOException e) {
@@ -25,26 +25,26 @@ public abstract class RequestHandler {
         }
     }
 
-    protected void closeClientSocket(){
+    protected void closeClientSocket() {
         this.closeSocket(this.clientSocket);
     }
 
-    protected void closeServerSocket(){
+    protected void closeServerSocket() {
         this.closeSocket(this.serverSocket);
     }
 
-    protected void closeBothSockets(){
+    protected void closeBothSockets() {
         this.closeClientSocket();
         this.closeServerSocket();
     }
 
-    protected void connectToServer(String host,int port){
+    protected void connectToServer(String host, int port) {
         // Note: use actual port for server side
         try {
-            this.serverSocket= new Socket(host,port);
+            this.serverSocket = new Socket(host, port);
         } catch (IOException e) {
             e.printStackTrace();
-            this.serverSocket=null;
+            this.serverSocket = null;
         }
     }
 }

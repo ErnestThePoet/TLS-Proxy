@@ -1,6 +1,7 @@
 package handshake.certificate;
 
 import handshake.certificate.impl.ErnestCertificateValidator;
+import handshake.certificate.objs.CertificateValidationResult;
 
 public interface CertificateValidator {
     /**
@@ -14,7 +15,7 @@ public interface CertificateValidator {
      *
      * @return  返回{@code true}如果验证通过，否则返回{@code false}。
      */
-    boolean validateCertificate(byte[] certificate,String host);
+    CertificateValidationResult validateCertificate(byte[] certificate, String host);
 
     /**
      * 验证通信数据签名的合法性。

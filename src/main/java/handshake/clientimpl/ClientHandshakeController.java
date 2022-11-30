@@ -58,8 +58,11 @@ public class ClientHandshakeController extends HandshakeController {
 
         CertificateValidator certificateValidator = CertificateValidator.getInstance();
 
-        if (!certificateValidator.validateCertificate(certificate, this.host)) {
-            throw new TlsException("Certificate validation failed");
+        var certificateValidationResult =
+                certificateValidator.validateCertificate(certificate, this.host);
+        if (!certificateValidationResult.success()) {
+            throw new TlsException("Certificate validation failed: "
+                    + certificateValidationResult.message());
         }
 
         if (!certificateValidator.validateTrafficSignature(

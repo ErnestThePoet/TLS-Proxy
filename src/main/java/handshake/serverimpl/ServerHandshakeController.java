@@ -62,8 +62,8 @@ public class ServerHandshakeController extends HandshakeController {
         this.calculateApplicationKey();
 
         // Receive encrypted traffic hash
-        receivedPacketAndData=this.synchronizedTransceiver.receiveData();
-        byte[] trafficHashEncrypted=receivedPacketAndData.data();
+        receivedPacketAndData = this.synchronizedTransceiver.receiveData();
+        byte[] trafficHashEncrypted = receivedPacketAndData.data();
 
         if (!HmacSha384.verify(
                 HkdfSha384.expand(this.clientSecret, Utf8.decode("finished"), 32),
