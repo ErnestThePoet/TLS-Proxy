@@ -1,11 +1,13 @@
 package proxy;
 
+import communication.SynchronizedTransceiver;
 import crypto.encryption.objs.DualAesKey;
 
 import java.io.*;
 import java.net.Socket;
 
 public abstract class RequestHandler {
+    protected SynchronizedTransceiver synchronizedTransceiver;
     protected Socket clientSocket;
     protected Socket serverSocket;
 

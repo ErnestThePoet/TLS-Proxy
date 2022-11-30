@@ -1,10 +1,13 @@
 package proxy.clientimpl;
 
+import communication.SynchronizedTransceiver;
 import config.clientimpl.ClientConfigManager;
 import crypto.encryption.Aes;
+import exceptions.TlsException;
 import handshake.clientimpl.ClientHandshakeController;
 import handshake.HandshakeController;
 import proxy.RequestHandler;
+import proxy.clientimpl.errorres.ErrorResProvider;
 import utils.Log;
 import utils.http.HttpUtil;
 
@@ -17,13 +20,6 @@ import java.util.Arrays;
 public class ClientRequestHandler extends RequestHandler implements Runnable {
     public ClientRequestHandler(Socket clientSocket) {
         super(clientSocket);
-    }
-
-    private void encryptAndSendToServer(byte[] data) throws IOException {
-        this.serverSocket.getOutputStream().write(
-                Aes.encrypt(data, this.applicationKey.clientKey())
-        );
-        this.serverSocket.getOutputStream().flush();
     }
 
     private byte[] decryptDataFromServer(byte[] data) {
@@ -94,7 +90,23 @@ public class ClientRequestHandler extends RequestHandler implements Runnable {
         HandshakeController handshakeController =
                 new ClientHandshakeController(this.serverSocket,host);
 
-        this.applicationKey = handshakeController.negotiateApplicationKey();
+        try {
+            this.applicationKey = handshakeController.negotiateApplicationKey();
+        } catch (IOException | TlsException e) {
+            e.printStackTrace();
+            try {
+                this.clientSocket.getOutputStream().write(
+                        ErrorResProvider.getErrorPageResponse(
+                                e.getClass().getName()+e.getMessage()));
+            } catch (IOException ex) {
+                ex.printStackTrace();
+                this.closeBothSockets();
+                return;
+            }
+
+            this.closeBothSockets();
+            return;
+        }
 
         if(this.applicationKey==null){
             Log.error("Application key negotiation failed for "+host+path);
@@ -105,9 +117,12 @@ public class ClientRequestHandler extends RequestHandler implements Runnable {
         Log.success("Successfully calculated application key for " + host + path
                 + " Sending encrypted request data...");
 
+        this.synchronizedTransceiver=new SynchronizedTransceiver(this.serverSocket);
+
         // Forward encrypted client data
         try {
-            this.encryptAndSendToServer(clientData);
+            this.synchronizedTransceiver.sendData(
+                    Aes.encrypt(clientData, this.applicationKey.clientKey()));
         } catch (IOException e) {
             e.printStackTrace();
             this.closeBothSockets();
@@ -116,26 +131,20 @@ public class ClientRequestHandler extends RequestHandler implements Runnable {
 
         Log.info("Receiving server data and sending back to client for " + host + path);
         // Send back decrypted response data or chunked data
-        byte[] serverData = new byte[2 * 1024 * 1024];
-        int serverDataLength;
 
         try {
             while (true) {
-                serverDataLength = this.serverSocket.getInputStream().read(serverData);
+                var serverData=this.synchronizedTransceiver.receiveData().data();
 
-                if (serverDataLength == -1 || (serverDataLength == 1 && serverData[0] == 0)) {
+                // finish signal
+                if ((serverData.length == 1 && serverData[0] == 0)) {
                     break;
                 }
 
-                byte[] actualServerData =
-                        this.decryptDataFromServer(Arrays.copyOf(serverData, serverDataLength));
+                byte[] actualServerData = this.decryptDataFromServer(serverData);
 
                 this.clientSocket.getOutputStream().write(actualServerData);
                 this.clientSocket.getOutputStream().flush();
-
-                // Synchronize
-                this.serverSocket.getOutputStream().write(new byte[1]);
-                this.serverSocket.getOutputStream().flush();
             }
         } catch (IOException e) {
             e.printStackTrace();

@@ -1,19 +1,24 @@
 package handshake;
 
+import communication.SynchronizedTransceiver;
 import crypto.encoding.Utf8;
 import crypto.encryption.objs.AesKey;
 import crypto.encryption.objs.DualAesKey;
 import crypto.hash.Sha384;
 import crypto.kdf.HkdfSha384;
 import crypto.keyex.Curve25519KeyEx;
+import exceptions.TlsException;
 import utils.ByteArrayUtil;
 
+import java.io.IOException;
+import java.net.Socket;
 import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.List;
 
 public abstract class HandshakeController {
     private final List<byte[]> traffic;
+    protected final SynchronizedTransceiver synchronizedTransceiver;
     protected byte[] selfPublicKey;
     protected byte[] selfPrivateKey;
 
@@ -23,8 +28,9 @@ public abstract class HandshakeController {
     protected DualAesKey handshakeKey;
     protected DualAesKey applicationKey;
 
-    protected HandshakeController(){
+    public HandshakeController(Socket remoteSocket){
         this.traffic=new ArrayList<>();
+        this.synchronizedTransceiver=new SynchronizedTransceiver(remoteSocket);
     }
 
     protected void generateX22519KeyPair(){
@@ -40,9 +46,10 @@ public abstract class HandshakeController {
         return ByteArrayUtil.concat(randomBytes,this.selfPublicKey);
     }
 
-    protected void addTraffic(byte[] bytes){
+    protected void addTraffic(byte[] bytes) {
         this.traffic.add(bytes);
     }
+
     protected byte[] getTrafficConcat(){
         return ByteArrayUtil.concat(this.traffic);
     }
@@ -105,5 +112,5 @@ public abstract class HandshakeController {
         );
     }
 
-    public abstract DualAesKey negotiateApplicationKey();
+    public abstract DualAesKey negotiateApplicationKey() throws IOException, TlsException;
 }

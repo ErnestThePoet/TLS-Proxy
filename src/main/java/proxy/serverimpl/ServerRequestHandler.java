@@ -1,8 +1,10 @@
 package proxy.serverimpl;
 
+import communication.SynchronizedTransceiver;
 import config.serverimpl.ServerConfigManager;
 import crypto.encoding.Utf8;
 import crypto.encryption.Aes;
+import exceptions.TlsException;
 import handshake.HandshakeController;
 import handshake.serverimpl.ServerHandshakeController;
 import proxy.RequestHandler;
@@ -19,13 +21,7 @@ import java.util.List;
 public class ServerRequestHandler extends RequestHandler implements Runnable {
     public ServerRequestHandler(Socket clientSocket) {
         super(clientSocket);
-    }
-
-
-    private void encryptAndSendToClient(byte[] data) throws IOException {
-        this.clientSocket.getOutputStream().write(
-                Aes.encrypt(data, this.applicationKey.serverKey()));
-        this.clientSocket.getOutputStream().flush();
+        this.synchronizedTransceiver=new SynchronizedTransceiver(clientSocket);
     }
 
     private byte[] decryptDataFromClient(byte[] data) {
@@ -38,7 +34,13 @@ public class ServerRequestHandler extends RequestHandler implements Runnable {
 
         HandshakeController handshakeController = new ServerHandshakeController(this.clientSocket);
 
-        this.applicationKey = handshakeController.negotiateApplicationKey();
+        try {
+            this.applicationKey = handshakeController.negotiateApplicationKey();
+        } catch (IOException | TlsException e) {
+            e.printStackTrace();
+            this.closeClientSocket();
+            return;
+        }
 
         if(this.applicationKey==null){
             Log.error("Application key negotiation failed");
@@ -49,10 +51,9 @@ public class ServerRequestHandler extends RequestHandler implements Runnable {
         Log.success("Successfully calculated application key with client");
 
         // Receive encrypted client request data
-        byte[] clientData = new byte[8 * 1024 * 1024];
+        byte[] clientData;
         try {
-            int clientDataLength = this.clientSocket.getInputStream().read(clientData);
-            clientData = Arrays.copyOf(clientData, clientDataLength);
+            clientData = this.synchronizedTransceiver.receiveData().data();
             clientData = this.decryptDataFromClient(clientData);
         } catch (IOException e) {
             e.printStackTrace();
@@ -127,22 +128,12 @@ public class ServerRequestHandler extends RequestHandler implements Runnable {
             if (contentLength == -1) {
                 Log.info("Response transmission type: Chunked");
 
-                this.encryptAndSendToClient(actualResponseData);
-
-                int syncLength=this.clientSocket.getInputStream().read(new byte[2]);
-                if (syncLength != 1) {
-                    throw new IOException("Client sync data not of length 1");
-                }
+                this.synchronizedTransceiver.sendData(actualResponseData);
 
                 while (!Utf8.encode(actualResponseData).contains("\r\n\0\r\n")) {
                     responseDataLength = this.serverSocket.getInputStream().read(responseData);
                     actualResponseData = Arrays.copyOf(responseData, responseDataLength);
-                    this.encryptAndSendToClient(actualResponseData);
-
-                    syncLength=this.clientSocket.getInputStream().read(new byte[2]);
-                    if (syncLength != 1) {
-                        throw new IOException("Client sync data not of length 1");
-                    }
+                    this.synchronizedTransceiver.sendData(actualResponseData);
                 }
             }
             // Response transmission type: With Content-Length
@@ -158,29 +149,20 @@ public class ServerRequestHandler extends RequestHandler implements Runnable {
 
                 int receivedDataLength = responseDataLength - bodyStartIndex;
 
-                this.encryptAndSendToClient(actualResponseData);
-
-                int syncLength=this.clientSocket.getInputStream().read(new byte[2]);
-                if (syncLength != 1) {
-                    throw new IOException("Client sync data not of length 1");
-                }
+                this.synchronizedTransceiver.sendData(actualResponseData);
 
                 while (receivedDataLength < contentLength) {
                     responseDataLength = this.serverSocket.getInputStream().read(responseData);
                     actualResponseData = Arrays.copyOf(responseData, responseDataLength);
-                    this.encryptAndSendToClient(actualResponseData);
+
                     receivedDataLength += responseDataLength;
 
-                    syncLength=this.clientSocket.getInputStream().read(new byte[2]);
-                    if (syncLength != 1) {
-                        throw new IOException("Client sync data not of length 1");
-                    }
+                    this.synchronizedTransceiver.sendData(actualResponseData);
                 }
             }
 
             // Send finishing signal
-            this.clientSocket.getOutputStream().write(new byte[1]);
-            this.clientSocket.getOutputStream().flush();
+            this.synchronizedTransceiver.sendData(new byte[]{0});
         } catch (IOException e) {
             e.printStackTrace();
             this.closeBothSockets();
