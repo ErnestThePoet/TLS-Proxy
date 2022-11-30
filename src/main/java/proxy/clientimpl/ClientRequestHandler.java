@@ -7,7 +7,7 @@ import exceptions.TlsException;
 import handshake.clientimpl.ClientHandshakeController;
 import handshake.HandshakeController;
 import proxy.RequestHandler;
-import proxy.clientimpl.errorres.ErrorResProvider;
+import proxy.clientimpl.htmlresponse.HtmlResponseProvider;
 import utils.Log;
 import utils.http.HttpUtil;
 
@@ -62,7 +62,13 @@ public class ClientRequestHandler extends RequestHandler implements Runnable {
         }
 
         if (!ClientConfigManager.isTargetHost(host)) {
-            //Log.info("Ignore request to " + host + url);
+            try {
+                this.clientSocket.getOutputStream().write(
+                        HtmlResponseProvider.getErrorPageResponse(host));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
             this.closeClientSocket();
             return;
         }
@@ -96,12 +102,10 @@ public class ClientRequestHandler extends RequestHandler implements Runnable {
             e.printStackTrace();
             try {
                 this.clientSocket.getOutputStream().write(
-                        ErrorResProvider.getErrorPageResponse(
+                        HtmlResponseProvider.getErrorPageResponse(
                                 e.getClass().getName() + e.getMessage()));
             } catch (IOException ex) {
                 ex.printStackTrace();
-                this.closeBothSockets();
-                return;
             }
 
             this.closeBothSockets();
