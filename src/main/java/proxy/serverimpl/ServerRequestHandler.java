@@ -24,6 +24,10 @@ public class ServerRequestHandler extends RequestHandler implements Runnable {
         this.synchronizedTransceiver = new SynchronizedTransceiver(clientSocket);
     }
 
+    private byte[] encryptDataForClient(byte[] data) {
+        return Aes.encrypt(data, this.applicationKey.serverKey());
+    }
+
     private byte[] decryptDataFromClient(byte[] data) {
         return Aes.decrypt(data, this.applicationKey.clientKey());
     }
@@ -99,7 +103,7 @@ public class ServerRequestHandler extends RequestHandler implements Runnable {
 
         // Receive response data and send encrypted data to client
         List<byte[]> headerBytes = new ArrayList<>();
-        byte[] responseData = new byte[64 * 1024];
+        byte[] responseData = new byte[128 * 1024];
         int responseDataLength;
         byte[] actualResponseData;
 
@@ -128,12 +132,14 @@ public class ServerRequestHandler extends RequestHandler implements Runnable {
             if (contentLength == -1) {
                 Log.info("Response transmission type: Chunked");
 
-                this.synchronizedTransceiver.sendData(actualResponseData);
+                this.synchronizedTransceiver.sendData(
+                        this.encryptDataForClient(actualResponseData));
 
                 while (!Utf8.encode(actualResponseData).contains("\r\n\0\r\n")) {
                     responseDataLength = this.serverSocket.getInputStream().read(responseData);
                     actualResponseData = Arrays.copyOf(responseData, responseDataLength);
-                    this.synchronizedTransceiver.sendData(actualResponseData);
+                    this.synchronizedTransceiver.sendData(
+                            this.encryptDataForClient(actualResponseData));
                 }
             }
             // Response transmission type: With Content-Length
@@ -149,7 +155,8 @@ public class ServerRequestHandler extends RequestHandler implements Runnable {
 
                 int receivedDataLength = responseDataLength - bodyStartIndex;
 
-                this.synchronizedTransceiver.sendData(actualResponseData);
+                this.synchronizedTransceiver.sendData(
+                        this.encryptDataForClient(actualResponseData));
 
                 while (receivedDataLength < contentLength) {
                     responseDataLength = this.serverSocket.getInputStream().read(responseData);
@@ -157,7 +164,8 @@ public class ServerRequestHandler extends RequestHandler implements Runnable {
 
                     receivedDataLength += responseDataLength;
 
-                    this.synchronizedTransceiver.sendData(actualResponseData);
+                    this.synchronizedTransceiver.sendData(
+                            this.encryptDataForClient(actualResponseData));
                 }
             }
 

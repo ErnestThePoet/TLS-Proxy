@@ -22,6 +22,10 @@ public class ClientRequestHandler extends RequestHandler implements Runnable {
         super(clientSocket);
     }
 
+    private byte[] encryptDataForServer(byte[] data) {
+        return Aes.encrypt(data, this.applicationKey.clientKey());
+    }
+
     private byte[] decryptDataFromServer(byte[] data) {
         return Aes.decrypt(data, this.applicationKey.serverKey());
     }
@@ -64,7 +68,7 @@ public class ClientRequestHandler extends RequestHandler implements Runnable {
         if (!ClientConfigManager.isTargetHost(host)) {
             try {
                 this.clientSocket.getOutputStream().write(
-                        HtmlResponseProvider.getErrorPageResponse(host));
+                        HtmlResponseProvider.getNotTargetHostPageResponse(host));
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -125,8 +129,7 @@ public class ClientRequestHandler extends RequestHandler implements Runnable {
 
         // Forward encrypted client data
         try {
-            this.synchronizedTransceiver.sendData(
-                    Aes.encrypt(clientData, this.applicationKey.clientKey()));
+            this.synchronizedTransceiver.sendData(this.encryptDataForServer(clientData));
         } catch (IOException e) {
             e.printStackTrace();
             this.closeBothSockets();

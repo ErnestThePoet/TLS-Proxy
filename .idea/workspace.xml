@@ -4,10 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2f7898b2-b765-4e37-aa41-eb57a980bd7e" name="Changes" comment="cert validator can return message">
+    <list default="true" id="2f7898b2-b765-4e37-aa41-eb57a980bd7e" name="Changes" comment="added not target host page">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/proxy/clientimpl/ClientRequestHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/proxy/clientimpl/ClientRequestHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/proxy/clientimpl/errorres/ErrorResProvider.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/proxy/clientimpl/htmlresponse/HtmlResponseProvider.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/proxy/serverimpl/ServerRequestHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/proxy/serverimpl/ServerRequestHandler.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -362,7 +362,21 @@
       <option name="project" value="LOCAL" />
       <updated>1669811066945</updated>
     </task>
-    <option name="localTasksCounter" value="40" />
+    <task id="LOCAL-00040" summary="added not target host page">
+      <created>1669812702750</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1669812702750</updated>
+    </task>
+    <task id="LOCAL-00041" summary="added not target host page">
+      <created>1669812706710</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1669812706710</updated>
+    </task>
+    <option name="localTasksCounter" value="42" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -377,7 +391,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="removed redundant imports" />
     <MESSAGE value="added readme and added todo code" />
     <MESSAGE value="added docs for certificate interfaces" />
     <MESSAGE value="updated title for readme" />
@@ -402,7 +415,8 @@
     <MESSAGE value="added illustration pic" />
     <MESSAGE value="introduced sync transceiver; client proxy can send error page" />
     <MESSAGE value="cert validator can return message" />
-    <option name="LAST_COMMIT_MESSAGE" value="cert validator can return message" />
+    <MESSAGE value="added not target host page" />
+    <option name="LAST_COMMIT_MESSAGE" value="added not target host page" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
