@@ -9,10 +9,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2f7898b2-b765-4e37-aa41-eb57a980bd7e" name="Changes" comment="manifest modified">
+    <list default="true" id="2f7898b2-b765-4e37-aa41-eb57a980bd7e" name="Changes" comment="step comment unified">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/handshake/clientimpl/ClientHandshakeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/handshake/clientimpl/ClientHandshakeController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/handshake/serverimpl/ServerHandshakeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/handshake/serverimpl/ServerHandshakeController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -50,18 +49,18 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;E:/ErnestsProjects/TLSProxy/TLSProxy/src&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Artifacts&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.keymap&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "last_opened_file_path": "E:/ErnestsProjects/TLSProxy/TLSProxy",
+    "project.structure.last.edited": "Artifacts",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "MavenSettings"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="E:\ErnestsProjects\TLSProxy\TLSProxy\src" />
@@ -74,7 +73,7 @@
       <recent name="crypto.encryption" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Maven.TLSProxy [package]">
     <configuration name="TlsProxyApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="TlsProxyApplication" />
       <module name="TLSProxy" />
@@ -83,8 +82,34 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="TLSProxy [package]" type="MavenRunConfiguration" factoryName="Maven" temporary="true">
+      <MavenSettings>
+        <option name="myGeneralSettings" />
+        <option name="myRunnerSettings" />
+        <option name="myRunnerParameters">
+          <MavenRunnerParameters>
+            <option name="profiles">
+              <set />
+            </option>
+            <option name="goals">
+              <list>
+                <option value="package" />
+              </list>
+            </option>
+            <option name="pomFileName" value="pom.xml" />
+            <option name="profilesMap">
+              <map />
+            </option>
+            <option name="resolveToWorkspace" value="false" />
+            <option name="workingDirPath" value="$PROJECT_DIR$" />
+          </MavenRunnerParameters>
+        </option>
+      </MavenSettings>
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Maven.TLSProxy [package]" />
         <item itemvalue="Application.TlsProxyApplication" />
       </list>
     </recent_temporary>
@@ -406,7 +431,14 @@
       <option name="project" value="LOCAL" />
       <updated>1669817175118</updated>
     </task>
-    <option name="localTasksCounter" value="45" />
+    <task id="LOCAL-00045" summary="step comment unified">
+      <created>1669823213331</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1669823213331</updated>
+    </task>
+    <option name="localTasksCounter" value="46" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -421,7 +453,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="modified words in README" />
     <MESSAGE value="made README more accurate" />
     <MESSAGE value="added more details to README" />
     <MESSAGE value="added space before property type" />
@@ -446,7 +477,8 @@
     <MESSAGE value="ServerProxy bug fixed" />
     <MESSAGE value="CertificateValidator doc modified" />
     <MESSAGE value="manifest modified" />
-    <option name="LAST_COMMIT_MESSAGE" value="manifest modified" />
+    <MESSAGE value="step comment unified" />
+    <option name="LAST_COMMIT_MESSAGE" value="step comment unified" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
