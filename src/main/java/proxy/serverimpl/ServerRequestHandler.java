@@ -95,45 +95,33 @@ public class ServerRequestHandler extends RequestHandler implements Runnable {
             return;
         }
 
-        Log.info("Forwarding request data to local server", url);
-        // Forward request data to server
         try {
+            Log.info("Forwarding request data to local server", url);
+            // Forward request data to server
+
             this.serverSocket.setSoTimeout(ServerConfigManager.getTimeout());
             this.serverSocket.getOutputStream().write(clientData);
             this.serverSocket.getOutputStream().flush();
-        } catch (IOException e) {
-            Log.error(e.getClass().getName() + e.getMessage(), url);
-            e.printStackTrace();
-            this.closeBothSockets();
-            return;
-        }
 
-        // Receive response data and send encrypted data to client
-        List<byte[]> headerBytes = new ArrayList<>();
-        byte[] responseData = new byte[128 * 1024];
-        int responseDataLength;
-        byte[] actualResponseData;
+            // Receive response data and send encrypted data to client
+            List<byte[]> headerBytes = new ArrayList<>();
+            byte[] responseData = new byte[128 * 1024];
+            int responseDataLength;
+            byte[] actualResponseData;
 
-        try {
             while (!Utf8.encode(ByteArrayUtil.concat(headerBytes)).contains("\r\n\r\n")) {
                 responseDataLength = this.serverSocket.getInputStream().read(responseData);
                 actualResponseData = Arrays.copyOf(responseData, responseDataLength);
                 headerBytes.add(actualResponseData);
             }
-        } catch (IOException e) {
-            e.printStackTrace();
-            this.closeBothSockets();
-            return;
-        }
 
-        actualResponseData = ByteArrayUtil.concat(headerBytes);
-        responseDataLength = actualResponseData.length;
-        // Determine response data transmission type
-        String actualResponseString = Utf8.encode(actualResponseData);
+            actualResponseData = ByteArrayUtil.concat(headerBytes);
+            responseDataLength = actualResponseData.length;
+            // Determine response data transmission type
+            String actualResponseString = Utf8.encode(actualResponseData);
 
-        HttpResponseInfo responseInfo = new HttpResponseInfo(actualResponseString);
+            HttpResponseInfo responseInfo = new HttpResponseInfo(actualResponseString);
 
-        try {
             // For status code 304(Not Modified), send the sole header directly
             if (responseInfo.getStatus() == 304) {
                 this.logReceivingResponse("304 Not Modified", url);
@@ -201,7 +189,7 @@ public class ServerRequestHandler extends RequestHandler implements Runnable {
             // Send finishing signal
             this.synchronizedTransceiver.sendData(new byte[]{0});
         } catch (IOException e) {
-            Log.error(e.getClass().getName() + e.getMessage(), url);
+            Log.error(e, url);
             e.printStackTrace();
             this.closeBothSockets();
             return;

@@ -9,9 +9,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2f7898b2-b765-4e37-aa41-eb57a980bd7e" name="Changes" comment="log prints url; added support for 304 and HTTP1.0">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="2f7898b2-b765-4e37-aa41-eb57a980bd7e" name="Changes" comment="error page uses Chinese" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -477,7 +475,14 @@
       <option name="project" value="LOCAL" />
       <updated>1669945719291</updated>
     </task>
-    <option name="localTasksCounter" value="48" />
+    <task id="LOCAL-00048" summary="error page uses Chinese">
+      <created>1669946426716</created>
+      <option name="number" value="00048" />
+      <option name="presentableId" value="LOCAL-00048" />
+      <option name="project" value="LOCAL" />
+      <updated>1669946426716</updated>
+    </task>
+    <option name="localTasksCounter" value="49" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -492,7 +497,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="added space before property type" />
     <MESSAGE value="simplified server config file; resorted class structure" />
     <MESSAGE value="updated readme debug info; used more record" />
     <MESSAGE value="more details for README" />
@@ -517,7 +521,8 @@
     <MESSAGE value="step comment unified" />
     <MESSAGE value="maven configured" />
     <MESSAGE value="log prints url; added support for 304 and HTTP1.0" />
-    <option name="LAST_COMMIT_MESSAGE" value="log prints url; added support for 304 and HTTP1.0" />
+    <MESSAGE value="error page uses Chinese" />
+    <option name="LAST_COMMIT_MESSAGE" value="error page uses Chinese" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

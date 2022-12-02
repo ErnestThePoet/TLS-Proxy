@@ -9,6 +9,7 @@ import handshake.clientimpl.ClientHandshakeController;
 import handshake.HandshakeController;
 import proxy.RequestHandler;
 import proxy.clientimpl.htmlresponse.HtmlResponseProvider;
+import utils.ExceptionUtil;
 import utils.Log;
 import utils.http.HttpUtil;
 import utils.http.objs.HttpRequestInfo;
@@ -38,7 +39,7 @@ public class ClientRequestHandler extends RequestHandler implements Runnable {
                     HtmlResponseProvider.getErrorPageResponse(message));
         } catch (IOException e) {
             if (url != null) {
-                Log.error(e.getClass().getName() + e.getMessage(), url);
+                Log.error(e, url);
             }
             e.printStackTrace();
         }
@@ -50,7 +51,7 @@ public class ClientRequestHandler extends RequestHandler implements Runnable {
                     HtmlResponseProvider.getNotTargetHostPageResponse(host));
         } catch (IOException e) {
             if (url != null) {
-                Log.error(e.getClass().getName() + e.getMessage(), url);
+                Log.error(e, url);
             }
             e.printStackTrace();
         }
@@ -116,55 +117,31 @@ public class ClientRequestHandler extends RequestHandler implements Runnable {
 
         try {
             this.serverSocket.setSoTimeout(ClientConfigManager.getTimeout());
-        } catch (SocketException e) {
-            Log.error(e.getClass().getName() + e.getMessage(), url);
-            e.printStackTrace();
-            this.sendErrorPage(e.getClass().getName() + e.getMessage(), url);
-            this.closeBothSockets();
-            return;
-        }
 
-        Log.info("Negotiating application key", url);
+            Log.info("Negotiating application key", url);
 
-        HandshakeController handshakeController =
-                new ClientHandshakeController(this.serverSocket, requestInfo.getHost());
+            HandshakeController handshakeController =
+                    new ClientHandshakeController(this.serverSocket, requestInfo.getHost());
 
-        try {
             this.applicationKey = handshakeController.negotiateApplicationKey();
-        } catch (IOException | TlsException e) {
-            Log.error(e.getClass().getName() + e.getMessage(), url);
-            e.printStackTrace();
-            this.sendErrorPage(e.getClass().getName() + e.getMessage(), url);
-            this.closeBothSockets();
-            return;
-        }
 
-        if (this.applicationKey == null) {
-            Log.error("Application key negotiation failed", url);
-            this.sendErrorPage("应用数据通信秘钥协商失败", url);
-            this.closeBothSockets();
-            return;
-        }
+            if (this.applicationKey == null) {
+                Log.error("Application key negotiation failed", url);
+                this.sendErrorPage("应用数据通信秘钥协商失败", url);
+                this.closeBothSockets();
+                return;
+            }
 
-        Log.info("Sending encrypted request data", url);
+            Log.info("Sending encrypted request data", url);
 
-        this.synchronizedTransceiver = new SynchronizedTransceiver(this.serverSocket);
+            this.synchronizedTransceiver = new SynchronizedTransceiver(this.serverSocket);
 
-        // Forward encrypted client data
-        try {
+            // Forward encrypted client data
             this.synchronizedTransceiver.sendData(this.encryptDataForServer(clientData));
-        } catch (IOException e) {
-            Log.error(e.getClass().getName() + e.getMessage(), url);
-            e.printStackTrace();
-            this.sendErrorPage(e.getClass().getName() + e.getMessage(), url);
-            this.closeBothSockets();
-            return;
-        }
 
-        Log.info("Receiving encrypted response data and delivering", url);
-        // Send back decrypted response data
+            Log.info("Receiving encrypted response data and delivering", url);
+            // Send back decrypted response data
 
-        try {
             while (true) {
                 var serverData = this.synchronizedTransceiver.receiveData().data();
 
@@ -178,10 +155,10 @@ public class ClientRequestHandler extends RequestHandler implements Runnable {
                 this.clientSocket.getOutputStream().write(actualServerData);
                 this.clientSocket.getOutputStream().flush();
             }
-        } catch (IOException e) {
-            Log.error(e.getClass().getName() + e.getMessage(), url);
+        } catch (IOException | TlsException e) {
+            Log.error(e, url);
             e.printStackTrace();
-            this.sendErrorPage(e.getClass().getName() + e.getMessage(), url);
+            this.sendErrorPage(ExceptionUtil.getExceptionBrief(e), url);
             this.closeBothSockets();
             return;
         }
