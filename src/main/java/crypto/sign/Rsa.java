@@ -32,9 +32,18 @@ public class Rsa {
 
             PublicKey key = keyFactory.generatePublic(keySpec);
 
+            return verify(key,message,sign);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public static boolean verify(PublicKey publicKey, byte[] message, byte[] sign){
+        try {
             Signature signature = Signature.getInstance("SHA384withRSA");
 
-            signature.initVerify(key);
+            signature.initVerify(publicKey);
             signature.update(message);
 
             return signature.verify(sign);
