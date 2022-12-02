@@ -61,14 +61,14 @@ public class ClientHandshakeController extends HandshakeController {
         var certificateValidationResult =
                 certificateValidator.validateCertificate(certificate, this.host);
         if (!certificateValidationResult.success()) {
-            throw new TlsException("Certificate validation failed: "
+            throw new TlsException("服务器证书验证失败："
                     + certificateValidationResult.message());
         }
 
         if (!certificateValidator.validateTrafficSignature(
                 certificate,
                 ByteArrayUtil.concat(this.getTrafficConcat()), trafficSignature)) {
-            throw new TlsException("Traffic signature validation failed");
+            throw new TlsException("通信签名验证失败");
         }
 
         // Server traffic signature does not include traffic signature
@@ -81,7 +81,7 @@ public class ClientHandshakeController extends HandshakeController {
                 HkdfSha384.expand(this.serverSecret, Utf8.decode("finished"), 32),
                 this.getTrafficHash(),
                 Aes.decrypt(receivedPacketAndData.data(), this.handshakeKey.serverKey()))) {
-            throw new TlsException("Traffic hash (Server Finished) verification failed");
+            throw new TlsException("通信哈希值(Server Finished)验证失败");
         }
 
         this.addTraffic(receivedPacketAndData.packet());

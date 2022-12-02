@@ -62,7 +62,7 @@ public class ClientRequestHandler extends RequestHandler implements Runnable {
         try {
             int clientDataLength = this.clientSocket.getInputStream().read(clientData);
             if (clientDataLength == -1) {
-                throw new IOException("read() returned -1");
+                throw new IOException("read()返回-1");
             }
             clientData = Arrays.copyOf(clientData, clientDataLength);
         } catch (IOException e) {
@@ -88,7 +88,7 @@ public class ClientRequestHandler extends RequestHandler implements Runnable {
 
         if (requestInfo.getHost() == null) {
             Log.error("Cannot get host from request header");
-            this.sendErrorPage("Cannot get host from request header", null);
+            this.sendErrorPage("无法从请求头中解析主机名", null);
             this.closeClientSocket();
             return;
         }
@@ -109,7 +109,7 @@ public class ClientRequestHandler extends RequestHandler implements Runnable {
 
         if (this.serverSocket == null) {
             Log.error("Cannot connect to host", url);
-            this.sendErrorPage("Cannot connect to host", url);
+            this.sendErrorPage("无法连接到主机", url);
             this.closeClientSocket();
             return;
         }
@@ -141,7 +141,7 @@ public class ClientRequestHandler extends RequestHandler implements Runnable {
 
         if (this.applicationKey == null) {
             Log.error("Application key negotiation failed", url);
-            this.sendErrorPage("Application key negotiation failed", url);
+            this.sendErrorPage("应用数据通信秘钥协商失败", url);
             this.closeBothSockets();
             return;
         }

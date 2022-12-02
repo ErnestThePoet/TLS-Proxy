@@ -9,22 +9,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2f7898b2-b765-4e37-aa41-eb57a980bd7e" name="Changes" comment="maven configured">
-      <change afterPath="$PROJECT_DIR$/src/main/java/utils/http/objs/HttpRequestInfo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/utils/http/objs/HttpResponseInfo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/utils/http/objs/ParsedHost.java" afterDir="false" />
+    <list default="true" id="2f7898b2-b765-4e37-aa41-eb57a980bd7e" name="Changes" comment="log prints url; added support for 304 and HTTP1.0">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/configs/configs_client.json" beforeDir="false" afterPath="$PROJECT_DIR$/configs/configs_client.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/handshake/certificate/impl/ErnestCertificateValidator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/handshake/certificate/impl/ErnestCertificateValidator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/proxy/RequestHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/proxy/RequestHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/proxy/clientimpl/ClientRequestHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/proxy/clientimpl/ClientRequestHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/proxy/serverimpl/ServerRequestHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/proxy/serverimpl/ServerRequestHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/utils/ByteArrayUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/utils/ByteArrayUtil.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/utils/Log.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/utils/Log.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/utils/http/HttpUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/utils/http/HttpUtil.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/utils/http/objs/HostAndShortenPathResult.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/utils/http/objs/HostPort.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/utils/http/objs/ReplaceHostResult.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -484,7 +470,14 @@
       <option name="project" value="LOCAL" />
       <updated>1669858389649</updated>
     </task>
-    <option name="localTasksCounter" value="47" />
+    <task id="LOCAL-00047" summary="log prints url; added support for 304 and HTTP1.0">
+      <created>1669945719291</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1669945719291</updated>
+    </task>
+    <option name="localTasksCounter" value="48" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -499,7 +492,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="added more details to README" />
     <MESSAGE value="added space before property type" />
     <MESSAGE value="simplified server config file; resorted class structure" />
     <MESSAGE value="updated readme debug info; used more record" />
@@ -524,7 +516,8 @@
     <MESSAGE value="manifest modified" />
     <MESSAGE value="step comment unified" />
     <MESSAGE value="maven configured" />
-    <option name="LAST_COMMIT_MESSAGE" value="maven configured" />
+    <MESSAGE value="log prints url; added support for 304 and HTTP1.0" />
+    <option name="LAST_COMMIT_MESSAGE" value="log prints url; added support for 304 and HTTP1.0" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
