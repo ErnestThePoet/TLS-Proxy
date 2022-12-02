@@ -9,12 +9,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2f7898b2-b765-4e37-aa41-eb57a980bd7e" name="Changes" comment="ignored cert dir">
+    <list default="true" id="2f7898b2-b765-4e37-aa41-eb57a980bd7e" name="Changes" comment="misc fixes">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/communication/SynchronizedTransceiver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/communication/SynchronizedTransceiver.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/handshake/certificate/impl/ErnestCertificateProvider.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/handshake/certificate/impl/ErnestCertificateProvider.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/proxy/clientimpl/ClientRequestHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/proxy/clientimpl/ClientRequestHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/proxy/serverimpl/ServerRequestHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/proxy/serverimpl/ServerRequestHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/handshake/certificate/impl/ErnestCertificateValidator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/handshake/certificate/impl/ErnestCertificateValidator.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -151,13 +148,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1667043131124</updated>
-    </task>
-    <task id="LOCAL-00005" summary="separated client&amp;socket config">
-      <created>1667302450137</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1667302450137</updated>
     </task>
     <task id="LOCAL-00006" summary="key negotiate OK">
       <created>1667306357171</created>
@@ -495,7 +485,14 @@
       <option name="project" value="LOCAL" />
       <updated>1669953958715</updated>
     </task>
-    <option name="localTasksCounter" value="54" />
+    <task id="LOCAL-00054" summary="misc fixes">
+      <created>1669962597763</created>
+      <option name="number" value="00054" />
+      <option name="presentableId" value="LOCAL-00054" />
+      <option name="project" value="LOCAL" />
+      <updated>1669962597763</updated>
+    </task>
+    <option name="localTasksCounter" value="55" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -510,7 +507,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="added front-end reminder in README" />
     <MESSAGE value="added host param in CertificateValidator.validateCertificate" />
     <MESSAGE value="added timeout in config" />
     <MESSAGE value="typo in to-xx-timeout" />
@@ -535,7 +531,8 @@
     <MESSAGE value="cert validator complete" />
     <MESSAGE value="added ide config xmls" />
     <MESSAGE value="ignored cert dir" />
-    <option name="LAST_COMMIT_MESSAGE" value="ignored cert dir" />
+    <MESSAGE value="misc fixes" />
+    <option name="LAST_COMMIT_MESSAGE" value="misc fixes" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

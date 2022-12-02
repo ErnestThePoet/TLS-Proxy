@@ -7,6 +7,7 @@ import utils.ExceptionUtil;
 import utils.Log;
 
 import java.io.ByteArrayInputStream;
+import java.security.*;
 import java.security.cert.*;
 
 public class ErnestCertificateValidator implements CertificateValidator {
@@ -28,6 +29,14 @@ public class ErnestCertificateValidator implements CertificateValidator {
             } catch (CertificateNotYetValidException notYetValidException) {
                 return new CertificateValidationResult(
                         false, "证书无效。" + notYetValidException.getMessage()
+                );
+            }
+
+            try {
+                cert.verify(cert.getPublicKey());
+            } catch (GeneralSecurityException e) {
+                return new CertificateValidationResult(
+                        false, "证书签名验证失败。" + e.getMessage()
                 );
             }
 
