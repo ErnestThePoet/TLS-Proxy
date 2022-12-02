@@ -1,18 +1,33 @@
 package handshake.certificate.impl;
 
-import crypto.hash.Sha384;
+import crypto.sign.Rsa;
 import handshake.certificate.CertificateProvider;
+import utils.Log;
 
-// TODO Demo code only
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.Base64;
+
 public class ErnestCertificateProvider implements CertificateProvider {
     @Override
     public byte[] getCertificate() {
-        return new byte[10];
+        try {
+            return Files.readAllBytes(Path.of("./cert/root.crt"));
+        } catch (IOException e) {
+            Log.error(e);
+            return null;
+        }
     }
 
     @Override
     public byte[] signTraffic(byte[] traffic) {
-        // TODO This is not signature. Only for demo.
-        return Sha384.hash(traffic);
+        try {
+            var privateKeyBase64 = Files.readAllBytes(Path.of("./cert/private.key"));
+            return Rsa.sign(Base64.getDecoder().decode(privateKeyBase64), traffic);
+        } catch (IOException e) {
+            Log.error(e);
+            return null;
+        }
     }
 }

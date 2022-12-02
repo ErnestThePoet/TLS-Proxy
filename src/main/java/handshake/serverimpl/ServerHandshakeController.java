@@ -42,14 +42,24 @@ public class ServerHandshakeController extends HandshakeController {
         CertificateProvider certificateProvider = CertificateProvider.getInstance();
 
         // [Server Certificate] Send encrypted certificate to client
-        sendPacket = this.synchronizedTransceiver.sendData(Aes.encrypt(
-                certificateProvider.getCertificate(), this.handshakeKey.serverKey()));
+        var certificate = certificateProvider.getCertificate();
+        if (certificate == null) {
+            throw new TlsException("无法获取证书");
+        }
+
+        sendPacket = this.synchronizedTransceiver.sendData(
+                Aes.encrypt(certificate, this.handshakeKey.serverKey()));
         this.addTraffic(sendPacket);
 
         // [Server Certificate Verify] Send encrypted traffic signature to client
-        sendPacket = this.synchronizedTransceiver.sendData(Aes.encrypt(
-                certificateProvider.signTraffic(
-                        this.getTrafficConcat()), this.handshakeKey.serverKey()));
+        var trafficSignature = certificateProvider.signTraffic(
+                this.getTrafficConcat());
+        if (trafficSignature == null) {
+            throw new TlsException("通信签名失败");
+        }
+
+        sendPacket = this.synchronizedTransceiver.sendData(
+                Aes.encrypt(trafficSignature, this.handshakeKey.serverKey()));
         this.addTraffic(sendPacket);
 
         // [Server Handshake Finished] Send encrypted traffic hash to client
@@ -72,7 +82,7 @@ public class ServerHandshakeController extends HandshakeController {
                 HkdfSha384.expand(this.clientSecret, Utf8.decode("finished"), 32),
                 this.getTrafficHash(),
                 Aes.decrypt(trafficHashEncrypted, this.handshakeKey.clientKey()))) {
-            throw new TlsException("Traffic hash (Client Finished) verification failed");
+            throw new TlsException("通信哈希值(Client Finished)验证失败");
         }
 
         return this.applicationKey;

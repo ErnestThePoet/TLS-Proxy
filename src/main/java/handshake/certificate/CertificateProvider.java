@@ -6,7 +6,7 @@ public interface CertificateProvider {
     /**
      * 提供证书字节序列。
      *
-     * @return  UTF-8编码的证书字节序列。
+     * @return  UTF-8编码的证书字节序列，或者{@code null}如果无法获取证书。
      */
     byte[] getCertificate();
 
@@ -16,7 +16,7 @@ public interface CertificateProvider {
      * @param   traffic
      *          要被签名的通信数据字节序列。
      *
-     * @return  签名结果的字节序列。
+     * @return  签名结果的字节序列，或者{@code null}如果签名失败。
      */
     byte[] signTraffic(byte[] traffic);
 

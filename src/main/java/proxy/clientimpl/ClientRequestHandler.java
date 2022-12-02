@@ -16,7 +16,6 @@ import utils.http.objs.HttpRequestInfo;
 
 import java.io.*;
 import java.net.Socket;
-import java.net.SocketException;
 import java.net.SocketTimeoutException;
 import java.util.Arrays;
 
@@ -88,14 +87,14 @@ public class ClientRequestHandler extends RequestHandler implements Runnable {
         requestInfo.setPath(newPath);
 
         if (requestInfo.getHost() == null) {
-            Log.error("Cannot get host from request header");
+            Log.error("无法从请求头中解析主机名");
             this.sendErrorPage("无法从请求头中解析主机名", null);
             this.closeClientSocket();
             return;
         }
 
         if (requestInfo.getPath() == null) {
-            Log.warn("Cannot get path from request header");
+            Log.warn("无法从请求头中解析路径");
         }
 
         var url = requestInfo.getHost() + requestInfo.getPath();
@@ -109,7 +108,7 @@ public class ClientRequestHandler extends RequestHandler implements Runnable {
         this.connectToServer(requestInfo.getHostName(), requestInfo.getHostPort());
 
         if (this.serverSocket == null) {
-            Log.error("Cannot connect to host", url);
+            Log.error("无法连接到主机", url);
             this.sendErrorPage("无法连接到主机", url);
             this.closeClientSocket();
             return;
@@ -118,7 +117,7 @@ public class ClientRequestHandler extends RequestHandler implements Runnable {
         try {
             this.serverSocket.setSoTimeout(ClientConfigManager.getTimeout());
 
-            Log.info("Negotiating application key", url);
+            Log.info("正在协商应用数据通信秘钥", url);
 
             HandshakeController handshakeController =
                     new ClientHandshakeController(this.serverSocket, requestInfo.getHost());
@@ -126,20 +125,20 @@ public class ClientRequestHandler extends RequestHandler implements Runnable {
             this.applicationKey = handshakeController.negotiateApplicationKey();
 
             if (this.applicationKey == null) {
-                Log.error("Application key negotiation failed", url);
+                Log.error("应用数据通信秘钥协商失败", url);
                 this.sendErrorPage("应用数据通信秘钥协商失败", url);
                 this.closeBothSockets();
                 return;
             }
 
-            Log.info("Sending encrypted request data", url);
+            Log.info("正在发送加密的请求数据", url);
 
             this.synchronizedTransceiver = new SynchronizedTransceiver(this.serverSocket);
 
             // Forward encrypted client data
             this.synchronizedTransceiver.sendData(this.encryptDataForServer(clientData));
 
-            Log.info("Receiving encrypted response data and delivering", url);
+            Log.info("正在接收加密的响应数据并交付给客户端", url);
             // Send back decrypted response data
 
             while (true) {
@@ -163,7 +162,7 @@ public class ClientRequestHandler extends RequestHandler implements Runnable {
             return;
         }
 
-        Log.success("All response data delivered", url);
+        Log.success("全部响应数据交付完成", url);
 
         this.closeBothSockets();
     }

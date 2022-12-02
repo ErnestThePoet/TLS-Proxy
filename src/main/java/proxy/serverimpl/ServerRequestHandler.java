@@ -36,14 +36,14 @@ public class ServerRequestHandler extends RequestHandler implements Runnable {
 
     private void logReceivingResponse(String transmissionType, String url) {
         Log.info(String.format(
-                        "Receiving response data and sending back, type: %s",
+                        "正在接收响应数据并加密发回客户端，响应数据传输类型: %s",
                         transmissionType),
                 url);
     }
 
     @Override
     public void run() {
-        Log.info("Negotiating application key");
+        Log.info("正在协商应用数据通信秘钥");
 
         HandshakeController handshakeController = new ServerHandshakeController(this.clientSocket);
 
@@ -56,12 +56,12 @@ public class ServerRequestHandler extends RequestHandler implements Runnable {
         }
 
         if (this.applicationKey == null) {
-            Log.error("Application key negotiation failed");
+            Log.error("应用数据通信秘钥协商失败");
             this.closeClientSocket();
             return;
         }
 
-        Log.info("Receiving encrypted request data");
+        Log.info("正在接收加密的请求数据");
         // Receive encrypted client request data
         byte[] clientData;
         try {
@@ -90,13 +90,13 @@ public class ServerRequestHandler extends RequestHandler implements Runnable {
         this.connectToServer(parsedNewHost.name(), parsedNewHost.port());
 
         if (this.serverSocket == null) {
-            Log.error("Cannot connect to host", url);
+            Log.error("无法连接到主机", url);
             this.closeClientSocket();
             return;
         }
 
         try {
-            Log.info("Forwarding request data to local server", url);
+            Log.info("正在转发请求数据到本地服务器", url);
             // Forward request data to server
 
             this.serverSocket.setSoTimeout(ServerConfigManager.getTimeout());
@@ -164,10 +164,6 @@ public class ServerRequestHandler extends RequestHandler implements Runnable {
 
                 int bodyStartIndex = actualResponseString.indexOf("\r\n\r\n") + 4;
 
-                if (bodyStartIndex == 3) {
-                    throw new IOException("Response header terminator not found");
-                }
-
                 int receivedDataLength = responseDataLength - bodyStartIndex;
 
                 this.synchronizedTransceiver.sendData(
@@ -183,7 +179,7 @@ public class ServerRequestHandler extends RequestHandler implements Runnable {
                             this.encryptDataForClient(actualResponseData));
                 }
             } else {
-                throw new IOException("Response transmission type not supported");
+                throw new IOException("响应数据传输类型不被TLS Proxy支持");
             }
 
             // Send finishing signal
@@ -195,7 +191,7 @@ public class ServerRequestHandler extends RequestHandler implements Runnable {
             return;
         }
 
-        Log.success("All response data sent back", url);
+        Log.success("全部响应数据已被加密发回客户端", url);
 
         this.closeBothSockets();
     }
