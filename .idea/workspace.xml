@@ -9,7 +9,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2f7898b2-b765-4e37-aa41-eb57a980bd7e" name="Changes" comment="cert validator complete" />
+    <list default="true" id="2f7898b2-b765-4e37-aa41-eb57a980bd7e" name="Changes" comment="ignored cert dir">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/communication/SynchronizedTransceiver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/communication/SynchronizedTransceiver.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/handshake/certificate/impl/ErnestCertificateProvider.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/handshake/certificate/impl/ErnestCertificateProvider.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/proxy/clientimpl/ClientRequestHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/proxy/clientimpl/ClientRequestHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/proxy/serverimpl/ServerRequestHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/proxy/serverimpl/ServerRequestHandler.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -145,20 +151,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1667043131124</updated>
-    </task>
-    <task id="LOCAL-00003" summary="adapted config file mode">
-      <created>1667216162732</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1667216162732</updated>
-    </task>
-    <task id="LOCAL-00004" summary="key negotiate completed">
-      <created>1667295328466</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1667295328466</updated>
     </task>
     <task id="LOCAL-00005" summary="separated client&amp;socket config">
       <created>1667302450137</created>
@@ -489,7 +481,21 @@
       <option name="project" value="LOCAL" />
       <updated>1669953849249</updated>
     </task>
-    <option name="localTasksCounter" value="52" />
+    <task id="LOCAL-00052" summary="added ide config xmls">
+      <created>1669953921071</created>
+      <option name="number" value="00052" />
+      <option name="presentableId" value="LOCAL-00052" />
+      <option name="project" value="LOCAL" />
+      <updated>1669953921072</updated>
+    </task>
+    <task id="LOCAL-00053" summary="ignored cert dir">
+      <created>1669953958715</created>
+      <option name="number" value="00053" />
+      <option name="presentableId" value="LOCAL-00053" />
+      <option name="project" value="LOCAL" />
+      <updated>1669953958715</updated>
+    </task>
+    <option name="localTasksCounter" value="54" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -504,8 +510,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="used more Log.success" />
-    <MESSAGE value="added check for app.key null" />
     <MESSAGE value="added front-end reminder in README" />
     <MESSAGE value="added host param in CertificateValidator.validateCertificate" />
     <MESSAGE value="added timeout in config" />
@@ -529,7 +533,9 @@
     <MESSAGE value="better exception handling structure" />
     <MESSAGE value="all error msg in Chinese; cert provider complete" />
     <MESSAGE value="cert validator complete" />
-    <option name="LAST_COMMIT_MESSAGE" value="cert validator complete" />
+    <MESSAGE value="added ide config xmls" />
+    <MESSAGE value="ignored cert dir" />
+    <option name="LAST_COMMIT_MESSAGE" value="ignored cert dir" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

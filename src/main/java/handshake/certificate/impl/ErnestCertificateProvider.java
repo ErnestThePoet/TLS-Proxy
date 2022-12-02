@@ -13,7 +13,7 @@ public class ErnestCertificateProvider implements CertificateProvider {
     @Override
     public byte[] getCertificate() {
         try {
-            return Files.readAllBytes(Path.of("./cert/root.crt"));
+            return Files.readAllBytes(Path.of("./cert/cert.crt"));
         } catch (IOException e) {
             Log.error(e);
             return null;

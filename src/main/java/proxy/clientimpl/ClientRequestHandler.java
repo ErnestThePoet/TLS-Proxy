@@ -71,8 +71,7 @@ public class ClientRequestHandler extends RequestHandler implements Runnable {
                 e.printStackTrace();
             }
 
-            e.printStackTrace();
-            this.sendErrorPage(e.getClass().getName() + e.getMessage(), null);
+            this.sendErrorPage(ExceptionUtil.getExceptionBrief(e), null);
             this.closeClientSocket();
             return;
         }

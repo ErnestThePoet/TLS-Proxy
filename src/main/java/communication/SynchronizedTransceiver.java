@@ -17,6 +17,8 @@ import java.util.List;
 public class SynchronizedTransceiver {
     private final Socket remoteSocket;
 
+    private final byte NORMAL_ACK = -1;
+
     public SynchronizedTransceiver(Socket remoteSocket) {
         this.remoteSocket = remoteSocket;
     }
@@ -30,11 +32,11 @@ public class SynchronizedTransceiver {
         int ackLength = this.remoteSocket.getInputStream().read(ackPacket);
 
         if (ackLength != 1) {
-            throw new IOException("ACK packet length is not 1");
+            throw new IOException("ACK数据包长度不为1");
         }
 
-        if (ackPacket[0] != -1) {
-            throw new IOException("ACK packet invalid");
+        if (ackPacket[0] != this.NORMAL_ACK) {
+            throw new IOException("ACK数据包非法");
         }
 
         return packet;
@@ -59,7 +61,7 @@ public class SynchronizedTransceiver {
             totalReadLength += currentReadLength;
         }
 
-        this.remoteSocket.getOutputStream().write(new byte[]{-1});
+        this.remoteSocket.getOutputStream().write(new byte[]{this.NORMAL_ACK});
         this.remoteSocket.getOutputStream().flush();
 
         byte[] packet = ByteArrayUtil.concat(packetParts);
