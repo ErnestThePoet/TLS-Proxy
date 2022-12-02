@@ -11,6 +11,8 @@ import proxy.RequestHandler;
 import utils.ByteArrayUtil;
 import utils.Log;
 import utils.http.HttpUtil;
+import utils.http.objs.HttpRequestInfo;
+import utils.http.objs.HttpResponseInfo;
 
 import java.io.IOException;
 import java.net.Socket;
@@ -32,9 +34,16 @@ public class ServerRequestHandler extends RequestHandler implements Runnable {
         return Aes.decrypt(data, this.applicationKey.clientKey());
     }
 
+    private void logReceivingResponse(String transmissionType, String url) {
+        Log.info(String.format(
+                        "Receiving response data and sending back, type: %s",
+                        transmissionType),
+                url);
+    }
+
     @Override
     public void run() {
-        Log.info("Negotiating application key with client");
+        Log.info("Negotiating application key");
 
         HandshakeController handshakeController = new ServerHandshakeController(this.clientSocket);
 
@@ -52,8 +61,7 @@ public class ServerRequestHandler extends RequestHandler implements Runnable {
             return;
         }
 
-        Log.success("Successfully calculated application key with client");
-
+        Log.info("Receiving encrypted request data");
         // Receive encrypted client request data
         byte[] clientData;
         try {
@@ -67,39 +75,38 @@ public class ServerRequestHandler extends RequestHandler implements Runnable {
 
         // Replace host field in request header
         String newHost = ServerConfigManager.getProxyPass();
-        var replaceHostResult =
-                HttpUtil.replaceRequestHeaderHost(newHost, clientData);
-        if (replaceHostResult.originalHost() == null) {
-            Log.error("Host not found in request header");
-            this.closeClientSocket();
-            return;
-        }
 
-        Log.info(String.format("Replaced request header Host [%s] with [%s]",
-                replaceHostResult.originalHost(), newHost));
+        String originalRequestString = Utf8.encode(clientData);
 
-        var serverPort = HttpUtil.extractHostPort(newHost);
+        var originalRequestInfo = new HttpRequestInfo(originalRequestString);
 
-        this.connectToServer(serverPort.host(), serverPort.port());
+        var url = originalRequestInfo.getHost() + originalRequestInfo.getPath();
+
+        clientData = HttpUtil.replaceRequestHost(
+                newHost, clientData, originalRequestString);
+
+        var parsedNewHost = HttpUtil.parseHost(newHost);
+
+        this.connectToServer(parsedNewHost.name(), parsedNewHost.port());
 
         if (this.serverSocket == null) {
-            Log.error("Cannot connect to host");
+            Log.error("Cannot connect to host", url);
             this.closeClientSocket();
             return;
         }
 
+        Log.info("Forwarding request data to local server", url);
         // Forward request data to server
         try {
             this.serverSocket.setSoTimeout(ServerConfigManager.getTimeout());
-            this.serverSocket.getOutputStream().write(replaceHostResult.newRequestData());
+            this.serverSocket.getOutputStream().write(clientData);
             this.serverSocket.getOutputStream().flush();
         } catch (IOException e) {
+            Log.error(e.getClass().getName() + e.getMessage(), url);
             e.printStackTrace();
             this.closeBothSockets();
             return;
         }
-
-        Log.info("Sent request data to local server");
 
         // Receive response data and send encrypted data to client
         List<byte[]> headerBytes = new ArrayList<>();
@@ -124,18 +131,38 @@ public class ServerRequestHandler extends RequestHandler implements Runnable {
         // Determine response data transmission type
         String actualResponseString = Utf8.encode(actualResponseData);
 
-        try {
-            int contentLength = HttpUtil.getContentLength(actualResponseData);
+        HttpResponseInfo responseInfo = new HttpResponseInfo(actualResponseString);
 
+        try {
+            // For status code 304(Not Modified), send the sole header directly
+            if (responseInfo.getStatus() == 304) {
+                this.logReceivingResponse("304 Not Modified", url);
+
+                this.synchronizedTransceiver.sendData(
+                        this.encryptDataForClient(actualResponseData));
+            }
+            // For HTTP 1.0, read until connection closes
+            else if (responseInfo.getHttpVersion().equals("1.0")) {
+                this.logReceivingResponse("HTTP 1.0", url);
+
+                while (responseDataLength != -1) {
+                    actualResponseData = Arrays.copyOf(responseData, responseDataLength);
+                    this.synchronizedTransceiver.sendData(
+                            this.encryptDataForClient(actualResponseData));
+                    responseDataLength = this.serverSocket.getInputStream().read(responseData);
+                }
+            }
+            // The following two branches are higher versions of HTTP using long connections
             // Response transmission type: Chunked
-            // Receive data in loop until encounter "\r\n\0\r\n"
-            if (contentLength == -1) {
-                Log.info("Response transmission type: Chunked");
+            // Receive data in loop until encounter "\r\n0\r\n"
+            else if (responseInfo.getTransferEncoding() != null
+                    && responseInfo.getTransferEncoding().equals("chunked")) {
+                this.logReceivingResponse("Chunked", url);
 
                 this.synchronizedTransceiver.sendData(
                         this.encryptDataForClient(actualResponseData));
 
-                while (!Utf8.encode(actualResponseData).contains("\r\n\0\r\n")) {
+                while (!Utf8.encode(actualResponseData).contains("\r\n0\r\n")) {
                     responseDataLength = this.serverSocket.getInputStream().read(responseData);
                     actualResponseData = Arrays.copyOf(responseData, responseDataLength);
                     this.synchronizedTransceiver.sendData(
@@ -144,8 +171,8 @@ public class ServerRequestHandler extends RequestHandler implements Runnable {
             }
             // Response transmission type: With Content-Length
             // Receive data of size contentLength
-            else {
-                Log.info("Response transmission type: With Content-Length");
+            else if (responseInfo.getContentLength() != null) {
+                this.logReceivingResponse("Content-Length", url);
 
                 int bodyStartIndex = actualResponseString.indexOf("\r\n\r\n") + 4;
 
@@ -158,7 +185,7 @@ public class ServerRequestHandler extends RequestHandler implements Runnable {
                 this.synchronizedTransceiver.sendData(
                         this.encryptDataForClient(actualResponseData));
 
-                while (receivedDataLength < contentLength) {
+                while (receivedDataLength < responseInfo.getContentLength()) {
                     responseDataLength = this.serverSocket.getInputStream().read(responseData);
                     actualResponseData = Arrays.copyOf(responseData, responseDataLength);
 
@@ -167,17 +194,20 @@ public class ServerRequestHandler extends RequestHandler implements Runnable {
                     this.synchronizedTransceiver.sendData(
                             this.encryptDataForClient(actualResponseData));
                 }
+            } else {
+                throw new IOException("Response transmission type not supported");
             }
 
             // Send finishing signal
             this.synchronizedTransceiver.sendData(new byte[]{0});
         } catch (IOException e) {
+            Log.error(e.getClass().getName() + e.getMessage(), url);
             e.printStackTrace();
             this.closeBothSockets();
             return;
         }
 
-        Log.success("All response data transmitted to client");
+        Log.success("All response data sent back", url);
 
         this.closeBothSockets();
     }

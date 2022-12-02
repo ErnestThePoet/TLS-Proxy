@@ -38,10 +38,10 @@ public abstract class RequestHandler {
         this.closeServerSocket();
     }
 
-    protected void connectToServer(String host, int port) {
+    protected void connectToServer(String name, int port) {
         // Note: use actual port for server side
         try {
-            this.serverSocket = new Socket(host, port);
+            this.serverSocket = new Socket(name, port);
         } catch (IOException e) {
             e.printStackTrace();
             this.serverSocket = null;

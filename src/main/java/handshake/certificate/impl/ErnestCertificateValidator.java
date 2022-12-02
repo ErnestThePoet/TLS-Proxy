@@ -1,8 +1,8 @@
 package handshake.certificate.impl;
 
 import crypto.hash.Sha384;
-import handshake.certificate.CertificateValidator;
 import handshake.certificate.objs.CertificateValidationResult;
+import handshake.certificate.CertificateValidator;
 
 import java.util.Base64;
 

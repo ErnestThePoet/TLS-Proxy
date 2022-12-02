@@ -64,6 +64,6 @@ public class SynchronizedTransceiver {
 
         byte[] packet = ByteArrayUtil.concat(packetParts);
 
-        return new PacketAndData(packet,PacketUtil.extractData(packet));
+        return new PacketAndData(packet, PacketUtil.extractData(packet));
     }
 }

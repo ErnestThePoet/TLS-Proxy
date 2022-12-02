@@ -57,4 +57,14 @@ public class ByteArrayUtil {
 
         return true;
     }
+
+    public static int indexOf(byte[] bytes,byte target){
+        for(int i=0;i<bytes.length;i++){
+            if(bytes[i]==target){
+                return i;
+            }
+        }
+
+        return -1;
+    }
 }
