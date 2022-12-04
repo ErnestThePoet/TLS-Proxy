@@ -9,9 +9,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2f7898b2-b765-4e37-aa41-eb57a980bd7e" name="Changes" comment="misc fixes">
+    <list default="true" id="2f7898b2-b765-4e37-aa41-eb57a980bd7e" name="Changes" comment="added cert sign verify">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/handshake/certificate/impl/ErnestCertificateValidator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/handshake/certificate/impl/ErnestCertificateValidator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/TlsProxyApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/TlsProxyApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/config/clientimpl/ClientConfigManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/config/clientimpl/ClientConfigManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/config/serverimpl/ServerConfigManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/config/serverimpl/ServerConfigManager.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -148,13 +150,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1667043131124</updated>
-    </task>
-    <task id="LOCAL-00006" summary="key negotiate OK">
-      <created>1667306357171</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1667306357171</updated>
     </task>
     <task id="LOCAL-00007" summary="handshake key ok">
       <created>1667309409087</created>
@@ -492,7 +487,14 @@
       <option name="project" value="LOCAL" />
       <updated>1669962597763</updated>
     </task>
-    <option name="localTasksCounter" value="55" />
+    <task id="LOCAL-00055" summary="added cert sign verify">
+      <created>1669963261163</created>
+      <option name="number" value="00055" />
+      <option name="presentableId" value="LOCAL-00055" />
+      <option name="project" value="LOCAL" />
+      <updated>1669963261163</updated>
+    </task>
+    <option name="localTasksCounter" value="56" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -507,7 +509,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="added host param in CertificateValidator.validateCertificate" />
     <MESSAGE value="added timeout in config" />
     <MESSAGE value="typo in to-xx-timeout" />
     <MESSAGE value="added timeout for other sides" />
@@ -532,7 +533,8 @@
     <MESSAGE value="added ide config xmls" />
     <MESSAGE value="ignored cert dir" />
     <MESSAGE value="misc fixes" />
-    <option name="LAST_COMMIT_MESSAGE" value="misc fixes" />
+    <MESSAGE value="added cert sign verify" />
+    <option name="LAST_COMMIT_MESSAGE" value="added cert sign verify" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

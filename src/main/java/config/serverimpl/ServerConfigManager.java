@@ -10,11 +10,11 @@ import java.nio.file.Path;
 public class ServerConfigManager {
     private static ServerProxyConfig config;
 
-    public static void load() throws IOException {
+    public static void load(String configFilePath) throws IOException {
         ObjectMapper objectMapper=new ObjectMapper();
 
         String configJsonContent= Files.readString(
-                Path.of("./configs/configs_server.json"), StandardCharsets.UTF_8);
+                Path.of(configFilePath), StandardCharsets.UTF_8);
 
         config = objectMapper.readValue(configJsonContent, ServerProxyConfig.class);
 
