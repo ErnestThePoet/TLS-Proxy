@@ -1,5 +1,7 @@
 {
     "port": 17750,
     "timeout": 5000,
-    "proxyPass": "localhost:8897"
+    "proxyPass": "localhost:8897",
+    "certPath":"./cert/cert.crt",
+    "privateKeyPath":"./cert/private.key"
 }

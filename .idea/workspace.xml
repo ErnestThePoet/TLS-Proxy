@@ -9,7 +9,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2f7898b2-b765-4e37-aa41-eb57a980bd7e" name="Changes" comment="supports manual set config file path" />
+    <list default="true" id="2f7898b2-b765-4e37-aa41-eb57a980bd7e" name="Changes" comment="better code structure">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/configs/configs_server.json" beforeDir="false" afterPath="$PROJECT_DIR$/configs/configs_server.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/config/clientimpl/ClientConfigManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/config/clientimpl/ClientConfigManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/config/serverimpl/ServerConfigManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/config/serverimpl/ServerConfigManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/config/serverimpl/ServerProxyConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/config/serverimpl/ServerProxyConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/handshake/certificate/impl/ErnestCertificateProvider.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/handshake/certificate/impl/ErnestCertificateProvider.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -145,13 +152,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1667043131124</updated>
-    </task>
-    <task id="LOCAL-00008" summary="certificate &amp; signature OK">
-      <created>1667317786619</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1667317786619</updated>
     </task>
     <task id="LOCAL-00009" summary="certificate provider demo provides 10 bytes">
       <created>1667318139545</created>
@@ -489,7 +489,14 @@
       <option name="project" value="LOCAL" />
       <updated>1670149016947</updated>
     </task>
-    <option name="localTasksCounter" value="57" />
+    <task id="LOCAL-00057" summary="better code structure">
+      <created>1670149692721</created>
+      <option name="number" value="00057" />
+      <option name="presentableId" value="LOCAL-00057" />
+      <option name="project" value="LOCAL" />
+      <updated>1670149692721</updated>
+    </task>
+    <option name="localTasksCounter" value="58" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -504,7 +511,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="typo in to-xx-timeout" />
     <MESSAGE value="added timeout for other sides" />
     <MESSAGE value="added timeout doc in README" />
     <MESSAGE value="prevent timeout printStackTrace in client proxy server to client" />
@@ -529,7 +535,8 @@
     <MESSAGE value="misc fixes" />
     <MESSAGE value="added cert sign verify" />
     <MESSAGE value="supports manual set config file path" />
-    <option name="LAST_COMMIT_MESSAGE" value="supports manual set config file path" />
+    <MESSAGE value="better code structure" />
+    <option name="LAST_COMMIT_MESSAGE" value="better code structure" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

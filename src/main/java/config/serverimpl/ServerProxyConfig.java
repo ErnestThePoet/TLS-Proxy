@@ -8,4 +8,6 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 public class ServerProxyConfig extends TlsProxyConfig {
     private String proxyPass;
+    private String certPath;
+    private String privateKeyPath;
 }

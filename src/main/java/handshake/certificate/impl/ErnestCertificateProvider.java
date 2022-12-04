@@ -1,5 +1,6 @@
 package handshake.certificate.impl;
 
+import config.serverimpl.ServerConfigManager;
 import crypto.sign.Rsa;
 import handshake.certificate.CertificateProvider;
 import utils.Log;
@@ -13,7 +14,7 @@ public class ErnestCertificateProvider implements CertificateProvider {
     @Override
     public byte[] getCertificate() {
         try {
-            return Files.readAllBytes(Path.of("./cert/cert.crt"));
+            return Files.readAllBytes(Path.of(ServerConfigManager.getCertPath()));
         } catch (IOException e) {
             Log.error(e);
             return null;
@@ -23,7 +24,8 @@ public class ErnestCertificateProvider implements CertificateProvider {
     @Override
     public byte[] signTraffic(byte[] traffic) {
         try {
-            var privateKeyBase64 = Files.readAllBytes(Path.of("./cert/private.key"));
+            var privateKeyBase64 = Files.readAllBytes(
+                    Path.of(ServerConfigManager.getPrivateKeyPath()));
             return Rsa.sign(Base64.getDecoder().decode(privateKeyBase64), traffic);
         } catch (IOException e) {
             Log.error(e);
