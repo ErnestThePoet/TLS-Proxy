@@ -43,7 +43,7 @@ public class ErnestCertificateValidator implements CertificateValidator {
             String domainName = host.replace("www.", "");
             String certDomainName = "";
 
-            for (var entry : cert.getIssuerX500Principal().getName().split(",")) {
+            for (var entry : cert.getSubjectX500Principal().getName().split(",")) {
                 entry = entry.replace(" ", "");
                 if (entry.startsWith("CN=")) {
                     certDomainName = entry.split("=")[1];
