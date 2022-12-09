@@ -129,6 +129,11 @@
       </MavenSettings>
       <method v="2" />
     </configuration>
+    <list>
+      <item itemvalue="Application.TlsProxyApplication" />
+      <item itemvalue="Maven.TLSProxy [package]" />
+      <item itemvalue="Maven.tlsproxy [clean]" />
+    </list>
     <recent_temporary>
       <list>
         <item itemvalue="Application.TlsProxyApplication" />
