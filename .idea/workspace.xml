@@ -9,9 +9,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2f7898b2-b765-4e37-aa41-eb57a980bd7e" name="Changes" comment="cert validation corrected">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="2f7898b2-b765-4e37-aa41-eb57a980bd7e" name="Changes" comment="used root cert to validate sign" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -174,13 +172,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1667043131124</updated>
-    </task>
-    <task id="LOCAL-00011" summary="used r/w sync">
-      <created>1667364577349</created>
-      <option name="number" value="00011" />
-      <option name="presentableId" value="LOCAL-00011" />
-      <option name="project" value="LOCAL" />
-      <updated>1667364577349</updated>
     </task>
     <task id="LOCAL-00012" summary="data send finished">
       <created>1667380955491</created>
@@ -518,7 +509,14 @@
       <option name="project" value="LOCAL" />
       <updated>1670501154941</updated>
     </task>
-    <option name="localTasksCounter" value="60" />
+    <task id="LOCAL-00060" summary="used root cert to validate sign">
+      <created>1670549101281</created>
+      <option name="number" value="00060" />
+      <option name="presentableId" value="LOCAL-00060" />
+      <option name="project" value="LOCAL" />
+      <updated>1670549101281</updated>
+    </task>
+    <option name="localTasksCounter" value="61" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -533,7 +531,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="prevent timeout printStackTrace in client proxy server to client" />
     <MESSAGE value="added property missing check" />
     <MESSAGE value="changes reverted" />
     <MESSAGE value="added illustration pic" />
@@ -558,7 +555,8 @@
     <MESSAGE value="better code structure" />
     <MESSAGE value="modified readme for custom impl" />
     <MESSAGE value="cert validation corrected" />
-    <option name="LAST_COMMIT_MESSAGE" value="cert validation corrected" />
+    <MESSAGE value="used root cert to validate sign" />
+    <option name="LAST_COMMIT_MESSAGE" value="used root cert to validate sign" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
