@@ -9,7 +9,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2f7898b2-b765-4e37-aa41-eb57a980bd7e" name="Changes" comment="used root cert to validate sign" />
+    <list default="true" id="2f7898b2-b765-4e37-aa41-eb57a980bd7e" name="Changes" comment="server request handler url displays replaced">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/error.html" beforeDir="false" afterPath="$PROJECT_DIR$/res/error.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/not_target_host.html" beforeDir="false" afterPath="$PROJECT_DIR$/res/not_target_host.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/config/clientimpl/ClientConfigManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/config/clientimpl/ClientConfigManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/proxy/clientimpl/htmlresponse/HtmlResponseProvider.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/proxy/clientimpl/htmlresponse/HtmlResponseProvider.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -172,13 +178,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1667043131124</updated>
-    </task>
-    <task id="LOCAL-00012" summary="data send finished">
-      <created>1667380955491</created>
-      <option name="number" value="00012" />
-      <option name="presentableId" value="LOCAL-00012" />
-      <option name="project" value="LOCAL" />
-      <updated>1667380955491</updated>
     </task>
     <task id="LOCAL-00013" summary="ALL WORKING!!!!!!!">
       <created>1667398939903</created>
@@ -516,7 +515,14 @@
       <option name="project" value="LOCAL" />
       <updated>1670549101281</updated>
     </task>
-    <option name="localTasksCounter" value="61" />
+    <task id="LOCAL-00061" summary="server request handler url displays replaced">
+      <created>1670549580220</created>
+      <option name="number" value="00061" />
+      <option name="presentableId" value="LOCAL-00061" />
+      <option name="project" value="LOCAL" />
+      <updated>1670549580220</updated>
+    </task>
+    <option name="localTasksCounter" value="62" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -531,7 +537,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="added property missing check" />
     <MESSAGE value="changes reverted" />
     <MESSAGE value="added illustration pic" />
     <MESSAGE value="introduced sync transceiver; client proxy can send error page" />
@@ -556,7 +561,8 @@
     <MESSAGE value="modified readme for custom impl" />
     <MESSAGE value="cert validation corrected" />
     <MESSAGE value="used root cert to validate sign" />
-    <option name="LAST_COMMIT_MESSAGE" value="used root cert to validate sign" />
+    <MESSAGE value="server request handler url displays replaced" />
+    <option name="LAST_COMMIT_MESSAGE" value="server request handler url displays replaced" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

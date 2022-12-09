@@ -1,12 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TLS Proxy提示</title>
-</head>
-<body>
-    <h1>您正在访问的主机(%s)没有被TLS Proxy代理。</h1>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TLS Proxy - 提示</title>
+
+    <style>
+      main {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+
+        background-color: rgba(17, 17, 17, 0.2);
+
+        overflow-y: auto;
+      }
+
+      .div-wrapper{
+        position: relative;
+        width: 70vw;
+        margin: 50px auto;
+        padding: 20px;
+        background-color: white;
+        border-radius: 8px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+        overflow: hidden;
+      }
+
+      .div-divider{
+        margin: 20px 0;
+        border-top: 1px solid #ccc;
+      }
+
+      .div-wrapper > div[class="div-detail"]{
+        font-size: 18px;
+      }
+
+      .div-wrapper > div[class="div-info-bar"]{
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 5px;
+        background-color: #5555ff;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <div class="div-wrapper">
+        <div class="div-info-bar"></div>
+        <h1>您正在访问的主机没有被TLS Proxy代理。</h1>
+        <div class="div-divider"></div>
+        <h2>您访问的主机是：</h1>
+        <div class="div-detail">{HOST}</div>
+        <h2>TLS Proxy代理的所有主机名的匹配规则是：</h1>
+        <div class="div-detail">{TARGET_HOST_PATTERNS}</div>
+      </div>
+    </main>
+  </body>
 </html>

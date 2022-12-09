@@ -49,6 +49,16 @@ public class ClientConfigManager {
         return config.getTargetHostPatterns().stream().anyMatch(host::matches);
     }
 
+    public static String getTargetHostPatternsHtmlText(){
+        StringBuilder builder=new StringBuilder();
+
+        for(var i:config.getTargetHostPatterns()){
+            builder.append(i).append("<br/>");
+        }
+
+        return builder.toString();
+    }
+
     public static String getRootCertPath(){
         return config.getRootCertPath();
     }

@@ -1,5 +1,6 @@
 package proxy.clientimpl.htmlresponse;
 
+import config.clientimpl.ClientConfigManager;
 import crypto.encoding.Utf8;
 
 import java.io.IOException;
@@ -13,7 +14,7 @@ public class HtmlResponseProvider {
         try {
             String htmlTemplate = Files.readString(Path.of("./res/error.html"));
             return Utf8.decode(HTTP_RESPONSE_HEADER
-                    + htmlTemplate.formatted(message));
+                    + htmlTemplate.replace("{DETAIL}", message));
         } catch (IOException e) {
             return Utf8.decode(HTTP_RESPONSE_HEADER
                     + "Could not read error template HTML.\n"
@@ -27,7 +28,9 @@ public class HtmlResponseProvider {
         try {
             String htmlTemplate = Files.readString(Path.of("./res/not_target_host.html"));
             return Utf8.decode(HTTP_RESPONSE_HEADER
-                    + htmlTemplate.formatted(host));
+                    + htmlTemplate.replace("{HOST}", host)
+                    .replace("{TARGET_HOST_PATTERNS}",
+                            ClientConfigManager.getTargetHostPatternsHtmlText()));
         } catch (IOException e) {
             return Utf8.decode(HTTP_RESPONSE_HEADER
                     + ("Could not read template HTML.\n"

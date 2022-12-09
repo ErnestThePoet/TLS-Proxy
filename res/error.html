@@ -1,16 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TLS Proxy错误</title>
-</head>
-<body>
-    <h1>TLS Proxy在与服务器进行安全通信时发生了错误。</h1>
-    <h1>错误的详细信息如下：</h1>
-    <p>
-        %s
-    </p>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TLS Proxy - 通信错误</title>
+
+    <style>
+      main {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+
+        background-color: rgba(17, 17, 17, 0.2);
+
+        overflow-y: auto;
+      }
+
+      .div-wrapper{
+        position: relative;
+        width: 70vw;
+        margin: 50px auto;
+        padding: 20px;
+        background-color: white;
+        border-radius: 8px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+        overflow: hidden;
+      }
+
+      .div-divider{
+        margin: 20px 0;
+        border-top: 1px solid #ccc;
+      }
+
+      .div-wrapper > div[class="div-detail"]{
+        font-size: 18px;
+      }
+
+      .div-wrapper > div[class="div-error-bar"]{
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 5px;
+        background-color: #ff5555;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <div class="div-wrapper">
+        <div class="div-error-bar"></div>
+        <h1>TLS Proxy在与服务器进行安全通信时发生了错误。</h1>
+        <div class="div-divider"></div>
+        <h2>错误的详细信息如下：</h1>
+        <div class="div-detail">{DETAIL}</div>
+      </div>
+    </main>
+  </body>
 </html>
