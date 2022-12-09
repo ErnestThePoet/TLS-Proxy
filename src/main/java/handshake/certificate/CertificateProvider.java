@@ -2,6 +2,7 @@ package handshake.certificate;
 
 import handshake.certificate.impl.ErnestCertificateProvider;
 
+// TODO: 实现您自己的CertificateProvider类，并修改下面的getInstance方法使其返回一个您实现的类的对象
 public interface CertificateProvider {
     /**
      * 提供证书字节序列。

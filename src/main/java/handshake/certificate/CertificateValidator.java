@@ -3,6 +3,7 @@ package handshake.certificate;
 import handshake.certificate.impl.ErnestCertificateValidator;
 import handshake.certificate.objs.CertificateValidationResult;
 
+// TODO: 实现您自己的CertificateValidator类，并修改下面的getInstance方法使其返回一个您实现的类的对象
 public interface CertificateValidator {
     /**
      * 验证证书合法性。

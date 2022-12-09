@@ -3,6 +3,7 @@ package handshake.certificate.impl;
 import handshake.certificate.objs.CertificateValidationResult;
 import handshake.certificate.CertificateValidator;
 
+// TODO: Demo code only
 public class ErnestCertificateValidator implements CertificateValidator {
     @Override
     public CertificateValidationResult validateCertificate(
