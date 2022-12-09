@@ -80,7 +80,7 @@ public class ServerRequestHandler extends RequestHandler implements Runnable {
 
         var originalRequestInfo = new HttpRequestInfo(originalRequestString);
 
-        var url = originalRequestInfo.getHost() + originalRequestInfo.getPath();
+        var url = newHost + originalRequestInfo.getPath();
 
         clientData = HttpUtil.replaceRequestHost(
                 newHost, clientData, originalRequestString);
