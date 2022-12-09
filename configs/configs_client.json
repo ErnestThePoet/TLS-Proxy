@@ -1,9 +1,6 @@
 {
-    "port": 17650,
-    "timeout":5000,
-    "targetHostPatterns": [
-        "[\\d.]+:8997",
-        "[\\d.]+:17750",
-        "[\\d.]+:10622"
-    ]
+  "port": 17650,
+  "timeout": 5000,
+  "targetHostPatterns": ["[\\d.]+:8997", "[\\d.]+:17750", "[\\d.]+:10622"],
+  "rootCertPath": "./cert/root.crt"
 }

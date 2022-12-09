@@ -9,10 +9,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2f7898b2-b765-4e37-aa41-eb57a980bd7e" name="Changes" comment="modified readme for custom impl">
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
+    <list default="true" id="2f7898b2-b765-4e37-aa41-eb57a980bd7e" name="Changes" comment="cert validation corrected">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/handshake/certificate/impl/ErnestCertificateValidator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/handshake/certificate/impl/ErnestCertificateValidator.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -60,7 +58,7 @@
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;E:/ErnestsProjects/TLSProxy/TLSProxy&quot;,
+    &quot;last_opened_file_path&quot;: &quot;E:/ErnestsProjects/TLSProxy/TLSProxy/src/main/java&quot;,
     &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
@@ -81,6 +79,8 @@
   </component>
   <component name="RunManager" selected="Application.TlsProxyApplication">
     <configuration name="TlsProxyApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="ALTERNATIVE_JRE_PATH" value="$PROJECT_DIR$/../../../Basis/Java/jdk-17.0.3.1" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
       <option name="MAIN_CLASS_NAME" value="TlsProxyApplication" />
       <module name="tlsproxy" />
       <option name="PROGRAM_PARAMETERS" value="CLIENT" />
@@ -151,11 +151,16 @@
       </MavenSettings>
       <method v="2" />
     </configuration>
+    <list>
+      <item itemvalue="Application.TlsProxyApplication" />
+      <item itemvalue="Maven.TLSProxy [package]" />
+      <item itemvalue="Maven.tlsproxy [clean]" />
+    </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.TlsProxyApplication" />
         <item itemvalue="Maven.TLSProxy [package]" />
         <item itemvalue="Maven.tlsproxy [clean]" />
-        <item itemvalue="Application.TlsProxyApplication" />
         <item itemvalue="Maven.TLSProxy [package]" />
         <item itemvalue="Maven.tlsproxy [clean]" />
       </list>
@@ -169,13 +174,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1667043131124</updated>
-    </task>
-    <task id="LOCAL-00010" summary="Application key finished">
-      <created>1667356429582</created>
-      <option name="number" value="00010" />
-      <option name="presentableId" value="LOCAL-00010" />
-      <option name="project" value="LOCAL" />
-      <updated>1667356429582</updated>
     </task>
     <task id="LOCAL-00011" summary="used r/w sync">
       <created>1667364577349</created>
@@ -513,7 +511,14 @@
       <option name="project" value="LOCAL" />
       <updated>1670153656341</updated>
     </task>
-    <option name="localTasksCounter" value="59" />
+    <task id="LOCAL-00059" summary="cert validation corrected">
+      <created>1670501154940</created>
+      <option name="number" value="00059" />
+      <option name="presentableId" value="LOCAL-00059" />
+      <option name="project" value="LOCAL" />
+      <updated>1670501154941</updated>
+    </task>
+    <option name="localTasksCounter" value="60" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -528,7 +533,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="added timeout doc in README" />
     <MESSAGE value="prevent timeout printStackTrace in client proxy server to client" />
     <MESSAGE value="added property missing check" />
     <MESSAGE value="changes reverted" />
@@ -553,7 +557,8 @@
     <MESSAGE value="supports manual set config file path" />
     <MESSAGE value="better code structure" />
     <MESSAGE value="modified readme for custom impl" />
-    <option name="LAST_COMMIT_MESSAGE" value="modified readme for custom impl" />
+    <MESSAGE value="cert validation corrected" />
+    <option name="LAST_COMMIT_MESSAGE" value="cert validation corrected" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

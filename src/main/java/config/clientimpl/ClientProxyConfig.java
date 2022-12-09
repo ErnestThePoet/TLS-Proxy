@@ -10,4 +10,5 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = true)
 public class ClientProxyConfig extends TlsProxyConfig {
     private List<String> targetHostPatterns;
+    private String rootCertPath;
 }

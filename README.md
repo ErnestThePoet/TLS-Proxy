@@ -17,7 +17,8 @@ TLS-Proxy的典型部署模式如下图所示：
 客户端设置选项说明如下：  
 * `port`: `number`,客户端代理服务器监听的端口号；  
 * `timeout`: `number`,客户端代理服务器最大超时时间，单位为毫秒；  
-* `targetHostPatterns`: `Array<string>`,正则表达式字符串数组，指定了所有需要被加密代理的主机名匹配规则。所有发往其余主机的请求都会被代理服务器丢弃。
+* `targetHostPatterns`: `Array<string>`,正则表达式字符串数组，指定了所有需要被加密代理的主机名匹配规则。所有发往其余主机的请求都会被代理服务器丢弃;
+* `rootCertPath`: `string`,根证书文件路径。
 
 服务端设置选项说明如下：  
 * `port`: `number`,服务端代理服务器监听的端口号；  

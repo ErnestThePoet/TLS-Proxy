@@ -1,5 +1,6 @@
 package handshake.certificate.impl;
 
+import config.clientimpl.ClientConfigManager;
 import crypto.sign.Rsa;
 import handshake.certificate.objs.CertificateValidationResult;
 import handshake.certificate.CertificateValidator;
@@ -7,6 +8,9 @@ import utils.ExceptionUtil;
 import utils.Log;
 
 import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.security.*;
 import java.security.cert.*;
 
@@ -18,6 +22,13 @@ public class ErnestCertificateValidator implements CertificateValidator {
             CertificateFactory certificateFactory = CertificateFactory.getInstance("X.509");
             X509Certificate cert = (X509Certificate) certificateFactory.generateCertificate(
                     new ByteArrayInputStream(certificate)
+            );
+
+            byte[] rootCertBytes = Files.readAllBytes(
+                    Path.of(ClientConfigManager.getRootCertPath()));
+
+            X509Certificate rootCert = (X509Certificate) certificateFactory.generateCertificate(
+                    new ByteArrayInputStream(rootCertBytes)
             );
 
             try {
@@ -33,7 +44,7 @@ public class ErnestCertificateValidator implements CertificateValidator {
             }
 
             try {
-                cert.verify(cert.getPublicKey());
+                cert.verify(rootCert.getPublicKey());
             } catch (GeneralSecurityException e) {
                 return new CertificateValidationResult(
                         false, "证书签名验证失败。" + e.getMessage()
@@ -62,7 +73,7 @@ public class ErnestCertificateValidator implements CertificateValidator {
             }
 
             return new CertificateValidationResult(true, "");
-        } catch (CertificateException e) {
+        } catch (CertificateException | IOException e) {
             return new CertificateValidationResult(
                     false, ExceptionUtil.getExceptionBrief(e));
         }

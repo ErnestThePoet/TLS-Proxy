@@ -31,6 +31,10 @@ public class ClientConfigManager {
         if (config.getTargetHostPatterns() == null) {
             throw new RuntimeException(propertyMissingTemplate.formatted("targetHostPatterns"));
         }
+
+        if (config.getRootCertPath() == null) {
+            throw new RuntimeException(propertyMissingTemplate.formatted("rootCertPath"));
+        }
     }
 
     public static Integer getPort() {
@@ -43,5 +47,9 @@ public class ClientConfigManager {
 
     public static boolean isTargetHost(String host) {
         return config.getTargetHostPatterns().stream().anyMatch(host::matches);
+    }
+
+    public static String getRootCertPath(){
+        return config.getRootCertPath();
     }
 }
