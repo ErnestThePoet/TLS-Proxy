@@ -9,9 +9,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2f7898b2-b765-4e37-aa41-eb57a980bd7e" name="Changes" comment="added TODO">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="2f7898b2-b765-4e37-aa41-eb57a980bd7e" name="Changes" comment="chunked response terminator comment updated" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -174,13 +172,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1667043131124</updated>
-    </task>
-    <task id="LOCAL-00015" summary="added readme and added todo code">
-      <created>1667401076612</created>
-      <option name="number" value="00015" />
-      <option name="presentableId" value="LOCAL-00015" />
-      <option name="project" value="LOCAL" />
-      <updated>1667401076612</updated>
     </task>
     <task id="LOCAL-00016" summary="added docs for certificate interfaces">
       <created>1667402200163</created>
@@ -518,7 +509,14 @@
       <option name="project" value="LOCAL" />
       <updated>1670564003117</updated>
     </task>
-    <option name="localTasksCounter" value="64" />
+    <task id="LOCAL-00064" summary="chunked response terminator comment updated">
+      <created>1670669123021</created>
+      <option name="number" value="00064" />
+      <option name="presentableId" value="LOCAL-00064" />
+      <option name="project" value="LOCAL" />
+      <updated>1670669123021</updated>
+    </task>
+    <option name="localTasksCounter" value="65" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -533,7 +531,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="introduced sync transceiver; client proxy can send error page" />
     <MESSAGE value="cert validator can return message" />
     <MESSAGE value="added not target host page" />
     <MESSAGE value="ServerProxy bug fixed" />
@@ -558,7 +555,8 @@
     <MESSAGE value="server request handler url displays replaced" />
     <MESSAGE value="removed cert impl" />
     <MESSAGE value="added TODO" />
-    <option name="LAST_COMMIT_MESSAGE" value="added TODO" />
+    <MESSAGE value="chunked response terminator comment updated" />
+    <option name="LAST_COMMIT_MESSAGE" value="chunked response terminator comment updated" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
