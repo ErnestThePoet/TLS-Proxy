@@ -9,12 +9,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2f7898b2-b765-4e37-aa41-eb57a980bd7e" name="Changes" comment="server request handler url displays replaced">
+    <list default="true" id="2f7898b2-b765-4e37-aa41-eb57a980bd7e" name="Changes" comment="chunked response terminator modified to 0\r\n\r\n">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/error.html" beforeDir="false" afterPath="$PROJECT_DIR$/res/error.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/not_target_host.html" beforeDir="false" afterPath="$PROJECT_DIR$/res/not_target_host.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/config/clientimpl/ClientConfigManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/config/clientimpl/ClientConfigManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/proxy/clientimpl/htmlresponse/HtmlResponseProvider.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/proxy/clientimpl/htmlresponse/HtmlResponseProvider.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/proxy/serverimpl/ServerRequestHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/proxy/serverimpl/ServerRequestHandler.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -178,13 +175,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1667043131124</updated>
-    </task>
-    <task id="LOCAL-00013" summary="ALL WORKING!!!!!!!">
-      <created>1667398939903</created>
-      <option name="number" value="00013" />
-      <option name="presentableId" value="LOCAL-00013" />
-      <option name="project" value="LOCAL" />
-      <updated>1667398939903</updated>
     </task>
     <task id="LOCAL-00014" summary="removed redundant imports">
       <created>1667399410237</created>
@@ -522,7 +512,14 @@
       <option name="project" value="LOCAL" />
       <updated>1670549580220</updated>
     </task>
-    <option name="localTasksCounter" value="62" />
+    <task id="LOCAL-00062" summary="chunked response terminator modified to 0\r\n\r\n">
+      <created>1670668499705</created>
+      <option name="number" value="00062" />
+      <option name="presentableId" value="LOCAL-00062" />
+      <option name="project" value="LOCAL" />
+      <updated>1670668499705</updated>
+    </task>
+    <option name="localTasksCounter" value="63" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -537,7 +534,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="changes reverted" />
     <MESSAGE value="added illustration pic" />
     <MESSAGE value="introduced sync transceiver; client proxy can send error page" />
     <MESSAGE value="cert validator can return message" />
@@ -562,7 +558,8 @@
     <MESSAGE value="cert validation corrected" />
     <MESSAGE value="used root cert to validate sign" />
     <MESSAGE value="server request handler url displays replaced" />
-    <option name="LAST_COMMIT_MESSAGE" value="server request handler url displays replaced" />
+    <MESSAGE value="chunked response terminator modified to 0\r\n\r\n" />
+    <option name="LAST_COMMIT_MESSAGE" value="chunked response terminator modified to 0\r\n\r\n" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
