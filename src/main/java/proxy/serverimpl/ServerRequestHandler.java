@@ -142,7 +142,7 @@ public class ServerRequestHandler extends RequestHandler implements Runnable {
             }
             // The following two branches are higher versions of HTTP using long connections
             // Response transmission type: Chunked
-            // Receive data in loop until encounter "\r\n0\r\n"
+            // Receive data in loop until encounter "0\r\n\r\n"
             else if (responseInfo.getTransferEncoding() != null
                     && responseInfo.getTransferEncoding().equals("chunked")) {
                 this.logReceivingResponse("Chunked", url);
