@@ -150,7 +150,7 @@ public class ServerRequestHandler extends RequestHandler implements Runnable {
                 this.synchronizedTransceiver.sendData(
                         this.encryptDataForClient(actualResponseData));
 
-                while (!Utf8.encode(actualResponseData).contains("\r\n0\r\n")) {
+                while (!Utf8.encode(actualResponseData).contains("0\r\n\r\n")) {
                     responseDataLength = this.serverSocket.getInputStream().read(responseData);
                     actualResponseData = Arrays.copyOf(responseData, responseDataLength);
                     this.synchronizedTransceiver.sendData(
