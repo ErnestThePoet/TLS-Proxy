@@ -11,10 +11,6 @@
   <component name="ChangeListManager">
     <list default="true" id="2f7898b2-b765-4e37-aa41-eb57a980bd7e" name="Changes" comment="added TODO">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/handshake/certificate/CertificateProvider.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/handshake/certificate/CertificateProvider.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/handshake/certificate/CertificateValidator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/handshake/certificate/CertificateValidator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/handshake/certificate/impl/ErnestCertificateProvider.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/handshake/certificate/impl/ErnestCertificateProvider.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/handshake/certificate/impl/ErnestCertificateValidator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/handshake/certificate/impl/ErnestCertificateValidator.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -178,13 +174,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1667043131124</updated>
-    </task>
-    <task id="LOCAL-00014" summary="removed redundant imports">
-      <created>1667399410237</created>
-      <option name="number" value="00014" />
-      <option name="presentableId" value="LOCAL-00014" />
-      <option name="project" value="LOCAL" />
-      <updated>1667399410237</updated>
     </task>
     <task id="LOCAL-00015" summary="added readme and added todo code">
       <created>1667401076612</created>
@@ -522,7 +511,14 @@
       <option name="project" value="LOCAL" />
       <updated>1670562615050</updated>
     </task>
-    <option name="localTasksCounter" value="63" />
+    <task id="LOCAL-00063" summary="added TODO">
+      <created>1670564003117</created>
+      <option name="number" value="00063" />
+      <option name="presentableId" value="LOCAL-00063" />
+      <option name="project" value="LOCAL" />
+      <updated>1670564003117</updated>
+    </task>
+    <option name="localTasksCounter" value="64" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
